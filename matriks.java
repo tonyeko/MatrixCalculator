@@ -1,39 +1,38 @@
 import java.util.Scanner;
 
-public class matriks{
-	public static void main (String[]args) {
-        
-        //input ukuran
+class Matriks {
+    int MaxRow = 10;
+    int MaxCol = 10;
+    float[][] Mat = new float[MaxRow+1][MaxCol+1];
+
+    Matriks() {
+        for (int i = 0; i <= MaxRow; i++) {
+            for(int j = 0; j<= MaxCol; j++) {
+                this.Mat[i][j] = 0;
+            }
+        }
+    }
+
+    void BacaMatriks(int row, int col) {
         Scanner input = new  Scanner(System.in);
         
-		int row = input.nextInt() ;
-        int col  = input.nextInt();
-        row +=1;
-        col +=1;
+        for (int i = 1; i <= row; i++) {
+            for (int j = 1; j <= col; j++) {
+                this.Mat[i][j] = input.nextFloat();
+            }
+        }  
+    }
 
-        float [][] matrix = {   {0,0,0,0,0},
-                                {0,1,2,3,5},
-                                {0,1,4,6,5},
-                                {0,7,8,9,5},
-                                {0,10,11,12,13}                                  
-                            };
-		// float [][] matrix = new float [row][col];
-        
-        // //input elemen
-		// for (int i=1;i<row;i++) {
-		// 	for (int j=1;j<col;j++) {
-		// 		matrix[i][j] =input.nextFloat();
-		// 	}
-        // }
-        
-        // //print matriks
-		// for (int i=1;i<row;i++) {
-		// 	for (int j=1;j<col;j++) {
-		// 		System.out.println(matrix[i][j]);
-        //     }
-        // }
+    void TulisMatriks(int row, int col) {
+        for (int i = 1; i <= row; i++) {
+            for (int j = 1; j <= col; j++) {
+                System.out.print(this.Mat[i][j]+"\t");
+            }
+            System.out.println();
+        }
+    }
 
-        //Algoritma Gauss
+    void Gauss(int row, int col) {
         //jika matrix[1][1]=0 tukar baris
         //jika nggak 0
         for (int i=1;i<row-1;i++){
@@ -44,11 +43,15 @@ public class matriks{
             }
         }
 
-        for (int i=1;i<row;i++) {
-            	for (int j=1;j<col;j++) {
-            		System.out.println(matrix[i][j]);
-                }
-            }
+    /* 
+    void transpose(int N, int M, int Matt[][]) {
+        int i, j;
 
+        for (i=0; i<N; i++) {
+            for (j=0; j<M; j++) {
+                Matt[j][i] = this.Mat[i][j];
+            }
+        }
     }
+    */
 }
