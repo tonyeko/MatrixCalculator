@@ -37,6 +37,14 @@ class Matriks {
             System.out.println();
         }
     }
+
+    int NbElmt(Matriks M) {
+        return this.NColEff * this.NRowEff;
+    }
+
+    // float Elmt(Matriks M, int i, int j) {
+    //     return M.Mat[i][j];
+    // }
     /*
     void Gauss(int row, int col) {
         //jika matrix[1][1]=0 tukar baris
@@ -83,7 +91,13 @@ class Matriks {
         }
     }
 
-    // float Determinan(Matriks M) {
-        
+    // float Determinan() {
+    //     if (NbElmt(this) == 1) {
+    //         return this.Mat[RowMin][ColMin];
+    //     } else if (NbElmt(this) == 2) {
+    //         return this.Mat[RowMin][ColMin]*this.Mat[RowMin+1][ColMin+1] - this.Mat[RowMin+1][ColMin]*this.Mat[RowMin][ColMin+1];
+    //     } else {
+            
+    //     }
     // }
 }

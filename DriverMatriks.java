@@ -18,18 +18,16 @@ class DriverMatriks {
         M2.TulisMatriks();
         System.out.println();
 
-        M.TransposeMatriks();
+        // M.TransposeMatriks();
+        // M.TulisMatriks();
+        // System.out.println();
+        float[] temp;
+        temp = M.Mat[2];
+        M.Mat[2] = M.Mat[3];
+        M.Mat[3] = temp;
+        
         M.TulisMatriks();
 
-
-        // System.out.println("Isi matriks transpose: ");
-        // int i, j;
-        
-        // for (i=0; i<4; i++) {
-        //     for (j=0; j<3; j++) {
-        //         System.out.print(M2[i][j] + " ");
-        //     }
-        //     System.out.println();
-        // }
+        // System.out.println(M.Determinan());
     }
 }
