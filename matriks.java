@@ -9,6 +9,8 @@ class Matriks {
 
     /* METHOD */
     Matriks() {
+        this.NColEff = 0;
+        this.NRowEff = 0;
         for (int i = 0; i <= this.MaxRow; i++) {
             for(int j = 0; j<= this.MaxCol; j++) {
                 this.Mat[i][j] = 0;
@@ -47,16 +49,17 @@ class Matriks {
             }
         }
     }
-    
-    void Transpose() {
+    */
+    Matriks Transpose() {
         int i, j;
-        Matriks M_transpose;
-        M_transpose.NRowEff = 
-        for (i=0; i<=M.NColEff; i++) {
-            for (j=0; j<M.NRowEff; j++) {
-                this.Mat[j][i] = this.Mat[i][j];
+        Matriks M_transpose = new Matriks();
+        M_transpose.NRowEff = this.NColEff;
+        M_transpose.NColEff = this.NRowEff;
+        for (i = 1; i <= this.NColEff; i++) {
+            for (j = 1; j <= this.NRowEff; j++) {
+                M_transpose.Mat[j][i] = this.Mat[i][j];
             }
         }
+        return M_transpose;
     }
-    */
 }
