@@ -25,7 +25,7 @@ class DriverMatriks {
         M2.swapRow(1, 2);
         
         M2.TulisMatriks();
-
-        // System.out.println(M.Determinan());
+        System.out.println();
+        System.out.println(M.Determinan());
     }
 }

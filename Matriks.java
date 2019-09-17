@@ -97,13 +97,39 @@ class Matriks {
         this.Mat[j] = temp;
     }
 
-    // float Determinan() {
-    //     if (NbElmt(this) == 1) {
-    //         return this.Mat[RowMin][ColMin];
-    //     } else if (NbElmt(this) == 2) {
-    //         return this.Mat[RowMin][ColMin]*this.Mat[RowMin+1][ColMin+1] - this.Mat[RowMin+1][ColMin]*this.Mat[RowMin][ColMin+1];
-    //     } else {
-            
-    //     }
-    // }
+    float Determinan() {
+        Matriks Minor = new Matriks();
+        int i, j, k, c1, c2;
+        float det = 0;
+        int Sign = 1;
+        
+        if (NbElmt(this) == 1) {
+            return this.Mat[RowMin][ColMin];
+        } else if (NbElmt(this) == 2) {
+            return this.Mat[RowMin][ColMin]*this.Mat[RowMin+1][ColMin+1] - this.Mat[RowMin+1][ColMin]*this.Mat[RowMin][ColMin+1];
+        } else {
+            Minor.NRowEff = this.NRowEff-1;
+            Minor.NColEff = this.NRowEff-1;
+            for (i = this.RowMin; i <= this.NRowEff; i++) {
+                c1 = this.RowMin;
+                for (j = this.RowMin+1; j <= this.NRowEff; j++) {
+                    c2 = this.ColMin;
+                    for (k = this.ColMin; k <= this.NColEff; k++) {
+                        if (k != i) {
+                            Minor.Mat[c1][c2] = this.Mat[j][k];
+                            c2++;
+                        }
+                    }
+                    c1++;
+                }
+                det += Sign * this.Mat[RowMin][i] * Minor.Determinan();
+                Sign *= -1; 
+            }
+            return det;   
+        }
+    }
+
+    MATRIKS MatriksKofaktor(int i, int j) {
+        
+    }
 }
