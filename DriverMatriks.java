@@ -1,4 +1,4 @@
-import java.security.Principal;
+import java.util.*;
 
 class DriverMatriks {
     public static void main(String[] args) {
@@ -14,7 +14,7 @@ class DriverMatriks {
 
         // int[][] M2;
         // M2 = new int[4][3];
-        M = M.Transpose();
+        M.TransposeMatriks();
         M.TulisMatriks();
 
 

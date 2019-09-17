@@ -1,18 +1,18 @@
-import java.util.Scanner;
+import java.util.*;
 
 class Matriks {
     /* ATRIBUT */
-    int MaxRow = 10;
-    int MaxCol = 10;
+    int RowMin = 1; int ColMin = 1;
+    int RowMax = 10; int ColMax = 10;
     int NRowEff, NColEff;
-    float[][] Mat = new float[MaxRow+1][MaxCol+1];
+    float[][] Mat = new float[RowMax+1][ColMax+1];
 
     /* METHOD */
     Matriks() {
         this.NColEff = 0;
         this.NRowEff = 0;
-        for (int i = 0; i <= this.MaxRow; i++) {
-            for(int j = 0; j<= this.MaxCol; j++) {
+        for (int i = 0; i <= this.RowMax; i++) {
+            for(int j = 0; j<= this.ColMax; j++) {
                 this.Mat[i][j] = 0;
             }
         }
@@ -50,16 +50,24 @@ class Matriks {
         }
     }
     */
-    Matriks Transpose() {
+    float[][] Transpose(float[][] Mat, int NRowEff, int NColEff) {
         int i, j;
-        Matriks M_transpose = new Matriks();
-        M_transpose.NRowEff = this.NColEff;
-        M_transpose.NColEff = this.NRowEff;
-        for (i = 1; i <= this.NColEff; i++) {
-            for (j = 1; j <= this.NRowEff; j++) {
-                M_transpose.Mat[j][i] = this.Mat[i][j];
+        float[][] M_transpose = new float[RowMax+1][ColMax+1];        ;
+        for (i = 1; i <= this.NRowEff; i++) {
+            for (j = 1; j <= this.NColEff; j++) {
+                M_transpose[j][i] = Mat[i][j];
             }
         }
+
         return M_transpose;
+    }
+
+    void TransposeMatriks() {
+        int temp;
+
+        this.Mat = this.Transpose(this.Mat, this.NRowEff, this.NColEff);
+        temp = this.NColEff;
+        this.NColEff = this.NRowEff;
+        this.NRowEff = temp;
     }
 }
