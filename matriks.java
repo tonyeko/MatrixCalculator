@@ -1,37 +1,41 @@
 import java.util.Scanner;
 
 class Matriks {
+    /* ATRIBUT */
     int MaxRow = 10;
     int MaxCol = 10;
+    int NRowEff, NColEff;
     float[][] Mat = new float[MaxRow+1][MaxCol+1];
 
+    /* METHOD */
     Matriks() {
-        for (int i = 0; i <= MaxRow; i++) {
-            for(int j = 0; j<= MaxCol; j++) {
+        for (int i = 0; i <= this.MaxRow; i++) {
+            for(int j = 0; j<= this.MaxCol; j++) {
                 this.Mat[i][j] = 0;
             }
         }
     }
 
-    void BacaMatriks(int row, int col) {
-        Scanner input = new  Scanner(System.in);
-        
-        for (int i = 1; i <= row; i++) {
-            for (int j = 1; j <= col; j++) {
-                this.Mat[i][j] = input.nextFloat();
+    void BacaMatriks() {
+        Scanner baca = new Scanner(System.in);
+        System.out.print("Baris: "); this.NRowEff = baca.nextInt();
+        System.out.print("Kolom: "); this.NColEff = baca.nextInt();
+        for (int i = 1; i <= this.NRowEff; i++) {
+            for (int j = 1; j <= this.NColEff; j++) {
+                this.Mat[i][j] = baca.nextFloat();
             }
         }  
     }
-
-    void TulisMatriks(int row, int col) {
-        for (int i = 1; i <= row; i++) {
-            for (int j = 1; j <= col; j++) {
+    
+    void TulisMatriks() {
+        for (int i = 1; i <= this.NRowEff; i++) {
+            for (int j = 1; j <= this.NColEff; j++) {
                 System.out.print(this.Mat[i][j]+"\t");
             }
             System.out.println();
         }
     }
-
+    /*
     void Gauss(int row, int col) {
         //jika matrix[1][1]=0 tukar baris
         //jika nggak 0
@@ -42,14 +46,15 @@ class Matriks {
                 } 
             }
         }
-
-    /* 
-    void transpose(int N, int M, int Matt[][]) {
+    }
+    
+    void Transpose() {
         int i, j;
-
-        for (i=0; i<N; i++) {
-            for (j=0; j<M; j++) {
-                Matt[j][i] = this.Mat[i][j];
+        Matriks M_transpose;
+        M_transpose.NRowEff = 
+        for (i=0; i<=M.NColEff; i++) {
+            for (j=0; j<M.NRowEff; j++) {
+                this.Mat[j][i] = this.Mat[i][j];
             }
         }
     }

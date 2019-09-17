@@ -1,14 +1,13 @@
-import java.util.Scanner;
 class DriverMatriks {
     public static void main(String[] args) {
         // Scanner scan = new Scanner(System.in);
         
         Matriks M = new Matriks();
 
-        M.BacaMatriks(3,3);
+        M.BacaMatriks();
 
         System.out.println("Isi matriks: ");
-        M.TulisMatriks(3, 3);
+        M.TulisMatriks();
 
         // int[][] M2;
         // M2 = new int[4][3];
