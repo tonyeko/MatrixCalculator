@@ -13,7 +13,7 @@ class DriverMatriks {
         System.out.println();
 
         Matriks M2 = new Matriks();
-        M2.CopyMatriks(M, M2);
+        M2.CopyMatriks(M);
         M2.TulisMatriks();
         System.out.println();
 
