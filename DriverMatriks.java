@@ -21,12 +21,10 @@ class DriverMatriks {
         // M.TransposeMatriks();
         // M.TulisMatriks();
         // System.out.println();
-        float[] temp;
-        temp = M.Mat[2];
-        M.Mat[2] = M.Mat[3];
-        M.Mat[3] = temp;
         
-        M.TulisMatriks();
+        M2.swapRow(1, 2);
+        
+        M2.TulisMatriks();
 
         // System.out.println(M.Determinan());
     }

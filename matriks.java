@@ -91,6 +91,12 @@ class Matriks {
         }
     }
 
+    void swapRow(int i, int j) { 
+        float[] temp = this.Mat[i];
+        this.Mat[i] = this.Mat[j];
+        this.Mat[j] = temp;
+    }
+
     // float Determinan() {
     //     if (NbElmt(this) == 1) {
     //         return this.Mat[RowMin][ColMin];
