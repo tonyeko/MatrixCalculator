@@ -50,5 +50,20 @@ public class matriks{
                 }
             }
 
+<<<<<<< Updated upstream
     }
+=======
+    //===========Swap row i with row j==============
+    void swapRow(int i, int j){ 
+        float [] temp = this.Mat[i];
+        this.Mat[i]        = this.Mat[j];
+        this.Mat[j]        = temp;
+    }
+    
+    
+
+    // float Determinan(Matriks M) {
+        
+    // }
+>>>>>>> Stashed changes
 }
