@@ -70,4 +70,20 @@ class Matriks {
         this.NColEff = this.NRowEff;
         this.NRowEff = temp;
     }
+
+    void CopyMatriks(Matriks Min, Matriks Mout) {
+        int i, j;
+
+        Mout.NRowEff = Min.NRowEff;
+        Mout.NColEff = Min.NColEff;
+        for (i = RowMin; i <= Mout.NRowEff; i++) {
+            for (j = ColMin; j <= Mout.NColEff; j++) {
+                Mout.Mat[i][j] = Min.Mat[i][j];
+            }
+        }
+    }
+
+    // float Determinan(float[][] Mat) {
+
+    // }
 }

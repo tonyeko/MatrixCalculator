@@ -12,8 +12,11 @@ class DriverMatriks {
         M.TulisMatriks();
         System.out.println();
 
-        // int[][] M2;
-        // M2 = new int[4][3];
+        Matriks M2 = new Matriks();
+        M2.CopyMatriks(M, M2);
+        M2.TulisMatriks();
+        System.out.println();
+
         M.TransposeMatriks();
         M.TulisMatriks();
 
