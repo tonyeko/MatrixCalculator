@@ -5,6 +5,7 @@ class DriverMatriks {
         // Scanner scan = new Scanner(System.in);
         
         Matriks M = new Matriks();
+        Matriks M2 = new Matriks();
 
         M.BacaMatriks();
 
@@ -12,7 +13,7 @@ class DriverMatriks {
         M.TulisMatriks();
         System.out.println();
 
-        Matriks M2 = new Matriks();
+        
         M2.CopyMatriks(M);
         M2.TulisMatriks();
         System.out.println();
