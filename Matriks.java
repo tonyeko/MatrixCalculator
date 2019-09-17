@@ -98,8 +98,8 @@ class Matriks {
     }
 
     float Determinan() {
-        Matriks Minor = new Matriks();
-        int i, j, k, c1, c2;
+        Matriks Kofaktor = new Matriks();
+        int i;
         float det = 0;
         int Sign = 1;
         
@@ -108,28 +108,37 @@ class Matriks {
         } else if (NbElmt(this) == 2) {
             return this.Mat[RowMin][ColMin]*this.Mat[RowMin+1][ColMin+1] - this.Mat[RowMin+1][ColMin]*this.Mat[RowMin][ColMin+1];
         } else {
-            Minor.NRowEff = this.NRowEff-1;
-            Minor.NColEff = this.NRowEff-1;
-            for (i = this.RowMin; i <= this.NRowEff; i++) {
-                c1 = this.RowMin;
-                for (j = this.RowMin+1; j <= this.NRowEff; j++) {
-                    c2 = this.ColMin;
+            for (i = ColMin; i <= this.NColEff; i++) {
+                Kofaktor = MatriksKofaktor(RowMin, i);
+                det += Sign * this.Mat[RowMin][i] * Kofaktor.Determinan();
+                Sign *= -1;
+            }
+        }
+        return det;   
+    }
+
+    Matriks MatriksKofaktor(int a, int b) {
+        Matriks Cof = new Matriks();
+        int i, j, k, c1, c2;
+
+        Cof.NRowEff = this.NRowEff-1;
+        Cof.NColEff = this.NRowEff-1;
+        for (i = this.RowMin; i <= this.NRowEff; i++) {
+            c1 = this.RowMin;
+            /* J ITERASI UNTUK MENGULANG ROW */
+            for (j = this.RowMin; j <= this.NRowEff; j++) {
+                c2 = this.ColMin;
+                if (j != a) {
                     for (k = this.ColMin; k <= this.NColEff; k++) {
-                        if (k != i) {
-                            Minor.Mat[c1][c2] = this.Mat[j][k];
+                        if (k != b) {
+                            Cof.Mat[c1][c2] = this.Mat[j][k];
                             c2++;
                         }
                     }
                     c1++;
                 }
-                det += Sign * this.Mat[RowMin][i] * Minor.Determinan();
-                Sign *= -1; 
             }
-            return det;   
         }
-    }
-
-    MATRIKS MatriksKofaktor(int i, int j) {
-        
+        return Cof;
     }
 }

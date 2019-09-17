@@ -27,5 +27,9 @@ class DriverMatriks {
         M2.TulisMatriks();
         System.out.println();
         System.out.println(M.Determinan());
+
+        Matriks C11 = new Matriks();
+        C11 = M.MatriksKofaktor(2, 2);
+        C11.TulisMatriks();
     }
 }
