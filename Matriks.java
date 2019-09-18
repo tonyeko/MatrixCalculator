@@ -141,4 +141,21 @@ class Matriks {
         }
         return Cof;
     }
+
+    float Cramer(Matriks MHasil, int ColC) {
+        Matriks Pembilang = new Matriks();
+        int i;
+
+        Pembilang.NRowEff = this.NRowEff;
+        Pembilang.NColEff = this.NColEff;
+
+        Pembilang.CopyMatriks(this);
+
+        for (i = RowMin; i <= this.NRowEff; i++) {
+            Pembilang.Mat[i][ColC] = MHasil.Mat[i][ColMin];
+        }
+
+        Pembilang.TulisMatriks();
+        return Pembilang.Determinan()/this.Determinan();
+    }
 }

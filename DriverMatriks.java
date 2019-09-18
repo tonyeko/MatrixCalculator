@@ -31,5 +31,11 @@ class DriverMatriks {
         Matriks C11 = new Matriks();
         C11 = M.MatriksKofaktor(2, 2);
         C11.TulisMatriks();
+
+        Matriks Hasil = new Matriks();
+        Hasil.BacaMatriks();
+
+        System.out.println(M.Cramer(Hasil, 1));
+
     }
 }
