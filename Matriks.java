@@ -119,24 +119,23 @@ class Matriks {
 
     Matriks Kofaktor(int a, int b) {
         Matriks Cof = new Matriks();
-        int i, j, k, c1, c2;
+        int i, j, c1, c2;
 
         Cof.NRowEff = this.NRowEff-1;
         Cof.NColEff = this.NRowEff-1;
+        c1 = this.RowMin;
+        /* i ITERASI UNTUK MENGULANG ROW */
         for (i = this.RowMin; i <= this.NRowEff; i++) {
-            c1 = this.RowMin;
-            /* J ITERASI UNTUK MENGULANG ROW */
-            for (j = this.RowMin; j <= this.NRowEff; j++) {
-                c2 = this.ColMin;
-                if (j != a) {
-                    for (k = this.ColMin; k <= this.NColEff; k++) {
-                        if (k != b) {
-                            Cof.Mat[c1][c2] = this.Mat[j][k];
-                            c2++;
-                        }
+            c2 = this.ColMin;
+            if (i != a) {
+                /* j ITERASI UNTUK MENGULANG COL */
+                for (j = this.ColMin; j <= this.NColEff; j++) {
+                    if (j != b) {
+                        Cof.Mat[c1][c2] = this.Mat[i][j];
+                        c2++;
                     }
-                    c1++;
                 }
+                c1++;
             }
         }
         return Cof;
@@ -246,4 +245,6 @@ class Matriks {
         }
         return Identity;
     }
+
+    
 }
