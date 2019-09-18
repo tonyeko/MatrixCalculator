@@ -44,6 +44,12 @@ class DriverMatriks {
         System.out.println();
         // System.out.println(M.Cramer(Hasil, 1));
 
+        Hasil = M.MakeAugmented(M2);
+        Hasil.TulisMatriks();
+        System.out.println();
 
+        M = M.MakeIdentity();
+        M.TulisMatriks(); 
+        System.out.println();
     }
 }

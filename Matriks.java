@@ -3,7 +3,7 @@ import java.util.*;
 class Matriks {
     /* ATRIBUT */
     int RowMin = 1; int ColMin = 1;
-    int RowMax = 10; int ColMax = 10;
+    int RowMax = 100; int ColMax = 100;
     int NRowEff, NColEff;
     float[][] Mat = new float[RowMax+1][ColMax+1];
 
@@ -178,17 +178,26 @@ class Matriks {
         return MC;
     }
 
+    Matriks MatriksAdjoint() {
+        Matriks adj = new Matriks();
+        adj.NRowEff = this.NRowEff;
+        adj.NColEff = this.NColEff;
+        adj = this.MatriksCofactor();
+        adj.TransposeMatriks();
+        
+        return adj;
+    }
+
     Matriks MatriksInvers() {
         Matriks MInvers = new Matriks();
         Matriks Madj = new Matriks();
         int i, j;
         float det;
         
-        MInvers.NRowEff = this.NRowEff; Madj.NRowEff = this.NRowEff;
-        MInvers.NColEff = this.NColEff; Madj.NColEff = this.NColEff;
+        MInvers.NRowEff = this.NRowEff; 
+        MInvers.NColEff = this.NColEff; 
         det = this.Determinan();
-        Madj = this.MatriksCofactor();
-        Madj.TransposeMatriks();
+        Madj = this.MatriksAdjoint();
 
         for (i = RowMin; i <= this.NRowEff; i++) {
             for (j = ColMin; j <= this.NColEff ; j++) {
@@ -199,5 +208,42 @@ class Matriks {
             }
         }
         return MInvers;
+    }
+
+    Matriks MakeAugmented(Matriks M2) {
+        int i, j;
+        Matriks Aug = new Matriks();
+        Aug.NRowEff = this.NRowEff;
+        Aug.NColEff = this.NColEff + M2.NColEff;
+
+        for (i = RowMin; i <= Aug.NRowEff; i++) {
+            for (j = ColMin; j <= Aug.NColEff; j++) {
+                if (j <= this.NColEff) {
+                    Aug.Mat[i][j] = this.Mat[i][j];
+                } else {
+                    Aug.Mat[i][j] = M2.Mat[i][j-this.NColEff];
+                }
+            }
+        }
+
+        return Aug;
+    }
+
+    Matriks MakeIdentity() {
+        Matriks Identity = new Matriks();
+        int i, j;
+
+        Identity.NRowEff = this.NRowEff;
+        Identity.NColEff = this.NColEff;
+        for (i = this.RowMin; i <= this.NRowEff; i++) {
+            for (j = this.ColMin; j <= this.NColEff; j++) {
+                if (i == j) {
+                    Identity.Mat[i][j] = 1;
+                } else {
+                    Identity.Mat[i][j] = 0;
+                }
+            }
+        }
+        return Identity;
     }
 }
