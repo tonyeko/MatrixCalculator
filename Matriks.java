@@ -1,3 +1,5 @@
+// KASI KOMEN
+
 import java.util.Scanner;
 
 public class matriks{
