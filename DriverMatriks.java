@@ -29,13 +29,21 @@ class DriverMatriks {
         System.out.println(M.Determinan());
 
         Matriks C11 = new Matriks();
-        C11 = M.MatriksKofaktor(2, 2);
-        C11.TulisMatriks();
+        C11 = M.Kofaktor(2, 2);
+        C11.TulisMatriks(); 
+        System.out.println();
 
         Matriks Hasil = new Matriks();
-        Hasil.BacaMatriks();
+        Hasil.CopyMatriks(M);
+        Hasil = Hasil.MatriksCofactor();
+        Hasil.TulisMatriks();
+        System.out.println();
 
-        System.out.println(M.Cramer(Hasil, 1));
+        Hasil = M.MatriksInvers();
+        Hasil.TulisMatriks();
+        System.out.println();
+        // System.out.println(M.Cramer(Hasil, 1));
+
 
     }
 }

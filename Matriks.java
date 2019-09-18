@@ -109,7 +109,7 @@ class Matriks {
             return this.Mat[RowMin][ColMin]*this.Mat[RowMin+1][ColMin+1] - this.Mat[RowMin+1][ColMin]*this.Mat[RowMin][ColMin+1];
         } else {
             for (i = ColMin; i <= this.NColEff; i++) {
-                Kofaktor = MatriksKofaktor(RowMin, i);
+                Kofaktor = Kofaktor(RowMin, i);
                 det += Sign * this.Mat[RowMin][i] * Kofaktor.Determinan();
                 Sign *= -1;
             }
@@ -117,7 +117,7 @@ class Matriks {
         return det;   
     }
 
-    Matriks MatriksKofaktor(int a, int b) {
+    Matriks Kofaktor(int a, int b) {
         Matriks Cof = new Matriks();
         int i, j, k, c1, c2;
 
@@ -157,5 +157,47 @@ class Matriks {
 
         Pembilang.TulisMatriks();
         return Pembilang.Determinan()/this.Determinan();
+    }
+
+    Matriks MatriksCofactor() {
+        Matriks MC = new Matriks();
+        int i, j;
+        int Sign = 1;
+
+        MC.NRowEff = this.NRowEff;
+        MC.NColEff = this.NColEff;
+        for (i = RowMin; i <= this.NRowEff; i++) {
+            for (j = ColMin; j <= this.NColEff ; j++) {
+                MC.Mat[i][j] = Sign * this.Kofaktor(i, j).Determinan();
+                if (MC.Mat[i][j] == -0) {
+                    MC.Mat[i][j] *= -1;
+                }
+                Sign *= -1;
+            }
+        }
+        return MC;
+    }
+
+    Matriks MatriksInvers() {
+        Matriks MInvers = new Matriks();
+        Matriks Madj = new Matriks();
+        int i, j;
+        float det;
+        
+        MInvers.NRowEff = this.NRowEff; Madj.NRowEff = this.NRowEff;
+        MInvers.NColEff = this.NColEff; Madj.NColEff = this.NColEff;
+        det = this.Determinan();
+        Madj = this.MatriksCofactor();
+        Madj.TransposeMatriks();
+
+        for (i = RowMin; i <= this.NRowEff; i++) {
+            for (j = ColMin; j <= this.NColEff ; j++) {
+                MInvers.Mat[i][j] = (1/det) * (Madj.Mat[i][j]); 
+                if (MInvers.Mat[i][j] == -0) {
+                    MInvers.Mat[i][j] *= -1;
+                }
+            }
+        }
+        return MInvers;
     }
 }
