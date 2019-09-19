@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 class Matriks {
     /* ATRIBUT */
@@ -28,6 +29,16 @@ class Matriks {
             }
         }  
     }
+
+    void BacaFileMatriks() {
+        int i = RowMin; int j = ColMin;
+        Scanner bacafile = new Scanner(new File ("test.txt"));
+
+        while (bacafile.next() != null) {
+            
+        }
+
+    }
     
     void TulisMatriks() {
         for (int i = 1; i <= this.NRowEff; i++) {
@@ -38,9 +49,16 @@ class Matriks {
         }
     }
 
-    int NbElmt(Matriks M) {
-        return this.NColEff * this.NRowEff;
-    }
+    // Matriks KaliMatriks(Matriks M2) {
+    //     Matriks MRes = new Matriks();
+
+    //     for (i)
+    //     return MRes;
+    // }
+
+    // int NbElmt(Matriks M) {
+    //     return this.NColEff * this.NRowEff;
+    // }
 
     // float Elmt(Matriks M, int i, int j) {
     //     return M.Mat[i][j];
@@ -246,5 +264,26 @@ class Matriks {
         return Identity;
     }
 
-    
+    // Matriks EchelonMatriks() {
+    //     Matriks Echelon = new Matriks();
+    //     int i, j, k;
+    //     float pivot, scale;
+
+    //     Echelon.CopyMatriks(this);
+    //     pivot = Echelon.Mat[RowMin][ColMin];
+    //     for (j = ColMin; j <= this.NColEff; j++) {
+    //         Echelon.Mat[RowMin][j] /= pivot;       
+    //     }
+
+    //     for (i = RowMin; i <= this.NRowEff; i++) {
+    //         for (j = RowMin+1; j <= this.NRowEff; j++) {
+    //             scale = Echelon.Mat[j][j];
+    //             for (k = ColMin; k <= this.NColEff; k++) {
+    //                 Echelon.Mat[j][k] = Echelon.Mat[j][k] - scale*Echelon.Mat[i][k];
+    //             }
+    //         }
+    //     }
+
+    //     return Echelon;
+    // }
 }

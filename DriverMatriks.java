@@ -35,21 +35,23 @@ class DriverMatriks {
 
         Matriks Hasil = new Matriks();
         Hasil.CopyMatriks(M);
-        Hasil = Hasil.MatriksCofactor();
+        Hasil = Hasil.EchelonMatriks();
         Hasil.TulisMatriks();
-        System.out.println();
+        // Hasil = Hasil.MatriksCofactor();
+        // Hasil.TulisMatriks();
+        // System.out.println();
 
-        Hasil = M.MatriksInvers();
-        Hasil.TulisMatriks();
-        System.out.println();
-        // System.out.println(M.Cramer(Hasil, 1));
+        // Hasil = M.MatriksInvers();
+        // Hasil.TulisMatriks();
+        // System.out.println();
+        // // System.out.println(M.Cramer(Hasil, 1));
 
-        Hasil = M.MakeAugmented(M2);
-        Hasil.TulisMatriks();
-        System.out.println();
+        // Hasil = M.MakeAugmented(M2);
+        // Hasil.TulisMatriks();
+        // System.out.println();
 
-        M = M.MakeIdentity();
-        M.TulisMatriks(); 
-        System.out.println();
+        // M = M.MakeIdentity();
+        // M.TulisMatriks(); 
+        // System.out.println();
     }
 }
