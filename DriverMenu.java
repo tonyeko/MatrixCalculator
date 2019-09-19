@@ -37,12 +37,9 @@ class DriverMenu {
                                  System.out.println("SubMenu tidak terdefinisi. Silakan masukkan kembali.");
                                  System.out.println("");
                              }
-        
-                        } while ((PilihanSubMenu < 1 || PilihanSubMenu > 4));
-                     
+                        } while ((PilihanSubMenu < 1 || PilihanSubMenu > 4));    
                 }
 
         } while (PilihanMenu != 7);
-       
     }
 }
