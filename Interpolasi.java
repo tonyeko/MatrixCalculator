@@ -21,22 +21,21 @@ class Interpolasi {
     Matriks InputTitik (int N)
     {
         Matriks M = new Matriks ();
+        M.NRowEff = N;
+        M.NColEff = N+1;
         int i,j;
         float x,y;
         Scanner input = new Scanner(System.in);
     
         for (i=1;i<=N;i++)
-        {
-            j = 2;
-            while (j<=N) 
+        {   
+            M.Mat[i][1] = 1;
+            x = input.nextFloat(); 
+            y = input.nextFloat();
+            M.Mat[i][N+1] =  y;
+            for(j=2;j<=N;j++)
             {
-                this.Mat[i][1] = 1; 
-                x = input.nextInt();
-                y = input.nextInt();
-                this.Mat[i][j] =  XPangkat(x,(j-1));
-                this.Mat[1][N+1] =  y;
-
-                j = j + 1;
+                M.Mat[i][j] =  XPangkat(x,(j-1));
             }
         }
 
