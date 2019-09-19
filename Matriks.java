@@ -30,14 +30,40 @@ class Matriks {
         }  
     }
 
-    void BacaFileMatriks() {
-        int i = RowMin; int j = ColMin;
-        Scanner bacafile = new Scanner(new File ("test.txt"));
+    void BacaFileMatriks(String filematriks) throws FileNotFoundException {
+        int NRow = 0; int NCol = 0;
+        File bacafile = new File (filematriks);
+        Scanner scanBaris = new Scanner(bacafile);
 
-        while (bacafile.next() != null) {
+        while (scanBaris.hasNextLine()) {
+            NRow++;
+            NCol = 0;
+            Scanner scanNumber = new Scanner(scanBaris.nextLine());
             
-        }
+            while (scanNumber.hasNextFloat()) {
+                NCol++;
+                if (scanNumber.hasNextFloat()) {
+                    this.Mat[NRow][NCol] = scanNumber.nextFloat();
+                }
+             
+            }
+            
 
+            // for (i = RowMin; i <= this.NRowEff; i++) {
+            //     for (j = ColMin; j <= this.NColEff; j++) {
+            //         if(bacafile.hasNextFloat()) {
+            //             this.Mat[i][j] = bacafile.nextFloat();           
+            //         }
+            //     }
+            // }
+            // while (bacafile.nextFloat() != null) {
+            //     this.Mat[i][j] = bacafile.nextFloat();
+            //     j++;
+            // }
+            // i++;
+        }
+        this.NRowEff = NRow;
+        this.NColEff = NCol;
     }
     
     void TulisMatriks() {
@@ -49,16 +75,25 @@ class Matriks {
         }
     }
 
-    // Matriks KaliMatriks(Matriks M2) {
-    //     Matriks MRes = new Matriks();
+    Matriks KaliMatriks(Matriks M2) {
+        Matriks MRes = new Matriks();
+        int i, j, k;
 
-    //     for (i)
-    //     return MRes;
-    // }
+        MRes.NRowEff = this.NRowEff;
+        MRes.NColEff = M2.NColEff;
+        for (i = RowMin; i <= this.NRowEff; i++) {
+            for (j = ColMin; j <= M2.NColEff; j++) {
+                for (k = ColMin; k <= this.NColEff; k++) {
+                    MRes.Mat[i][j] += this.Mat[i][k] * M2.Mat[k][j];
+                }
+            }
+        }
+        return MRes;
+    }
 
-    // int NbElmt(Matriks M) {
-    //     return this.NColEff * this.NRowEff;
-    // }
+    int NbElmt(Matriks M) {
+        return this.NColEff * this.NRowEff;
+    }
 
     // float Elmt(Matriks M, int i, int j) {
     //     return M.Mat[i][j];
