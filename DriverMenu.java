@@ -12,17 +12,35 @@ class DriverMenu {
         menu M = new menu ();
 
         do {
-
+            
             M.ListMenu();
-            System.out.print("Pilihan Anda: ");
-            PilihanMenu = input.nextInt();
-            if (PilihanMenu == 1 || PilihanMenu == 2 || PilihanMenu == 3)
-            {
-                System.out.println("");
-                M.SubMenu();
+            do {
                 System.out.print("Pilihan Anda: ");
-                PilihanSubMenu = input.nextInt();
-            }     
+                PilihanMenu = input.nextInt();
+                if (PilihanMenu < 1 || PilihanMenu > 7)
+                {
+                    System.out.println("Menu tidak terdefinisi. Silakan masukkan kembali.");
+                    System.out.println("");
+                } 
+            } while ((PilihanMenu < 1 || PilihanMenu > 7));
+
+            if (PilihanMenu == 1 || PilihanMenu == 2 || PilihanMenu == 3)
+                {      
+                        System.out.println("");
+                        M.SubMenu();
+                        do 
+                        {
+                            System.out.print("Pilihan Anda: ");
+                            PilihanSubMenu = input.nextInt();
+                            if (PilihanSubMenu < 1 || PilihanSubMenu > 4)
+                             {
+                                 System.out.println("SubMenu tidak terdefinisi. Silakan masukkan kembali.");
+                                 System.out.println("");
+                             }
+        
+                        } while ((PilihanSubMenu < 1 || PilihanSubMenu > 4));
+                     
+                }
 
         } while (PilihanMenu != 7);
        
