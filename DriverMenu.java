@@ -23,6 +23,7 @@ class DriverMenu {
                     System.out.println("");
                 } 
             } while ((PilihanMenu < 1 || PilihanMenu > 7));
+            M.HasilMenu(PilihanMenu);
 
             if (PilihanMenu == 1 || PilihanMenu == 2 || PilihanMenu == 3)
                 {      
@@ -38,6 +39,7 @@ class DriverMenu {
                                  System.out.println("");
                              }
                         } while ((PilihanSubMenu < 1 || PilihanSubMenu > 4));    
+                        M.HasilSubMenu(PilihanSubMenu);
                 }
 
         } while (PilihanMenu != 7);

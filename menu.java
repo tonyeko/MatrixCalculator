@@ -21,4 +21,33 @@ class menu {
         System.out.println("4. Kaidah Cramer");
         System.out.println("");
     }
+
+    
+    void HasilMenu(int PilihanMenu) { 
+        if (PilihanMenu == 1)
+        {}
+        else if (PilihanMenu == 2)
+        {}
+        else if (PilihanMenu == 3)
+        {}
+        else if (PilihanMenu == 4)
+        {}
+        else if (PilihanMenu == 5)
+        {}
+        else if (PilihanMenu == 6)
+        {}
+
+    }
+
+    void HasilSubMenu(int PilihanSubMenu) { 
+        if (PilihanSubMenu == 1)
+        {}
+        else if (PilihanSubMenu == 2)
+        {}
+        else if (PilihanSubMenu == 3)
+        {}
+        else if (PilihanSubMenu == 4)
+        {}
+
+    }
 }
