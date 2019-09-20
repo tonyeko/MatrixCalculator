@@ -43,5 +43,21 @@ class Interpolasi {
 
     }
 
+    float HasilInterpolasi (float x, Matriks MI)
+    {
+        Matriks M = new Matriks ();
+        int i;
+        float hasil;
+
+        hasil = 0;
+        for (i=1;i<=(MI.NColEff - 1);i++)
+        {
+           hasil = hasil + (M.Cramer(M,i) * XPangkat (x, i-1)) ; 
+        }
+
+        return hasil;
+
+    }
+
     
 }
