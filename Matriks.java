@@ -39,7 +39,6 @@ class Matriks {
             NRow++;
             NCol = 0;
             Scanner scanNumber = new Scanner(scanBaris.nextLine());
-            
             while (scanNumber.hasNextFloat()) {
                 NCol++;
                 if (scanNumber.hasNextFloat()) {
@@ -47,20 +46,6 @@ class Matriks {
                 }
              
             }
-            
-
-            // for (i = RowMin; i <= this.NRowEff; i++) {
-            //     for (j = ColMin; j <= this.NColEff; j++) {
-            //         if(bacafile.hasNextFloat()) {
-            //             this.Mat[i][j] = bacafile.nextFloat();           
-            //         }
-            //     }
-            // }
-            // while (bacafile.nextFloat() != null) {
-            //     this.Mat[i][j] = bacafile.nextFloat();
-            //     j++;
-            // }
-            // i++;
         }
         this.NRowEff = NRow;
         this.NColEff = NCol;
@@ -279,6 +264,37 @@ class Matriks {
         }
 
         return Aug;
+    }
+
+    Matriks GetCoef() {
+        Matriks MCoef = new Matriks();
+        int i, j;
+
+        MCoef.NRowEff = this.NRowEff;
+        MCoef.NColEff = this.NColEff-1;
+
+        for (i = RowMin; i <= MCoef.NRowEff; i++) {
+            for (j = ColMin; j <= MCoef.NColEff; j++) {
+                MCoef.Mat[i][j] = this.Mat[i][j];
+            }
+        }
+
+        return MCoef;
+
+    }
+
+    Matriks GetConstant() {
+        Matriks MConst = new Matriks();
+        int i;
+
+        MConst.NRowEff = this.NRowEff;
+        MConst.NColEff = ColMin;
+
+        for (i = RowMin; i <= MConst.NRowEff; i++) {
+            MConst.Mat[i][ColMin] = this.Mat[i][this.NColEff];
+        }
+
+        return MConst;
     }
 
     Matriks MakeIdentity() {
