@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 class Matriks {
     /* ATRIBUT */
@@ -28,6 +29,27 @@ class Matriks {
             }
         }  
     }
+
+    void BacaFileMatriks(String filematriks) throws FileNotFoundException {
+        int NRow = 0; int NCol = 0;
+        File bacafile = new File (filematriks);
+        Scanner scanBaris = new Scanner(bacafile);
+
+        while (scanBaris.hasNextLine()) {
+            NRow++;
+            NCol = 0;
+            Scanner scanNumber = new Scanner(scanBaris.nextLine());
+            while (scanNumber.hasNextFloat()) {
+                NCol++;
+                if (scanNumber.hasNextFloat()) {
+                    this.Mat[NRow][NCol] = scanNumber.nextFloat();
+                }
+             
+            }
+        }
+        this.NRowEff = NRow;
+        this.NColEff = NCol;
+    }
     
     void TulisMatriks() {
         for (int i = 1; i <= this.NRowEff; i++) {
@@ -36,6 +58,22 @@ class Matriks {
             }
             System.out.println();
         }
+    }
+
+    Matriks KaliMatriks(Matriks M2) {
+        Matriks MRes = new Matriks();
+        int i, j, k;
+
+        MRes.NRowEff = this.NRowEff;
+        MRes.NColEff = M2.NColEff;
+        for (i = RowMin; i <= this.NRowEff; i++) {
+            for (j = ColMin; j <= M2.NColEff; j++) {
+                for (k = ColMin; k <= this.NColEff; k++) {
+                    MRes.Mat[i][j] += this.Mat[i][k] * M2.Mat[k][j];
+                }
+            }
+        }
+        return MRes;
     }
 
     int NbElmt(Matriks M) {
@@ -228,6 +266,37 @@ class Matriks {
         return Aug;
     }
 
+    Matriks GetCoef() {
+        Matriks MCoef = new Matriks();
+        int i, j;
+
+        MCoef.NRowEff = this.NRowEff;
+        MCoef.NColEff = this.NColEff-1;
+
+        for (i = RowMin; i <= MCoef.NRowEff; i++) {
+            for (j = ColMin; j <= MCoef.NColEff; j++) {
+                MCoef.Mat[i][j] = this.Mat[i][j];
+            }
+        }
+
+        return MCoef;
+
+    }
+
+    Matriks GetConstant() {
+        Matriks MConst = new Matriks();
+        int i;
+
+        MConst.NRowEff = this.NRowEff;
+        MConst.NColEff = ColMin;
+
+        for (i = RowMin; i <= MConst.NRowEff; i++) {
+            MConst.Mat[i][ColMin] = this.Mat[i][this.NColEff];
+        }
+
+        return MConst;
+    }
+
     Matriks MakeIdentity() {
         Matriks Identity = new Matriks();
         int i, j;
@@ -246,5 +315,25 @@ class Matriks {
         return Identity;
     }
 
-    
+    // Matriks EchelonMatriks() {
+    //     Matriks Echelon = new Matriks();
+    //     int i, j, k;
+    //     float pivot, scale;
+
+    //     Echelon.CopyMatriks(this);
+    //     pivot = Echelon.Mat[RowMin][ColMin];
+    //     for (j = ColMin; j <= this.NColEff; j++) {
+    //         Echelon.Mat[RowMin][j] /= pivot;       
+    //     }
+
+    //     for (i = RowMin; i <= this.NRowEff; i++) {
+    //         for (j = RowMin+1; j <= this.NRowEff; j++) {
+    //             scale = Echelon.Mat[j][j];
+    //             for (k = ColMin; k <= this.NColEff; k++) {
+    //                 Echelon.Mat[j][k] = Echelon.Mat[j][k] - scale*Echelon.Mat[i][k];
+    //             }
+    //         }
+    //     }
+    //     return Echelon;
+    // }
 }

@@ -52,7 +52,8 @@ class Interpolasi {
         hasil = 0;
         for (i=1;i<=(MI.NColEff - 1);i++)
         {
-           hasil = hasil + (M.Cramer(M,i) * XPangkat (x, i-1)) ; 
+           System.out.print(M.GetCoef().Cramer(MI.GetConstant(),i));
+           hasil = hasil + (M.GetCoef().Cramer(MI.GetConstant(),i) * XPangkat (x, i-1)) ; 
         }
 
         return hasil;
