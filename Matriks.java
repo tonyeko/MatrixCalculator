@@ -9,6 +9,7 @@ class Matriks {
     float[][] Mat = new float[RowMax+1][ColMax+1];
 
     /* METHOD */
+    /** Konstruktor **/
     Matriks() {
         this.NColEff = 0;
         this.NRowEff = 0;
@@ -17,6 +18,10 @@ class Matriks {
                 this.Mat[i][j] = 0;
             }
         }
+    }
+
+    int NbElmt(Matriks M) {
+        return this.NColEff * this.NRowEff;
     }
 
     void BacaMatriks() {
@@ -30,27 +35,6 @@ class Matriks {
         }  
     }
 
-    void BacaFileMatriks(String filematriks) throws FileNotFoundException {
-        int NRow = 0; int NCol = 0;
-        File bacafile = new File (filematriks);
-        Scanner scanBaris = new Scanner(bacafile);
-
-        while (scanBaris.hasNextLine()) {
-            NRow++;
-            NCol = 0;
-            Scanner scanNumber = new Scanner(scanBaris.nextLine());
-            while (scanNumber.hasNextFloat()) {
-                NCol++;
-                if (scanNumber.hasNextFloat()) {
-                    this.Mat[NRow][NCol] = scanNumber.nextFloat();
-                }
-             
-            }
-        }
-        this.NRowEff = NRow;
-        this.NColEff = NCol;
-    }
-    
     void TulisMatriks() {
         for (int i = 1; i <= this.NRowEff; i++) {
             for (int j = 1; j <= this.NColEff; j++) {
@@ -76,9 +60,32 @@ class Matriks {
         return MRes;
     }
 
-    int NbElmt(Matriks M) {
-        return this.NColEff * this.NRowEff;
+    void BacaFileMatriks(String filematriks) throws FileNotFoundException {
+        int NRow = 0; int NCol = 0;
+        File bacafile = new File (filematriks);
+        Scanner scanBaris = new Scanner(bacafile);
+
+        while (scanBaris.hasNextLine()) {
+            NRow++;
+            NCol = 0;
+            Scanner scanNumber = new Scanner(scanBaris.nextLine());
+            while (scanNumber.hasNextFloat()) {
+                NCol++;
+                if (scanNumber.hasNextFloat()) {
+                    this.Mat[NRow][NCol] = scanNumber.nextFloat();
+                }
+             
+            }
+        }
+        this.NRowEff = NRow;
+        this.NColEff = NCol;
     }
+    
+    
+
+    
+
+    
 
     // float Elmt(Matriks M, int i, int j) {
     //     return M.Mat[i][j];
@@ -192,7 +199,6 @@ class Matriks {
             Pembilang.Mat[i][ColC] = MHasil.Mat[i][ColMin];
         }
 
-        Pembilang.TulisMatriks();
         return Pembilang.Determinan()/this.Determinan();
     }
 
@@ -336,4 +342,108 @@ class Matriks {
     //     }
     //     return Echelon;
     // }
+    
+
+     //==========check if matrix is a square matrix================
+    boolean isSquare(){
+        return (this.NRowEff == this.NColEff);
+    }
+
+    //===========Jika element diagonal baris ada yang nol, swap baris
+    void noZeroDiag(int row){
+        //Kamus
+        int targetRow;
+        int temp_size;
+        // int countSwap =0;
+
+        //Algoritma
+        if(this.NRowEff>=this.NColEff){
+            temp_size = this.NColEff;
+        } else { //NRowEff < NColEff
+            temp_size = this.NColEff;
+        }
+
+        for (int i=row;i<=temp_size;i++){
+            if (this.Mat[i][i] == 0){
+                targetRow = i+1;
+                if (targetRow <= temp_size){
+                    do{
+                         if (this.Mat[targetRow][targetRow-(i-row)] != 0){ //prevent kasus index out of range untuk 2 baris terakhir
+                            swapRow(i,targetRow);
+                         }
+                        // countSwap +=1;
+                        targetRow +=1;
+                    } while (this.Mat[i][i]==0 && targetRow<=this.NRowEff);
+            }
+        }
+    }
+}   
+
+    //============= membagi baris i dengan temp_val==================
+    void scaleRow(int i,float temp_val){
+        for(int j=1;j<=this.NColEff;j++){
+            this.Mat[i][j] = this.Mat[i][j]/temp_val;
+            if (this.Mat[i][j] == -0){
+                this.Mat[i][j] = 0;
+            }
+        }
+    }
+
+    //==============Gauss to convert to Echelon Form ============
+    void EchelonForm(){
+        //Kamus
+        // int det = 1;
+        boolean foundlead=false;
+        float valUndef= -99999;
+        int i,j;
+
+        //Algorithm
+        noZeroDiag(1);  //Pengecekkan sebelum OBE
+        for (i=1;i<=this.NRowEff;i++){
+            noZeroDiag(i);
+            for (j=i+1;j<=this.NRowEff;j++){
+                if (this.Mat[i][i] != 0){
+                    float scale = this.Mat[j][i] / this.Mat[i][i];
+                    for (int k=1;k<=this.NColEff;k++){
+                        this.Mat[j][k]=this.Mat[j][k] -(scale*this.Mat[i][k]);      
+                    }
+                } 
+            }
+            // noZeroDiag(i);
+        }
+        
+        //bagi setiap baris dengan leading element pada setiap baris sehingga jadi leading 1
+        float temp_val = valUndef;
+        j =1;
+        i =1;
+        while (i<=this.NRowEff){
+            foundlead = false;
+            while ((j<=this.NColEff) && (!foundlead)) {
+                if (this.Mat[i][j] != 0){
+                    temp_val = this.Mat[i][j];
+                    foundlead = true;
+                } else {
+                    j +=1;
+                }
+                if (temp_val != valUndef){
+                    scaleRow(i,temp_val);
+                }
+            }
+            i +=1;
+        }
+
+        j=1;
+        boolean cek=true;//anggapan semua elemen baris NRowEff-1 bernilai 0 
+        while ((j<=this.NColEff-1)&&(cek)){
+            if (this.Mat[this.NRowEff-1][j]!=0){
+                cek = false;
+            }
+            j++;
+        }
+        if (cek){
+            this.Mat[NRowEff][NColEff] = 0;
+        }
+
+    }
+
 }

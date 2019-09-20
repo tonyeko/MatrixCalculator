@@ -7,67 +7,35 @@ class DriverMatriks {
         // int PilihanMenu,PilihanSubMenu;
 
         // // membuat scanner baru
-        // Scanner input = new Scanner(System.in);
-
-        // menu M = new menu ();
-
-        // do {
-            
-        //     M.ListMenu();
-        //     do {
-        //         System.out.print("Pilihan Anda: ");
-        //         PilihanMenu = input.nextInt();
-        //         if (PilihanMenu < 1 || PilihanMenu > 7)
-        //         {
-        //             System.out.println("Menu tidak terdefinisi. Silakan masukkan kembali.");
-        //             System.out.println("");
-        //         } 
-        //     } while ((PilihanMenu < 1 || PilihanMenu > 7));
-        //     M.HasilMenu(PilihanMenu);
-
-        //     if (PilihanMenu == 1 || PilihanMenu == 2 || PilihanMenu == 3)
-        //         {      
-        //                 System.out.println("");
-        //                 M.SubMenu();
-        //                 do 
-        //                 {
-        //                     System.out.print("Pilihan Anda: ");
-        //                     PilihanSubMenu = input.nextInt();
-        //                     if (PilihanSubMenu < 1 || PilihanSubMenu > 4)
-        //                      {
-        //                          System.out.println("SubMenu tidak terdefinisi. Silakan masukkan kembali.");
-        //                          System.out.println("");
-        //                      }
-        //                 } while ((PilihanSubMenu < 1 || PilihanSubMenu > 4));    
-        //                 M.HasilSubMenu(PilihanSubMenu);
-        //         }
-
-        // } while (PilihanMenu != 7);
-        // Scanner scan = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         
         Matriks M = new Matriks();
-        Matriks M2 = new Matriks();
+        // Matriks M2 = new Matriks();
 
-        // M.BacaMatriks();
-        // M.BacaFileMatriks("test.txt");
-        // System.out.println("Isi matriks: ");
+        M.BacaMatriks();
+        M.TulisMatriks(); System.out.println();
+        M.EchelonForm(); 
+        M.TulisMatriks(); System.out.println();
+
+        // // M.BacaFileMatriks("test.txt");
+        // // System.out.println("Isi matriks: ");
+        // // M.TulisMatriks();
+        // // System.out.println();
         // M.TulisMatriks();
         // System.out.println();
-        // M.TulisMatriks();
-        // System.out.println();
-        // M2 = M.GetCoef();
-        // M2.TulisMatriks();
-        // Matriks Hasil = new Matriks();
-        // Hasil = M.GetConstant();
+        // // M2 = M.GetCoef();
+        // // M2.TulisMatriks();
+        // // Matriks Hasil = new Matriks();
+        // // Hasil = M.GetConstant();
         
         // System.out.println();
 
-        Interpolasi I = new Interpolasi();
+        // Interpolasi I = new Interpolasi();
 
-        M2 = I.InputTitik(3);
-        M2.TulisMatriks();
+        // M2 = I.InputTitik(3);
+        // M2.TulisMatriks();
 
-        System.out.println(M2.GetCoef().Cramer(M2.GetConstant(), 1));
+        // System.out.println(M2.GetCoef().Cramer(M2.GetConstant(), 1));
 
 
 
@@ -114,5 +82,21 @@ class DriverMatriks {
         // M = M.MakeIdentity();
         // M.TulisMatriks(); 
         // System.out.println();
+
+        // float hasil;
+        // Matriks M1;
+        // int N;
+
+        // Scanner input = new Scanner(System.in);
+
+        // Interpolasi I = new Interpolasi ();
+
+        
+        // System.out.print(hasil);
+        // N = input.nextInt();
+        // M1 = I.InputTitik(N);
+        // M1.TulisMatriks();
+        // hasil = I.HasilInterpolasi((float)9.2, M1);
+        // System.out.println(hasil);
     }
 }
