@@ -5,6 +5,7 @@ class Matriks {
     /* ATRIBUT */
     int RowMin = 1; int ColMin = 1;
     int RowMax = 100; int ColMax = 100;
+    int IdxUndef = -999;
     int NRowEff, NColEff;
     float[][] Mat = new float[RowMax+1][ColMax+1];
 
@@ -349,50 +350,34 @@ class Matriks {
         return (this.NRowEff == this.NColEff);
     }
 
-    boolean isPivotExist(int col) {
+    boolean isPivotExist(int row) {
+        // RETURN TRUE JIKA ADA PIVOT DI BARIS row
         boolean found = false;
-        int i = col; int j = col;
-        while (i <= this.NRowEff && !found) {
-            if (this.Mat[i][j] != 0) {
+        int j = ColMin; 
+        while (j <= this.NColEff && !found) {
+            if (this.Mat[row][j] != 0) {
                 found = true;
             }
             else {
-                i++;
+                j++;
             }
         }
         return found;
     }
 
-    //===========Jika element diagonal baris ada yang nol, swap baris
-    void SwapPivot(int row) {
-        // Untuk 
-        //Kamus
-        int targetRow;
-        int temp_size;
-        // int countSwap =0;
-
-        //Algoritma
-        if(this.NRowEff>=this.NColEff){
-            temp_size = this.NColEff;
-        } else { //NRowEff < NColEff
-            temp_size = this.NColEff;
-        }
-
-        for (int i=row;i<=temp_size;i++){
-            if (this.Mat[i][i] == 0){
-                targetRow = i+1;
-                if (targetRow <= temp_size){
-                    do{
-                         if (this.Mat[targetRow][targetRow-(i-row)] != 0){ //prevent kasus index out of range untuk 2 baris terakhir
-                            swapRow(i,targetRow);
-                         }
-                        // countSwap +=1;
-                        targetRow +=1;
-                    } while (this.Mat[i][i]==0 && targetRow<=this.NRowEff);
-                }
+    int PivotColIdx(int row) {
+        // RETURN INDEX PIVOT 
+        int i = row; int j = ColMin; 
+        while (j <= this.NColEff) {
+            if (this.Mat[i][j] != 0) {
+                return j;
+            }
+            else {
+                j++;
             }
         }
-    }   
+        return IdxUndef;
+    }
 
     float SearchLeading(int row) {
         int j = ColMin;
@@ -400,7 +385,7 @@ class Matriks {
             if (this.Mat[row][j] != 0) {
                 return this.Mat[row][j];
             } else {
-                j++
+                j++;
             }
         }
         return 0;
@@ -420,15 +405,11 @@ class Matriks {
         }
     }
 
-    void interchangeRow(int row, float scale, int Pivotrow) {
-        // row = row - scale*Pivotrow
+    void interchangeRow(int row, float scale, int PivotRow) {
+        // row = row - scale*PivotRow
         for (int j = ColMin; j <= this.NColEff; j++) {
-            this.Mat[row][j] -= (scale * this.Mat[Pivotrow][j]);
+            this.Mat[row][j] -= (scale * this.Mat[PivotRow][j]);
         }
-    }
-
-    void SortMatrix() {
-        
     }
 
     //==============Gauss to convert to Echelon Form ============
@@ -437,48 +418,73 @@ class Matriks {
         // int det = 1;
         boolean foundlead=false;
         float pivot;
-        int i,j;
+        int i, j, pivotidx;
 
-        //Algorithm
+        // Algorithm
         //Pengecekkan sebelum OBE
         for (i = RowMin; i <= this.NRowEff; i++) {
-            pivot = SearchLeading(i);
-            if (pivot == 0) {
-                if (isPivotExist(i)) {
-                    SwapPivot(i);
-
-                    pivot = this.Mat[i][i];
-                    for (j = i+1; j <= this.NRowEff; j++) {
-                        float scale = this.Mat[j][i] / pivot;
+            if (isPivotExist(i)) {
+                pivotidx = this.PivotColIdx(i);
+                pivot = this.Mat[i][pivotidx];
+                for (j = i+1; j <= this.NRowEff; j++) {
+                    if (pivot != 0) {
+                        float scale = this.Mat[j][pivotidx] / pivot;
                         this.interchangeRow(j, scale, i);
                         TulisMatriks();
-                        System.out.println("-----------");                 
-                    }
-                }
-            } else {
-                pivot = this.Mat[i][i];
-                for (j = i+1; j <= this.NRowEff; j++) {
-                    float scale = this.Mat[j][i] / pivot;
-                    this.interchangeRow(j, scale, i);
-                    TulisMatriks();
-                    System.out.println("-----------");                 
-                }
-                System.out.println("-----------");
-            }
-        }
-            // 
-            pivot = this.Mat[i][i];
-            for (j = i+1; j <= this.NRowEff; j++) {
-                if (this.Mat[i][i] != 0) {
-                    float scale = this.Mat[j][i] / pivot;
-                    this.interchangeRow(j, scale, i);
-                    TulisMatriks();
-                    System.out.println("-----------");                 
+                        System.out.println("-----------"); 
+                    }     
                 }
             }
-            System.out.println("-----------");
         }
-        
+        // for (i = RowMin; i <= this.NRowEff; i++) {
+        //     pivot = SearchLeading(i);
+        //     if (pivot == 0) {
+        //         if (isPivotExist(i)) {
+        //             SwapPivot(i);
+        //             pivot = SearchLeading(i);
+        //             for (j = i+1; j <= this.NRowEff; j++) {
+        //                 float scale = this.Mat[j][i] / pivot;
+        //                 this.interchangeRow(j, scale, i);
+        //                 TulisMatriks();
+        //                 System.out.println("-----------");                 
+        //             }
+        //         }
+        //     } else {
+        //         for (j = i+1; j <= this.NRowEff; j++) {
+        //             float scale = this.Mat[j][i] / pivot;
+        //             this.interchangeRow(j, scale, i);
+        //             TulisMatriks();
+        //             System.out.println("-----------");                 
+        //         }
+        //     }
+            
+        //     System.out.println("-----------");
+        // }
+
+        //Algorithm
+        // SwapPivot(1);  //Pengecekkan sebelum OBE
+        // l = 1;
+        // for (i=1;i<=this.NRowEff;i++){
+        //     SwapPivot(i);
+        //     if (isPivotExist(i)) {
+        //         for (j=i+1;j<=this.NRowEff;j++){
+        //             if (this.Mat[i][l] != 0){
+        //                 float scale = this.Mat[j][i] / this.Mat[i][l];
+        //                 for (int k=1;k<=this.NColEff;k++){
+        //                     this.Mat[j][k]=this.Mat[j][k] -(scale*this.Mat[i][k]);
+        //                     TulisMatriks();     
+        //                     System.out.println("----");        
+        //                 }
+        //             } 
+        //             // noZeroDiag(j);
+        //         }
+        //         System.out.println("----");
+        //         // noZeroDiag(i);
+        //         l++;
+        //     } else {
+        //         l+=2;
+        //     }
+        // }    
         //bagi setiap baris dengan leading element pada setiap baris sehingga jadi leading 1
         i = RowMin;
         j = ColMin;
@@ -500,7 +506,6 @@ class Matriks {
             i++;
         }
 
-        j=1;
         // boolean cek=true;//anggapan semua elemen baris NRowEff-1 bernilai 0 
         // while ((j<=this.NColEff-1)&&(cek)){
         //     if (this.Mat[this.NRowEff-1][j]!=0){
