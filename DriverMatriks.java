@@ -21,13 +21,15 @@ class DriverMatriks {
         // M.TulisMatriks(); System.out.println();
         // M.ReducedEchelonForm(); 
         // M.TulisMatriks(); System.out.println();
-        MI = M.MakeIdentity();
-        M = M.MakeAugmented(MI);
-        M.TulisMatriks(); System.out.println();
-        M.ReducedEchelonForm();
-        M.TulisMatriks(); System.out.println();
+        // MI = M.MakeIdentity();
+        // M = M.MakeAugmented(MI);
+        // M.TulisMatriks(); System.out.println();
+        // M.ReducedEchelonForm();
+        // M.TulisMatriks(); System.out.println();
 
-        M.Simpan();
+        M.metodeMatriksBalikan();
+        M.metodeCrammer();
+        // M.Simpan();
 
         // // M.BacaFileMatriks("test.txt");
         // // System.out.println("Isi matriks: ");
