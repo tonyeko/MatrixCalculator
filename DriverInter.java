@@ -13,10 +13,10 @@ class DriverInter {
 
     
     // System.out.print(hasil);
-    N = input.nextInt();
-    M1 = I.InputTitik(N);
+   
+    M1 = I.InputTitik();
     M1.TulisMatriks();
-    hasil = I.HasilInterpolasi ((float)9.2, M1);
+    hasil = I.HasilInterpolasi (M1);
     System.out.print(hasil);
 
     }

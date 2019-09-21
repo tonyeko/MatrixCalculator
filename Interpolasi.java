@@ -18,14 +18,18 @@ class Interpolasi {
         return hasil;
     }
 
-    Matriks InputTitik (int N)
+    Matriks InputTitik ()
     {
         Matriks M = new Matriks ();
-        M.NRowEff = N;
-        M.NColEff = N+1;
-        int i,j;
+
+        int i,j,N;
         float x,y;
         Scanner input = new Scanner(System.in);
+
+        N = input.nextInt();
+
+        M.NRowEff = N;
+        M.NColEff = N+1;
     
         for (i=1;i<=N;i++)
         {   
@@ -43,12 +47,14 @@ class Interpolasi {
 
     }
 
-    float HasilInterpolasi (float x, Matriks MI)
+    float HasilInterpolasi (Matriks MI)
     {
         Matriks M = new Matriks();
         int i;
-        float hasil;
+        float x,hasil;
+        Scanner input = new Scanner(System.in);
 
+        x = input.nextFloat();
         hasil = 0;
         for (i = MI.RowMin; i <= MI.NRowEff; i++) {
            System.out.println(MI.GetCoef().Cramer(MI.GetConstant(),i));
