@@ -10,14 +10,21 @@ class DriverMatriks {
         Scanner input = new Scanner(System.in);
         
         Matriks M = new Matriks();
+        Matriks MI = new Matriks();
         // Matriks M2 = new Matriks();
 
         M.BacaMatriks();
         // M.TulisMatriks(); System.out.println();
-        M.EchelonForm(); 
+        // M.EchelonForm(); 
+        // M.TulisMatriks(); System.out.println();
+        // M.ReducedEchelonForm(); 
+        // M.TulisMatriks(); System.out.println();
+        MI = M.MakeIdentity();
+        M = M.MakeAugmented(MI);
         M.TulisMatriks(); System.out.println();
-        M.ReducedEchelonForm(); 
+        M.ReducedEchelonForm();
         M.TulisMatriks(); System.out.println();
+
 
         // // M.BacaFileMatriks("test.txt");
         // // System.out.println("Isi matriks: ");

@@ -350,14 +350,20 @@ class Matriks {
     void scaleRow(int i,float scale){
         for(int j = ColMin; j <= this.NColEff; j++) {
             this.Mat[i][j] = this.Mat[i][j]/scale;
-            if (this.Mat[i][j] == -0){
-                this.Mat[i][j] = 0;
-            }
-            if (this.Mat[i][j] < 0 && this.Mat[i][j] > -0.00001) { 
-                // PERLU TANYA SAMPAI 0.0000 BERAPA ANGKA DIANGGAP 0
-                this.Mat[i][j] = 0;
-            }   
+            RoundToZero(i, j);
         }
+    }
+
+    float RoundToZero(int i, int j) {
+        if (this.Mat[i][j] == -0){
+            this.Mat[i][j] = 0;
+        }
+        if (this.Mat[i][j] < 0 && this.Mat[i][j] > -0.00001) { 
+            // PERLU TANYA SAMPAI 0.0000 BERAPA ANGKA DIANGGAP 0
+            this.Mat[i][j] = 0;
+        } 
+
+        return this.Mat[i][j];
     }
 
     void interchangeRow(int row, float scale, int PivotRow) {
@@ -428,8 +434,8 @@ class Matriks {
                     if (this.Mat[j][pivotidx] != 0) {
                         float scale = this.Mat[j][pivotidx] / pivot;
                         this.interchangeRow(j, scale, i);
-                    }
-                    this.Mat[j][pivotidx] = 0;      
+                    }   
+                    RoundToZero(j, pivotidx);
                 }
             }
         }
