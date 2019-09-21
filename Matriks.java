@@ -82,28 +82,6 @@ class Matriks {
         this.NColEff = NCol;
     }
     
-    
-
-    
-
-    
-
-    // float Elmt(Matriks M, int i, int j) {
-    //     return M.Mat[i][j];
-    // }
-    /*
-    void Gauss(int row, int col) {
-        //jika matrix[1][1]=0 tukar baris
-        //jika nggak 0
-        for (int i=1;i<row-1;i++){
-            for(int j=1;j<col;j++){
-                for(int k=i+1;k<row;k++){
-                    matrix[k][j] = matrix[k][j] - (matrix[k][i]/matrix[i][i])*matrix[i][j];
-                } 
-            }
-        }
-    }
-    */
     float[][] Transpose(float[][] Mat, int NRowEff, int NColEff) {
         int i, j;
         float[][] M_transpose = new float[RowMax+1][ColMax+1];        ;
@@ -322,29 +300,6 @@ class Matriks {
         return Identity;
     }
 
-    // Matriks EchelonMatriks() {
-    //     Matriks Echelon = new Matriks();
-    //     int i, j, k;
-    //     float pivot, scale;
-
-    //     Echelon.CopyMatriks(this);
-    //     pivot = Echelon.Mat[RowMin][ColMin];
-    //     for (j = ColMin; j <= this.NColEff; j++) {
-    //         Echelon.Mat[RowMin][j] /= pivot;       
-    //     }
-
-    //     for (i = RowMin; i <= this.NRowEff; i++) {
-    //         for (j = RowMin+1; j <= this.NRowEff; j++) {
-    //             scale = Echelon.Mat[j][j];
-    //             for (k = ColMin; k <= this.NColEff; k++) {
-    //                 Echelon.Mat[j][k] = Echelon.Mat[j][k] - scale*Echelon.Mat[i][k];
-    //             }
-    //         }
-    //     }
-    //     return Echelon;
-    // }
-    
-
      //==========check if matrix is a square matrix================
     boolean isSquare(){
         return (this.NRowEff == this.NColEff);
@@ -412,27 +367,6 @@ class Matriks {
         }
     }
 
-
-
-    // void MoveZeroRow() {
-    //     boolean isZeroRow = true;
-    //     for (int i = RowMin; i <= this.NRowEff; i++) {
-    //         int j = ColMin;
-    //         while (j <= this.NColEff && !isZeroRow) {
-    //             if (this.Mat[i][j] != 0) {
-    //                 isZeroRow = false;
-    //             } else {
-    //                 j++;
-    //             }
-    //         } 
-    //         if (isZeroRow) {
-    //             for (int k = i; k < this.NRowEff; k++) {
-    //                 swapRow(k, k+1);
-    //             }
-    //         }
-    //     }
-    // }
-
     void sortLeading() {
         for (int i = RowMin; i <= this.NRowEff; i++) {
             for (int j = i+1; j <= this.NRowEff; j++) {
@@ -447,7 +381,6 @@ class Matriks {
     //==============Gauss to convert to Echelon Form ============
     void EchelonForm() {
         //Kamus
-        boolean foundlead;
         float pivot;
         int i, j, pivotidx;
 
@@ -461,8 +394,6 @@ class Matriks {
                     if (this.Mat[j][pivotidx] != 0) {
                         float scale = this.Mat[j][pivotidx] / pivot;
                         this.interchangeRow(j, scale, i);
-                        TulisMatriks();
-                        System.out.println("-----------");
                     }
                     this.Mat[j][pivotidx] = 0;      
                 }
@@ -477,64 +408,33 @@ class Matriks {
             }
             i++;
         }
-        System.out.println("Matriks: ");
-        this.TulisMatriks();
-        System.out.println("----------------");
         this.sortLeading();
-
-        // boolean cek=true;//anggapan semua elemen baris NRowEff-1 bernilai 0 
-        // while ((j<=this.NColEff-1)&&(cek)){
-        //     if (this.Mat[this.NRowEff-1][j]!=0){
-        //         cek = false;
-        //     }
-        //     j++;
-        // }
-        // if (cek){
-        //     this.Mat[NRowEff][NColEff] = 0;
-        // }
-
     }
 
-    // void ReducedEchelonForm() {
-    //     this.EchelonForm();
+    void ReducedEchelonForm() {
+        this.EchelonForm();
 
-    //     /* KAMUS LOKAL */
-    //     boolean foundlead=false;
-    //     float valUndef= -99999;
-    //     int i,j;
+        //Kamus
+        float pivot;
+        int i, j, pivotidx;
 
-    //     SwapZeroDiag(this.NRowEff);  //Pengecekkan sebelum OBE
-    //     for (i = this.NRowEff; i >= RowMin; i--){
-    //         SwapZeroDiag(i);
-    //         for (j=i-1;j>=ColMin;j--){
-    //             if (this.Mat[i][i] != 0){
-    //                 float scale = this.Mat[j][i] / this.Mat[i][i];
-    //                 for (int k=this.NColEff;k>=ColMin;k--){
-    //                     this.Mat[j][k]=this.Mat[j][k] -(scale*this.Mat[i][k]);   
-    //                 }
-    //             } 
-    //         }
-    //     }
+        // Algorithm
+        //Pengecekkan sebelum OBE
+        for (i = this.NRowEff; i >= RowMin; i--) {
+            if (isPivotExist(i)) {
+                pivotidx = this.PivotColIdx(i);
+                pivot = this.SearchLeading(i);
+                for (j = i-1; j >= ColMin; j--) {
+                    if (this.Mat[j][pivotidx] != 0) {
+                        float scale = this.Mat[j][pivotidx] / pivot;
+                        this.interchangeRow(j, scale, i);
+                    }
+                    this.Mat[j][pivotidx] = 0;      
+                }
+            }
+        }
 
-    //     //bagi setiap baris dengan leading element pada setiap baris sehingga jadi leading 1
-    //     j =1;
-    //     i =1;
-    //     while (i<=this.NRowEff){
-    //         foundlead = false;
-    //         // Mencari Leading Coeficient
-    //         while ((j <= this.NColEff) && (!foundlead)) {
-    //             if (this.Mat[i][j] != 0){
-    //                 foundlead = true;
-    //             } else {
-    //                 j +=1;
-    //             }
-    //             scaleRow(i, this.Mat[i][j]);
-    //         }
-    //         // scaleRow(i, this.Mat[i][j]);
-    //         i +=1;
-    //     }
-
-    // }
+    }
 
 
 }
