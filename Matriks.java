@@ -461,63 +461,14 @@ class Matriks {
                     if (this.Mat[j][pivotidx] != 0) {
                         float scale = this.Mat[j][pivotidx] / pivot;
                         this.interchangeRow(j, scale, i);
-                        // TulisMatriks();
-                        // System.out.println("-----------");
-                    }      
+                        TulisMatriks();
+                        System.out.println("-----------");
+                    }
+                    this.Mat[j][pivotidx] = 0;      
                 }
             }
         }
 
-        // this.MoveZeroRow();
-        // for (i = RowMin; i <= this.NRowEff; i++) {
-        //     pivot = SearchLeading(i);
-        //     if (pivot == 0) {
-        //         if (isPivotExist(i)) {
-        //             SwapPivot(i);
-        //             pivot = SearchLeading(i);
-        //             for (j = i+1; j <= this.NRowEff; j++) {
-        //                 float scale = this.Mat[j][i] / pivot;
-        //                 this.interchangeRow(j, scale, i);
-        //                 TulisMatriks();
-        //                 System.out.println("-----------");                 
-        //             }
-        //         }
-        //     } else {
-        //         for (j = i+1; j <= this.NRowEff; j++) {
-        //             float scale = this.Mat[j][i] / pivot;
-        //             this.interchangeRow(j, scale, i);
-        //             TulisMatriks();
-        //             System.out.println("-----------");                 
-        //         }
-        //     }
-            
-        //     System.out.println("-----------");
-        // }
-
-        //Algorithm
-        // SwapPivot(1);  //Pengecekkan sebelum OBE
-        // l = 1;
-        // for (i=1;i<=this.NRowEff;i++){
-        //     SwapPivot(i);
-        //     if (isPivotExist(i)) {
-        //         for (j=i+1;j<=this.NRowEff;j++){
-        //             if (this.Mat[i][l] != 0){
-        //                 float scale = this.Mat[j][i] / this.Mat[i][l];
-        //                 for (int k=1;k<=this.NColEff;k++){
-        //                     this.Mat[j][k]=this.Mat[j][k] -(scale*this.Mat[i][k]);
-        //                     TulisMatriks();     
-        //                     System.out.println("----");        
-        //                 }
-        //             } 
-        //             // noZeroDiag(j);
-        //         }
-        //         System.out.println("----");
-        //         // noZeroDiag(i);
-        //         l++;
-        //     } else {
-        //         l+=2;
-        //     }
-        // }    
         //bagi setiap baris dengan leading element pada setiap baris sehingga jadi leading 1
         i = RowMin;
         while (i <= this.NRowEff) {
@@ -526,6 +477,7 @@ class Matriks {
             }
             i++;
         }
+        System.out.println("Matriks: ");
         this.TulisMatriks();
         System.out.println("----------------");
         this.sortLeading();
