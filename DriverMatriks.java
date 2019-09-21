@@ -7,11 +7,13 @@ class DriverMatriks {
         // int PilihanMenu,PilihanSubMenu;
 
         // // membuat scanner baru
-        Scanner input = new Scanner(System.in);
+        Scanner baca = new Scanner(System.in);
         
         Matriks M = new Matriks();
         Matriks MI = new Matriks();
-        // Matriks M2 = new Matriks();
+        // Menu Menu = new Menu();
+        // // Matriks M2 = new Matriks();
+        // Menu.TulisMenu();
 
         M.BacaMatriks();
         // M.TulisMatriks(); System.out.println();
@@ -25,6 +27,7 @@ class DriverMatriks {
         M.ReducedEchelonForm();
         M.TulisMatriks(); System.out.println();
 
+        M.Simpan();
 
         // // M.BacaFileMatriks("test.txt");
         // // System.out.println("Isi matriks: ");
