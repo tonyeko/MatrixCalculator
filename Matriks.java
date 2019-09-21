@@ -5,7 +5,7 @@ class Matriks {
     /* ATRIBUT */
     int RowMin = 1; int ColMin = 1;
     int RowMax = 100; int ColMax = 100;
-    int IdxUndef = -999;
+    int IdxUndef = 9999;
     int NRowEff, NColEff;
     float[][] Mat = new float[RowMax+1][ColMax+1];
 
@@ -414,22 +414,33 @@ class Matriks {
 
 
 
-    void MoveZeroRow() {
-        boolean isZeroRow = true;
+    // void MoveZeroRow() {
+    //     boolean isZeroRow = true;
+    //     for (int i = RowMin; i <= this.NRowEff; i++) {
+    //         int j = ColMin;
+    //         while (j <= this.NColEff && !isZeroRow) {
+    //             if (this.Mat[i][j] != 0) {
+    //                 isZeroRow = false;
+    //             } else {
+    //                 j++;
+    //             }
+    //         } 
+    //         if (isZeroRow) {
+    //             for (int k = i; k < this.NRowEff; k++) {
+    //                 swapRow(k, k+1);
+    //             }
+    //         }
+    //     }
+    // }
+
+    void sortLeading() {
         for (int i = RowMin; i <= this.NRowEff; i++) {
-            int j = ColMin;
-            while (j <= this.NColEff && !isZeroRow) {
-                if (this.Mat[i][j] != 0) {
-                    isZeroRow = false;
-                } else {
-                    j++;
-                }
-            } 
-            if (isZeroRow) {
-                for (int k = i; k < this.NRowEff; k++) {
-                    swapRow(k, k+1);
-                }
+            for (int j = i+1; j <= this.NRowEff; j++) {
+                if (this.PivotColIdx(i) > this.PivotColIdx(j)) {
+                    swapRow(i, j);
+                } 
             }
+
         }
     }
 
@@ -450,8 +461,8 @@ class Matriks {
                     if (this.Mat[j][pivotidx] != 0) {
                         float scale = this.Mat[j][pivotidx] / pivot;
                         this.interchangeRow(j, scale, i);
-                        TulisMatriks();
-                        System.out.println("-----------");
+                        // TulisMatriks();
+                        // System.out.println("-----------");
                     }      
                 }
             }
@@ -515,7 +526,8 @@ class Matriks {
             }
             i++;
         }
-
+        this.TulisMatriks();
+        System.out.println("----------------");
         this.sortLeading();
 
         // boolean cek=true;//anggapan semua elemen baris NRowEff-1 bernilai 0 
@@ -529,14 +541,6 @@ class Matriks {
         //     this.Mat[NRowEff][NColEff] = 0;
         // }
 
-        // untuk mengatasi -0 karena digit desimal yang sangat kecil misal 1.73396E-6
-        // for (i=RowMin; i<=this.NColEff; i++) {
-        //     for (j=ColMin; j<=this.NRowEff; j++) {
-        //         if (this.Mat[i][j] < 0 && this.Mat[i][j] > -0.00000000001) {
-        //             this.Mat[i][j] = 0;
-        //         }   
-        //     }
-        // }
     }
 
     // void ReducedEchelonForm() {
