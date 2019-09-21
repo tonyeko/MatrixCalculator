@@ -367,9 +367,9 @@ class Matriks {
 
     int PivotColIdx(int row) {
         // RETURN INDEX PIVOT 
-        int i = row; int j = ColMin; 
+        int j = ColMin; 
         while (j <= this.NColEff) {
-            if (this.Mat[i][j] != 0) {
+            if (this.Mat[row][j] != 0) {
                 return j;
             }
             else {
@@ -412,11 +412,31 @@ class Matriks {
         }
     }
 
+
+
+    void MoveZeroRow() {
+        boolean isZeroRow = true;
+        for (int i = RowMin; i <= this.NRowEff; i++) {
+            int j = ColMin;
+            while (j <= this.NColEff && !isZeroRow) {
+                if (this.Mat[i][j] != 0) {
+                    isZeroRow = false;
+                } else {
+                    j++;
+                }
+            } 
+            if (isZeroRow) {
+                for (int k = i; k < this.NRowEff; k++) {
+                    swapRow(k, k+1);
+                }
+            }
+        }
+    }
+
     //==============Gauss to convert to Echelon Form ============
-    void EchelonForm(){
+    void EchelonForm() {
         //Kamus
-        // int det = 1;
-        boolean foundlead=false;
+        boolean foundlead;
         float pivot;
         int i, j, pivotidx;
 
@@ -425,17 +445,19 @@ class Matriks {
         for (i = RowMin; i <= this.NRowEff; i++) {
             if (isPivotExist(i)) {
                 pivotidx = this.PivotColIdx(i);
-                pivot = this.Mat[i][pivotidx];
+                pivot = this.SearchLeading(i);
                 for (j = i+1; j <= this.NRowEff; j++) {
-                    if (pivot != 0) {
+                    if (this.Mat[j][pivotidx] != 0) {
                         float scale = this.Mat[j][pivotidx] / pivot;
                         this.interchangeRow(j, scale, i);
                         TulisMatriks();
-                        System.out.println("-----------"); 
-                    }     
+                        System.out.println("-----------");
+                    }      
                 }
             }
         }
+
+        // this.MoveZeroRow();
         // for (i = RowMin; i <= this.NRowEff; i++) {
         //     pivot = SearchLeading(i);
         //     if (pivot == 0) {
@@ -487,24 +509,14 @@ class Matriks {
         // }    
         //bagi setiap baris dengan leading element pada setiap baris sehingga jadi leading 1
         i = RowMin;
-        j = ColMin;
-        while (i<=this.NRowEff) {
-            foundlead = false;
-            // Mencari Leading Coeficient
-            while ((j<=this.NColEff) && (!foundlead)) {
-                if (this.Mat[i][j] != 0){
-                    foundlead = true;
-                } else {
-                    j++;
-                }
-            }
-            // Ditemukan Leading Coeficient atau j > NColEff,
-            // Jika j > NColEff, maka Leading Coef tidak ditemukan, tidak dilakukan pembagian terhadap 0
-            if (j <= this.NColEff) {
-                scaleRow(i, this.Mat[i][j]);
+        while (i <= this.NRowEff) {
+            if (this.PivotColIdx(i) != IdxUndef) {
+                scaleRow(i, this.SearchLeading(i));
             }
             i++;
         }
+
+        this.sortLeading();
 
         // boolean cek=true;//anggapan semua elemen baris NRowEff-1 bernilai 0 
         // while ((j<=this.NColEff-1)&&(cek)){
