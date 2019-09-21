@@ -13,9 +13,11 @@ class DriverMatriks {
         // Matriks M2 = new Matriks();
 
         M.BacaMatriks();
-        M.TulisMatriks(); System.out.println();
+        // M.TulisMatriks(); System.out.println();
         M.EchelonForm(); 
         M.TulisMatriks(); System.out.println();
+        // M.ReducedEchelonForm(); 
+        // M.TulisMatriks(); System.out.println();
 
         // // M.BacaFileMatriks("test.txt");
         // // System.out.println("Isi matriks: ");
