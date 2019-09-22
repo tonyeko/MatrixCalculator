@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.*;
+import java.lang.*;
 
 class Interpolasi {
 
@@ -57,11 +58,80 @@ class Interpolasi {
         x = input.nextFloat();
         hasil = 0;
         for (i = MI.RowMin; i <= MI.NRowEff; i++) {
-           System.out.println(MI.GetCoef().Cramer(MI.GetConstant(),i));
+          // System.out.println(MI.GetCoef().Cramer(MI.GetConstant(),i));
            hasil = hasil + (MI.GetCoef().Cramer(MI.GetConstant(),i) * XPangkat (x, i-1)) ; 
         }
 
         return hasil;
+
+    }
+
+    void TulisPersamaanPolinom (Matriks MI)
+    {
+        float a;
+        int i;
+
+        System.out.print("p");
+        System.out.print(MI.NRowEff-1);
+        System.out.print("(x) = ");
+
+        for (i = MI.RowMin; i <= MI.NRowEff; i++) 
+        {
+            a = MI.GetCoef().Cramer(MI.GetConstant(),i);
+            if ((i-1) == 0)
+            {
+                System.out.print(a);
+              
+            }
+            else if ((i-1) == 1 && (a>0))
+            {
+                System.out.print(" + ");
+                System.out.print(a);
+                System.out.print("x");
+            }
+            else if ((i-1) == 1 && (a<0))
+            {
+                a = Math.abs(a);
+                System.out.print(" - ");
+                System.out.print(a);
+                System.out.print("x");
+            }
+            else if ((i < MI.NRowEff) && ((i-1) > 1) && (a>0))
+            {
+                System.out.print(" + ");
+                System.out.print(a);
+                System.out.print("x^");
+                System.out.print((i-1));
+                
+            }
+            else if ((i < MI.NRowEff) && ((i-1) > 1) && (a<0))
+            {
+                a = Math.abs(a);
+                System.out.print(" - ");
+                System.out.print(a);
+                System.out.print("x^");
+                System.out.print((i-1));
+                
+            }
+            else if ((i == MI.NRowEff) && ((i-1) > 1) && (a>0))
+            {
+                System.out.print(" + ");
+                System.out.print(a);
+                System.out.print("x^");
+                System.out.print((i-1));
+            }
+            else 
+            {
+                a = Math.abs(a);
+                System.out.print(" - ");
+                System.out.print(a);
+                System.out.print("x^");
+                System.out.print((i-1));
+                
+
+            }
+            
+        }
 
     }
 

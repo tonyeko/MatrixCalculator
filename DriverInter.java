@@ -14,10 +14,12 @@ class DriverInter {
     
     // System.out.print(hasil);
    
+   
     M1 = I.InputTitik();
-    M1.TulisMatriks();
-    hasil = I.HasilInterpolasi (M1);
-    System.out.print(hasil);
+   // M1.TulisMatriks();
+  //   hasil = I.HasilInterpolasi (M1);
+   // System.out.print(hasil);
+    I.TulisPersamaanPolinom(M1);
 
     }
 
