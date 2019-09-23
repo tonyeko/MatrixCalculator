@@ -461,11 +461,107 @@ class Matriks {
                 }
             }
         }
+    }
+
+    int[] FreeVarIdx() {
+        // RETURN IDX UNDEF JIKA TIDAK DITEMUKAN
 
     }
 
+    boolean isNoSolution() {
+        boolean pass = false;
+        boolean found = false;
+        for (int i = RowMin; i <= this.NRowEff; i++) {
+            int j = ColMin;
+            while (j <= this.NColEff-1 && !pass) {
+                if (this.Mat[i][j] != 0) {
+                    pass = true;
+                }
+            }
+            if (!pass) {
+                if (this.Mat[i][this.NColEff] != 0) {
+                    found = true;
+                }
+            }
+        }
 
-    // ================ SPL ==========================
+        return found;
+    }
+
+    boolean isManySolution() {
+        // BENER GAK KALO SEKALI KETEMU BARIS YG ISINYA 0 SEMUA, BERARTI MANY SOLUTION
+        boolean pass = false;
+        boolean found = false;
+        for (int i = RowMin; i <= this.NRowEff; i++) {
+            int j = ColMin;
+            while (j <= this.NColEff-1 && !pass) {
+                if (this.Mat[i][j] != 0) {
+                    pass = true;
+                }
+            }
+            if (!pass) {
+                if (this.Mat[i][this.NColEff] == 0) {
+                    found = true;
+                }
+            }
+        }
+
+        return found;
+    }
+
+    // =======================SPL=========================
+    void TulisSPL (int cara){
+        switch (cara) {
+            case 1 :  
+                System.out.println("Solusi SPL Menggunakan Metode Eliminasi Gauss");
+                // this.metodeGauss();
+                break;
+            case 2:
+                System.out.println("Solusi SPL Menggunakan Metode eliminasi Gauss-Jordan");
+                this.metodeGaussJordan();
+                break;   
+            case 3:
+                System.out.println("Solusi SPL Menggunakan Metode Matriks Balikan");
+                this.metodeMatriksBalikan();
+                break;   
+            case 4:
+                System.out.println("Solusi SPL Menggunakan Kaidah Crammer");
+                this.metodeCrammer();
+                break;   
+        }
+    }
+
+    
+
+
+    
+    // void metodeGauss() {
+
+    // }
+
+
+
+    void metodeGaussJordan() {
+        // ADA PREKONDISI GAK YA?
+        this.ReducedEchelonForm();
+        if (this.isNoSolution()) {
+            System.out.println("SPL tidak memiliki solusi.");
+        } else {
+            if (this.isManySolution()) {
+                
+            } else {
+                for (int i = RowMin; i <= this.NRowEff; i++) {
+                    for (int j = ColMin; j <= this.NColEff-1; j++) {
+                        if (this.Mat[i][j] != 0) {
+                            System.out.println("x"+i+" = "+this.Mat[i][this.NColEff]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
     void metodeMatriksBalikan() {
         //x = Ainv B
         Matriks A = this.GetCoef();
@@ -500,25 +596,6 @@ class Matriks {
             //Force to Square by concatenating 0 in elemen
         }
         
-    }
-
-    void tulisSPL (int cara){
-        switch (cara){
-            case 1 :  
-                System.out.println("Metode Eliminasi Gauss");
-            
-                break;
-            case 2:
-                System.out.println("Metode eliminasi Gauss-Jordan");
-                break;   
-            case 3:
-                System.out.println("Matriks Balikan");
-                break;   
-            case 4:
-                System.out.println("Kaidah Crammer");
-                metodeCrammer();
-                break;   
-        }
     }
 
 

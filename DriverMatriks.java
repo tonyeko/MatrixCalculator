@@ -16,6 +16,8 @@ class DriverMatriks {
         // Menu.TulisMenu();
 
         M.BacaMatriks();
+        M.ReducedEchelonForm();
+        M.TulisMatriks();
         // M.TulisMatriks(); System.out.println();
         // M.EchelonForm(); 
         // M.TulisMatriks(); System.out.println();
@@ -27,8 +29,8 @@ class DriverMatriks {
         // M.ReducedEchelonForm();
         // M.TulisMatriks(); System.out.println();
 
-        M.metodeMatriksBalikan();
-        M.metodeCrammer();
+        M.metodeGaussJordan();
+        // M.metodeCrammer();
         // M.Simpan();
 
         // // M.BacaFileMatriks("test.txt");
@@ -44,9 +46,11 @@ class DriverMatriks {
         
         // System.out.println();
 
+        // TES INTERPOLASI 
         // Interpolasi I = new Interpolasi();
 
-        // M2 = I.InputTitik(3);
+        // MI = I.InputTitik();
+        // I.TulisPersamaanPolinom(MI);
         // M2.TulisMatriks();
 
         // System.out.println(M2.GetCoef().Cramer(M2.GetConstant(), 1));
