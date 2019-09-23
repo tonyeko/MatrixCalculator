@@ -15,16 +15,15 @@ class DriverMatriks {
         // // Matriks M2 = new Matriks();
         // Menu.TulisMenu();
 
-        M.BacaMatriks();
-        M.TulisMatriks(); System.out.println();
-        // M = M.InversMetodeOBE();
+        M.BacaMatriks(); System.out.println();
+        // M.ReducedEchelonForm();
         // M.TulisMatriks(); System.out.println();
-        M.MatriksCofactor().TulisMatriks(); System.out.println();
         M.MatriksAdjoint().TulisMatriks(); System.out.println();
-        System.out.println(M.Determinan());
-        System.out.println(M.DeterminanMetodeOBE());
-        // M = M.MatriksInvers();
-        // M.TulisMatriks(); System.out.println();
+        M = M.InversMetodeOBE();
+        M.TulisMatriks(); System.out.println();
+        M = M.MatriksInvers();
+        M.TulisMatriks(); System.out.println();
+        M.Simpan(4);
 
         // M.TulisMatriks(); System.out.println();
         // M.EchelonForm(); 

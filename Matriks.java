@@ -39,7 +39,7 @@ class Matriks {
     void TulisMatriks() {
         for (int i = 1; i <= this.NRowEff; i++) {
             for (int j = 1; j <= this.NColEff; j++) {
-                System.out.printf("%.3f\t", this.Mat[i][j]);
+                System.out.printf("%.4f\t", this.Mat[i][j]);
             }
             System.out.println();
         }
@@ -82,7 +82,51 @@ class Matriks {
         this.NColEff = NCol;
     }
 
+    void Simpan(int dType) { 
+        //harus menconvert semua datatype ke byte
+        //dType blh 1/2/3/4 sesuai dengan data type yang diingikan
+        try{
+            //Variable Lokal sementara
+            Matriks MHsl = this;  //Matriks
+            int intTemp;    //int
+            double dblTemp; //double
+            String strTemp; //String
+            String spasi ="\t";
 
+            //Baca nama file
+            Scanner baca = new Scanner(System.in);
+            System.out.print("Masukkan nama file: ");
+            String namafile = baca.nextLine(); System.out.println();
+            namafile = namafile+".txt";  
+            FileOutputStream hasil = new FileOutputStream(namafile);    
+            
+            switch(dType){
+                case 1: strTemp="Hello";    
+                        byte b[]=strTemp.getBytes();//convert ke byte
+                        hasil.write(b);
+                        break;
+                case 2: intTemp = 123; 
+                        b =String.valueOf(intTemp).getBytes();
+                        hasil.write(b);
+                        break;
+                case 3: dblTemp = 12.52; 
+                        b =String.valueOf(dblTemp).getBytes();
+                        hasil.write(b);
+                        break;
+                case 4:  for (int i=1;i<=MHsl.NRowEff;i++){
+                            for (int j=1;j<=MHsl.NColEff;j++){
+                                b = String.valueOf(MHsl.Mat[i][j]).getBytes();
+                                hasil.write(b);
+                                b = spasi.getBytes();
+                                hasil.write(b);
+                            }
+                            hasil.write(10);
+                        }
+            }
+            hasil.close();    
+            System.out.println("File "+namafile+" berhasil disimpan");
+        }catch(Exception e){System.out.println(e);}    
+    }
 
     // void Simpan() {
     //     Scanner baca = new Scanner(System.in);
@@ -196,6 +240,29 @@ class Matriks {
 
 
     // ===================================== INVERS ==============================================
+    Matriks MatriksInvers() {
+        Matriks MInvers = new Matriks();
+        Matriks Madj = new Matriks();
+        int i, j;
+        float det;
+        
+        MInvers.NRowEff = this.NRowEff; 
+        MInvers.NColEff = this.NColEff; 
+        det = this.Determinan();
+        Madj = this.MatriksAdjoint();
+
+        for (i = RowMin; i <= this.NRowEff; i++) {
+            for (j = ColMin; j <= this.NColEff ; j++) {
+                MInvers.Mat[i][j] = (1/det) * (Madj.Mat[i][j]); 
+                this.RoundToZero(i, j);
+                // if (MInvers.Mat[i][j] == -0) {
+                //     MInvers.Mat[i][j] *= -1;
+                // }
+            }
+        }
+        return MInvers;
+    }
+    
     Matriks InversMetodeOBE() {
         // NOTE : JANGAN LUPA DI CEK DI PROGRAM UTAMA KALO TIDAK PUNYA INVERS (BANYAK SOLUSI/NO SOLUSI)
         /* 
@@ -294,28 +361,6 @@ class Matriks {
         adj.TransposeMatriks();
         
         return adj;
-    }
-
-    Matriks MatriksInvers() {
-        Matriks MInvers = new Matriks();
-        Matriks Madj = new Matriks();
-        int i, j;
-        float det;
-        
-        MInvers.NRowEff = this.NRowEff; 
-        MInvers.NColEff = this.NColEff; 
-        det = this.Determinan();
-        Madj = this.MatriksAdjoint();
-
-        for (i = RowMin; i <= this.NRowEff; i++) {
-            for (j = ColMin; j <= this.NColEff ; j++) {
-                MInvers.Mat[i][j] = (1/det) * (Madj.Mat[i][j]); 
-                if (MInvers.Mat[i][j] == -0) {
-                    MInvers.Mat[i][j] *= -1;
-                }
-            }
-        }
-        return MInvers;
     }
 
     Matriks MakeAugmented(Matriks M2) {
@@ -436,7 +481,7 @@ class Matriks {
     void scaleRow(int i,float scale){
         for(int j = ColMin; j <= this.NColEff; j++) {
             this.Mat[i][j] = this.Mat[i][j]/scale;
-            RoundToZero(i, j);
+            this.RoundToZero(i, j);
         }
     }
 
@@ -521,7 +566,7 @@ class Matriks {
                         float scale = this.Mat[j][pivotidx] / pivot;
                         this.interchangeRow(j, scale, i);
                     }   
-                    RoundToZero(j, pivotidx);
+                    this.RoundToZero(j, pivotidx);
                 }
             }
         }
