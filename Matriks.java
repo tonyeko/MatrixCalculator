@@ -158,8 +158,8 @@ class Matriks {
             return this.Mat[RowMin][ColMin]*this.Mat[RowMin+1][ColMin+1] - this.Mat[RowMin+1][ColMin]*this.Mat[RowMin][ColMin+1];
         } else {
             for (i = ColMin; i <= this.NColEff; i++) {
-                Kofaktor = Kofaktor(RowMin, i);
-                det += Sign * this.Mat[RowMin][i] * Kofaktor.Determinan();
+                Kofaktor = Minor(RowMin, i);
+                det += this.Mat[RowMin][i] * (Sign * Kofaktor.Determinan());
                 Sign *= -1;
             }
         }
@@ -224,7 +224,7 @@ class Matriks {
 
 
 
-    Matriks Kofaktor(int a, int b) {
+    Matriks Minor(int a, int b) {
         Matriks Cof = new Matriks();
         int i, j, c1, c2;
 
@@ -266,18 +266,21 @@ class Matriks {
 
     Matriks MatriksCofactor() {
         Matriks MC = new Matriks();
-        int i, j;
-        int Sign = 1;
+        int i, j, Sign;
 
         MC.NRowEff = this.NRowEff;
         MC.NColEff = this.NColEff;
         for (i = RowMin; i <= this.NRowEff; i++) {
             for (j = ColMin; j <= this.NColEff ; j++) {
-                MC.Mat[i][j] = Sign * this.Kofaktor(i, j).Determinan();
+                if ((i+j)%2 == 0) {
+                    Sign = 1;
+                } else {
+                    Sign = -1;
+                }
+                MC.Mat[i][j] = Sign * this.Minor(i, j).Determinan();
                 if (MC.Mat[i][j] == -0) {
                     MC.Mat[i][j] *= -1;
                 }
-                Sign *= -1;
             }
         }
         return MC;
