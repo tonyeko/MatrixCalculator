@@ -163,6 +163,27 @@ class Matriks {
         return det;   
     }
 
+    void DeterminanMetodeOBE() {
+        float pivot;
+        int i, j, pivotidx;
+
+        // Algorithm
+        //Pengecekkan sebelum OBE
+        for (i = RowMin; i <= this.NRowEff; i++) {
+            if (isPivotExist(i)) {
+                pivotidx = this.PivotColIdx(i);
+                pivot = this.SearchLeading(i);
+                for (j = i+1; j <= this.NRowEff; j++) {
+                    if (this.Mat[j][pivotidx] != 0) {
+                        float scale = this.Mat[j][pivotidx] / pivot;
+                        this.interchangeRow(j, scale, i);
+                    }
+                    this.Mat[j][pivotidx] = 0;      
+                }
+            }
+        }
+    }
+
     Matriks Kofaktor(int a, int b) {
         Matriks Cof = new Matriks();
         int i, j, c1, c2;

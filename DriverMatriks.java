@@ -16,7 +16,7 @@ class DriverMatriks {
         // Menu.TulisMenu();
 
         M.BacaMatriks();
-        M.EchelonForm();
+        M.DeterminanMetodeOBE();
         M.TulisMatriks();
         // M.TulisMatriks(); System.out.println();
         // M.EchelonForm(); 
@@ -29,7 +29,7 @@ class DriverMatriks {
         // M.ReducedEchelonForm();
         // M.TulisMatriks(); System.out.println();
 
-        M.metodeGaussJordan();
+        // M.metodeGaussJordan();
         // M.metodeCrammer();
         // M.Simpan();
 
