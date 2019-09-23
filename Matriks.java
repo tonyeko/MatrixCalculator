@@ -127,28 +127,6 @@ class Matriks {
             System.out.println("File "+namafile+" berhasil disimpan");
         }catch(Exception e){System.out.println(e);}    
     }
-
-    // void Simpan() {
-    //     Scanner baca = new Scanner(System.in);
-    //     System.out.print("Masukkan nama file: ");
-    //     String namafile = baca.next(); System.out.println();
-    //     Matriks hasil = this;
-
-    //     File simpanfile = new File (namafile);
-
-    //     while (simpanfile.exists()) {
-    //         System.out.print("File sudah ada. Masukkan nama file yang lain: ");
-    //         namafile = baca.next(); System.out.println();
-    //         simpanfile = new File (namafile);
-    //     }
-
-    //     simpanfile.createNewFile();
-
-    //     FileWriter fw = new FileWriter(simpanfile.getAbsoluteFile());
-    //     BufferedWriter bw = new BufferedWriter(fw);
-    //     bw.write(hasil);
-    //     bw.close();
-    // }
     
     float[][] Transpose(float[][] Mat, int NRowEff, int NColEff) {
         int i, j;
