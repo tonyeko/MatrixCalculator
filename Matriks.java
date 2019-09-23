@@ -463,10 +463,10 @@ class Matriks {
         }
     }
 
-    int[] FreeVarIdx() {
-        // RETURN IDX UNDEF JIKA TIDAK DITEMUKAN
+    // int[] FreeVarIdx() {
+    //     // RETURN IDX UNDEF JIKA TIDAK DITEMUKAN
 
-    }
+    // }
 
     boolean isNoSolution() {
         boolean pass = false;
@@ -489,7 +489,6 @@ class Matriks {
     }
 
     boolean isManySolution() {
-        // BENER GAK KALO SEKALI KETEMU BARIS YG ISINYA 0 SEMUA, BERARTI MANY SOLUTION
         boolean pass = false;
         boolean found = false;
         for (int i = RowMin; i <= this.NRowEff; i++) {
@@ -548,7 +547,7 @@ class Matriks {
             System.out.println("SPL tidak memiliki solusi.");
         } else {
             if (this.isManySolution()) {
-                
+
             } else {
                 for (int i = RowMin; i <= this.NRowEff; i++) {
                     for (int j = ColMin; j <= this.NColEff-1; j++) {

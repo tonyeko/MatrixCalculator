@@ -16,7 +16,7 @@ class DriverMatriks {
         // Menu.TulisMenu();
 
         M.BacaMatriks();
-        M.ReducedEchelonForm();
+        M.EchelonForm();
         M.TulisMatriks();
         // M.TulisMatriks(); System.out.println();
         // M.EchelonForm(); 
