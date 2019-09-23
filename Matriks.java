@@ -82,6 +82,8 @@ class Matriks {
         this.NColEff = NCol;
     }
 
+
+
     // void Simpan() {
     //     Scanner baca = new Scanner(System.in);
     //     System.out.print("Masukkan nama file: ");
@@ -143,6 +145,7 @@ class Matriks {
         this.Mat[j] = temp;
     }
 
+    // ==================================== DETERMINAN ===========================================
     float Determinan() {
         Matriks Kofaktor = new Matriks();
         int i;
@@ -163,12 +166,14 @@ class Matriks {
         return det;   
     }
 
-    void DeterminanMetodeOBE() {
-        float pivot;
+    float DeterminanMetodeOBE() {
+        // MATRIKS HARUS PERSEGI
+        float pivot, result;
         int i, j, pivotidx;
-
+        Matriks Mtemp = new Matriks();
         // Algorithm
         //Pengecekkan sebelum OBE
+        result = 1; Mtemp.CopyMatriks(this);
         for (i = RowMin; i <= this.NRowEff; i++) {
             if (isPivotExist(i)) {
                 pivotidx = this.PivotColIdx(i);
@@ -181,8 +186,43 @@ class Matriks {
                     this.Mat[j][pivotidx] = 0;      
                 }
             }
+            result *= this.Mat[i][i];
         }
+        this.CopyMatriks(Mtemp);
+        return result;
     }
+
+    // =======================================================================================================
+
+
+    // ===================================== INVERS ==============================================
+    Matriks InversMetodeOBE() {
+        // NOTE : JANGAN LUPA DI CEK DI PROGRAM UTAMA KALO TIDAK PUNYA INVERS (BANYAK SOLUSI/NO SOLUSI)
+        /* 
+        Prekondisi: Matriks dijamin memiliki invers
+        */
+        Matriks MI = new Matriks();
+        Matriks M = new Matriks();
+
+        if (!this.isNoSolution() && !this.isManySolution()) {
+            M.CopyMatriks(this);
+            MI = this.MakeIdentity();
+            M = M.MakeAugmented(MI);
+            M.ReducedEchelonForm();
+
+            for (int i = RowMin; i <= M.NRowEff; i++) {
+                for (int j = ColMin; j <= M.NColEff/2; j++) {
+                    M.Mat[i][j] = M.Mat[i][M.NColEff/2+j];
+                }
+            }
+            M.NColEff /= 2;
+
+        }
+
+        return M;
+    }
+
+
 
     Matriks Kofaktor(int a, int b) {
         Matriks Cof = new Matriks();
