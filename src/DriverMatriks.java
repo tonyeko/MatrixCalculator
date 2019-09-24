@@ -10,14 +10,14 @@ class DriverMatriks {
         // // membuat scanner baru
         Scanner baca = new Scanner(System.in);
         
-        // Matriks M = new Matriks();
+        Matriks M = new Matriks();
         // Matriks MI = new Matriks();
         Menu Menu = new Menu();
         // // Matriks M2 = new Matriks();
         Menu.MainMenu();
 
         // M.BacaMatriks(); System.out.println();
-        // M.ReducedEchelonForm();
+        // M.EchelonForm();
         // M.TulisMatriks(); System.out.println();
         // M.BacaFileMatriks("simpan66.txt");
         // M.MatriksAdjoint().TulisMatriks(); System.out.println();

@@ -4,8 +4,7 @@ import java.util.*;
 import java.lang.*;
 
 class Interpolasi {
-
-    Interpolasi () {}
+    Scanner input = new Scanner(System.in);
 
     float XPangkat (float x, int n)
     {
@@ -20,13 +19,12 @@ class Interpolasi {
         return hasil;
     }
 
-    Matriks InputTitik ()
+    Matriks InputTitik()
     {
         Matriks M = new Matriks ();
 
         int i,j,N;
         float x,y;
-        Scanner input = new Scanner(System.in);
         System.out.print("Masukkan banyak titik: ");
         N = input.nextInt();
 
@@ -45,6 +43,7 @@ class Interpolasi {
                 M.Mat[i][j] =  XPangkat(x,(j-1));
             }
         }
+        M.TulisMatriks();
 
         return M;
 
@@ -55,7 +54,6 @@ class Interpolasi {
         Matriks M = new Matriks();
         int i;
         float x,hasil;
-        Scanner input = new Scanner(System.in);
         System.out.print("Masukkan x yang ingin dinterpolasi: ");
         x = input.nextFloat();
         hasil = 0;
@@ -82,55 +80,59 @@ class Interpolasi {
             a = MI.GetCoef().Crammer(MI.GetConstant(),i);
             if ((i-1) == 0)
             {
-                System.out.print(a);
+                System.out.printf("%.4f", a);
               
             }
             else if ((i-1) == 1 && (a>0))
             {
-                System.out.print(" + ");
-                System.out.print(a);
-                System.out.print("x");
+                // System.out.print(" + ");
+                // System.out.print(a);
+                // System.out.print("x");
+                System.out.printf(" + %.4fx", a);
             }
             else if ((i-1) == 1 && (a<0))
             {
                 a = Math.abs(a);
-                System.out.print(" - ");
-                System.out.print(a);
-                System.out.print("x");
+                // System.out.print(" - ");
+                // System.out.print(a);
+                // System.out.print("x");
+                System.out.printf(" - %.4fx", a);
             }
             else if ((i < MI.NRowEff) && ((i-1) > 1) && (a>0))
             {
-                System.out.print(" + ");
-                System.out.print(a);
-                System.out.print("x^");
-                System.out.print((i-1));
+                // System.out.print(" + ");
+                // System.out.print(a);
+                // System.out.print("x^");
+                // System.out.print((i-1));
+                System.out.printf(" + %.4fx^%d", a, i-1);
                 
             }
             else if ((i < MI.NRowEff) && ((i-1) > 1) && (a<0))
             {
                 a = Math.abs(a);
-                System.out.print(" - ");
-                System.out.print(a);
-                System.out.print("x^");
-                System.out.print((i-1));
+                // System.out.print(" - ");
+                // System.out.print(a);
+                // System.out.print("x^");
+                // System.out.print((i-1));
+                System.out.printf(" - %.4fx^%d", a, i-1);
                 
             }
             else if ((i == MI.NRowEff) && ((i-1) > 1) && (a>0))
             {
-                System.out.print(" + ");
-                System.out.print(a);
-                System.out.print("x^");
-                System.out.print((i-1));
+                // System.out.print(" + ");
+                // System.out.print(a);
+                // System.out.print("x^");
+                // System.out.print((i-1));
+                System.out.printf(" + %.4fx^%d", a, i-1);
             }
             else 
             {
                 a = Math.abs(a);
-                System.out.print(" - ");
-                System.out.print(a);
-                System.out.print("x^");
-                System.out.print((i-1));
-                
-
+                // System.out.print(" - ");
+                // System.out.print(a);
+                // System.out.print("x^");
+                // System.out.print((i-1));
+                System.out.printf(" - %.4fx^%d", a, i-1);
             }
             
         }
