@@ -1,7 +1,8 @@
+package src;
 import java.util.*;
 import java.io.*;
 
-class Matriks {
+public class Matriks {
     /* ATRIBUT */
     int RowMin = 1; int ColMin = 1;
     int RowMax = 100; int ColMax = 100;
@@ -11,7 +12,7 @@ class Matriks {
 
     /* METHOD */
     /** Konstruktor **/
-    Matriks() {
+    public Matriks() {
         this.NColEff = 0;
         this.NRowEff = 0;
         for (int i = 0; i <= this.RowMax; i++) {
@@ -21,11 +22,15 @@ class Matriks {
         }
     }
 
-    int NbElmt(Matriks M) {
+    public int NbElmt(Matriks M) {
         return this.NColEff * this.NRowEff;
     }
 
-    void BacaMatriks() {
+    public float RoundingValue(float N, int scale) {
+        return (float)(Math.round(N * (Math.pow(10, scale))) / (Math.pow(10, scale)));
+    }
+
+    public void BacaMatriks() {
         Scanner baca = new Scanner(System.in);
         System.out.print("Baris: "); this.NRowEff = baca.nextInt();
         System.out.print("Kolom: "); this.NColEff = baca.nextInt();
@@ -36,7 +41,7 @@ class Matriks {
         }  
     }
 
-    void TulisMatriks() {
+    public void TulisMatriks() {
         for (int i = 1; i <= this.NRowEff; i++) {
             for (int j = 1; j <= this.NColEff; j++) {
                 System.out.printf("%.4f\t", this.Mat[i][j]);
@@ -45,7 +50,7 @@ class Matriks {
         }
     }
 
-    Matriks KaliMatriks(Matriks M2) {
+    public Matriks KaliMatriks(Matriks M2) {
         Matriks MRes = new Matriks();
         int i, j, k;
 
@@ -61,7 +66,7 @@ class Matriks {
         return MRes;
     }
 
-    void BacaFileMatriks(String filematriks) throws FileNotFoundException {
+    public void BacaFileMatriks(String filematriks) throws FileNotFoundException {
         int NRow = 0; int NCol = 0;
         File bacafile = new File (filematriks);
         Scanner scanBaris = new Scanner(bacafile);
@@ -82,7 +87,7 @@ class Matriks {
         this.NColEff = NCol;
     }
 
-    void Simpan(int dType) { 
+    public void Simpan(int dType) { 
         //harus menconvert semua datatype ke byte
         //dType blh 1/2/3/4 sesuai dengan data type yang diingikan
         try{
@@ -91,7 +96,7 @@ class Matriks {
             int intTemp;    //int
             double dblTemp; //double
             String strTemp; //String
-            String spasi ="\t";
+            String spasi ="\t";  // NOTE : INI PAKE TAB APA SPASI? KALO SPASI JADI GAK RAPI
 
             //Baca nama file
             Scanner baca = new Scanner(System.in);
@@ -115,7 +120,7 @@ class Matriks {
                         break;
                 case 4:  for (int i=1;i<=MHsl.NRowEff;i++){
                             for (int j=1;j<=MHsl.NColEff;j++){
-                                b = String.valueOf(MHsl.Mat[i][j]).getBytes();
+                                b = String.valueOf(RoundingValue(MHsl.Mat[i][j], 4)).getBytes();
                                 hasil.write(b);
                                 b = spasi.getBytes();
                                 hasil.write(b);
@@ -127,8 +132,8 @@ class Matriks {
             System.out.println("File "+namafile+" berhasil disimpan");
         }catch(Exception e){System.out.println(e);}    
     }
-    
-    float[][] Transpose(float[][] Mat, int NRowEff, int NColEff) {
+
+    public float[][] Transpose(float[][] Mat, int NRowEff, int NColEff) {
         int i, j;
         float[][] M_transpose = new float[RowMax+1][ColMax+1];        ;
         for (i = 1; i <= this.NRowEff; i++) {
@@ -140,7 +145,7 @@ class Matriks {
         return M_transpose;
     }
 
-    void TransposeMatriks() {
+    public void TransposeMatriks() {
         int temp;
 
         this.Mat = this.Transpose(this.Mat, this.NRowEff, this.NColEff);
@@ -149,7 +154,7 @@ class Matriks {
         this.NRowEff = temp;
     }
 
-    void CopyMatriks(Matriks Min) {
+    public void CopyMatriks(Matriks Min) {
         int i, j;
 
         this.NRowEff = Min.NRowEff;
@@ -161,14 +166,14 @@ class Matriks {
         }
     }
 
-    void swapRow(int i, int j) { 
+    public void swapRow(int i, int j) { 
         float[] temp = this.Mat[i];
         this.Mat[i] = this.Mat[j];
         this.Mat[j] = temp;
     }
 
     // ==================================== DETERMINAN ===========================================
-    float Determinan() {
+    public float Determinan() {
         Matriks Kofaktor = new Matriks();
         int i;
         float det = 0;
@@ -188,7 +193,7 @@ class Matriks {
         return det;   
     }
 
-    float DeterminanMetodeOBE() {
+    public float DeterminanMetodeOBE() {
         // MATRIKS HARUS PERSEGI
         float pivot, result;
         int i, j, pivotidx;
@@ -218,7 +223,8 @@ class Matriks {
 
 
     // ===================================== INVERS ==============================================
-    Matriks MatriksInvers() {
+    public Matriks InversMetodeKofaktor() {
+        // METODE KOFAKTOR
         Matriks MInvers = new Matriks();
         Matriks Madj = new Matriks();
         int i, j;
@@ -241,7 +247,7 @@ class Matriks {
         return MInvers;
     }
     
-    Matriks InversMetodeOBE() {
+    public Matriks InversMetodeOBE() {
         // NOTE : JANGAN LUPA DI CEK DI PROGRAM UTAMA KALO TIDAK PUNYA INVERS (BANYAK SOLUSI/NO SOLUSI)
         /* 
         Prekondisi: Matriks dijamin memiliki invers
@@ -269,7 +275,7 @@ class Matriks {
 
 
 
-    Matriks Minor(int a, int b) {
+    public Matriks Minor(int a, int b) {
         Matriks Cof = new Matriks();
         int i, j, c1, c2;
 
@@ -293,7 +299,7 @@ class Matriks {
         return Cof;
     }
 
-    float Crammer(Matriks MHasil, int ColC) {
+    public float Crammer(Matriks MHasil, int ColC) {
         Matriks Pembilang = new Matriks();
         int i;
 
@@ -309,7 +315,7 @@ class Matriks {
         return Pembilang.Determinan()/this.Determinan();
     }
 
-    Matriks MatriksCofactor() {
+    public Matriks MatriksCofactor() {
         Matriks MC = new Matriks();
         int i, j, Sign;
 
@@ -331,7 +337,7 @@ class Matriks {
         return MC;
     }
 
-    Matriks MatriksAdjoint() {
+    public Matriks MatriksAdjoint() {
         Matriks adj = new Matriks();
         adj.NRowEff = this.NRowEff;
         adj.NColEff = this.NColEff;
@@ -341,7 +347,7 @@ class Matriks {
         return adj;
     }
 
-    Matriks MakeAugmented(Matriks M2) {
+    public Matriks MakeAugmented(Matriks M2) {
         int i, j;
         Matriks Aug = new Matriks();
         Aug.NRowEff = this.NRowEff;
@@ -360,7 +366,7 @@ class Matriks {
         return Aug;
     }
 
-    Matriks GetCoef() {
+    public Matriks GetCoef() {
         Matriks MCoef = new Matriks();
         int i, j;
 
@@ -377,7 +383,7 @@ class Matriks {
 
     }
 
-    Matriks GetConstant() {
+    public Matriks GetConstant() {
         Matriks MConst = new Matriks();
         int i;
 
@@ -391,7 +397,7 @@ class Matriks {
         return MConst;
     }
 
-    Matriks MakeIdentity() {
+    public Matriks MakeIdentity() {
         Matriks Identity = new Matriks();
         int i, j;
 
@@ -410,11 +416,11 @@ class Matriks {
     }
 
      //==========check if matrix is a square matrix================
-    boolean isSquare(){
+     public boolean isSquare(){
         return (this.NRowEff == this.NColEff);
     }
 
-    boolean isPivotExist(int row) {
+    public boolean isPivotExist(int row) {
         // RETURN TRUE JIKA ADA PIVOT DI BARIS row
         boolean found = false;
         int j = ColMin; 
@@ -429,7 +435,7 @@ class Matriks {
         return found;
     }
 
-    int PivotColIdx(int row) {
+    public int PivotColIdx(int row) {
         // RETURN INDEX PIVOT 
         int j = ColMin; 
         while (j <= this.NColEff) {
@@ -443,7 +449,7 @@ class Matriks {
         return IdxUndef;
     }
 
-    float SearchLeading(int row) {
+    public float SearchLeading(int row) {
         int j = ColMin;
         while (j <= this.NColEff) {
             if (this.Mat[row][j] != 0) {
@@ -456,14 +462,14 @@ class Matriks {
     }
 
     //============= membagi baris i dengan scale==================
-    void scaleRow(int i,float scale){
+    public void scaleRow(int i,float scale){
         for(int j = ColMin; j <= this.NColEff; j++) {
             this.Mat[i][j] = this.Mat[i][j]/scale;
             this.RoundToZero(i, j);
         }
     }
 
-    float RoundToZero(int i, int j) {
+    public float RoundToZero(int i, int j) {
         if (this.Mat[i][j] == -0){
             this.Mat[i][j] = 0;
         }
@@ -475,14 +481,14 @@ class Matriks {
         return this.Mat[i][j];
     }
 
-    void interchangeRow(int row, float scale, int PivotRow) {
+    public void interchangeRow(int row, float scale, int PivotRow) {
         // row = row - scale*PivotRow
         for (int j = ColMin; j <= this.NColEff; j++) {
             this.Mat[row][j] -= (scale * this.Mat[PivotRow][j]);
         }
     }
 
-    void sortLeading() {
+    public void sortLeading() {
         for (int i = RowMin; i <= this.NRowEff; i++) {
             for (int j = i+1; j <= this.NRowEff; j++) {
                 if (this.PivotColIdx(i) > this.PivotColIdx(j)) {
@@ -494,7 +500,7 @@ class Matriks {
     }
 
     //==============Gauss to convert to Echelon Form ============
-    void EchelonForm() {
+    public void EchelonForm() {
         //Kamus
         float pivot;
         int i, j, pivotidx;
@@ -526,7 +532,7 @@ class Matriks {
         this.sortLeading();
     }
 
-    void ReducedEchelonForm() {
+    public void ReducedEchelonForm() {
         this.EchelonForm();
 
         //Kamus
@@ -555,7 +561,7 @@ class Matriks {
 
     // }
 
-    boolean isNoSolution() {
+    public boolean isNoSolution() {
         boolean pass = false;
         boolean found = false;
         for (int i = RowMin; i <= this.NRowEff; i++) {
@@ -575,7 +581,7 @@ class Matriks {
         return found;
     }
 
-    boolean isManySolution() {
+    public boolean isManySolution() {
         boolean pass = false;
         boolean found = false;
         for (int i = RowMin; i <= this.NRowEff; i++) {
@@ -594,95 +600,5 @@ class Matriks {
 
         return found;
     }
-
-    // =======================SPL=========================
-    void TulisSPL (int cara){
-        switch (cara) {
-            case 1 :  
-                System.out.println("Solusi SPL Menggunakan Metode Eliminasi Gauss");
-                // this.metodeGauss();
-                break;
-            case 2:
-                System.out.println("Solusi SPL Menggunakan Metode eliminasi Gauss-Jordan");
-                this.metodeGaussJordan();
-                break;   
-            case 3:
-                System.out.println("Solusi SPL Menggunakan Metode Matriks Balikan");
-                this.metodeMatriksBalikan();
-                break;   
-            case 4:
-                System.out.println("Solusi SPL Menggunakan Kaidah Crammer");
-                this.metodeCrammer();
-                break;   
-        }
-    }
-
-    
-
-
-    
-    // void metodeGauss() {
-
-    // }
-
-
-
-    void metodeGaussJordan() {
-        // ADA PREKONDISI GAK YA?
-        this.ReducedEchelonForm();
-        if (this.isNoSolution()) {
-            System.out.println("SPL tidak memiliki solusi.");
-        } else {
-            if (this.isManySolution()) {
-
-            } else {
-                for (int i = RowMin; i <= this.NRowEff; i++) {
-                    for (int j = ColMin; j <= this.NColEff-1; j++) {
-                        if (this.Mat[i][j] != 0) {
-                            System.out.println("x"+i+" = "+this.Mat[i][this.NColEff]);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-
-    void metodeMatriksBalikan() {
-        //x = Ainv B
-        Matriks A = this.GetCoef();
-        Matriks B = this.GetConstant();
-        if (A.isSquare()) {
-            float det = A.Determinan();
-            if (det != 0) {
-                Matriks Ainv = A.MatriksInvers();
-                Matriks X = Ainv.KaliMatriks(B);
-                for (int i = RowMin; i <= X.NRowEff; i++) {
-                    System.out.println("x"+i+" = "+ X.Mat[i][ColMin]);
-                }
-            } else {
-                System.out.println("Determinan bernilai 0. Gunakan metode lain untuk mencari solusi SPL");
-            }
-        } else {
-            System.out.println("Bukan matriks persegi, matriks tidak memiliki invers. Gunakan metode lain.");
-        }
-    }
-
-    void metodeCrammer(){
-        if (this.GetCoef().isSquare()){
-            if (this.GetCoef().Determinan()!=0){
-                for (int j=ColMin;j<=this.GetCoef().NColEff;j++){
-                    float solution = this.GetCoef().Crammer(this.GetConstant(),j);
-                    System.out.println("x"+j+ " = " +solution);
-                }
-            } else{ //determinant ==0
-                System.out.println("Determinan bernilai 0. Gunakan metode lain untuk mencari solusi SPL");
-            } 
-        } else {
-            //Force to Square by concatenating 0 in elemen
-        }
-        
-    }
-
 
 }

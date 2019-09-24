@@ -1,3 +1,4 @@
+package src;
 import java.io.*;
 import java.util.*;
 
@@ -9,21 +10,22 @@ class DriverMatriks {
         // // membuat scanner baru
         Scanner baca = new Scanner(System.in);
         
-        Matriks M = new Matriks();
-        Matriks MI = new Matriks();
-        // Menu Menu = new Menu();
+        // Matriks M = new Matriks();
+        // Matriks MI = new Matriks();
+        Menu Menu = new Menu();
         // // Matriks M2 = new Matriks();
-        // Menu.TulisMenu();
+        Menu.MainMenu();
 
-        M.BacaMatriks(); System.out.println();
+        // M.BacaMatriks(); System.out.println();
         // M.ReducedEchelonForm();
         // M.TulisMatriks(); System.out.println();
-        M.MatriksAdjoint().TulisMatriks(); System.out.println();
-        M = M.InversMetodeOBE();
-        M.TulisMatriks(); System.out.println();
-        M = M.MatriksInvers();
-        M.TulisMatriks(); System.out.println();
-        M.Simpan(4);
+        // M.BacaFileMatriks("simpan66.txt");
+        // M.MatriksAdjoint().TulisMatriks(); System.out.println();
+        // M = M.InversMetodeOBE();
+        // M.TulisMatriks(); System.out.println();
+        // // M = M.MatriksInvers();
+        // // M.TulisMatriks(); System.out.println();
+        // M.Simpan(4);
 
         // M.TulisMatriks(); System.out.println();
         // M.EchelonForm(); 

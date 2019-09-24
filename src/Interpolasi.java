@@ -1,3 +1,4 @@
+package src;
 import java.util.Scanner;
 import java.util.*;
 import java.lang.*;
@@ -26,7 +27,7 @@ class Interpolasi {
         int i,j,N;
         float x,y;
         Scanner input = new Scanner(System.in);
-
+        System.out.print("Masukkan banyak titik: ");
         N = input.nextInt();
 
         M.NRowEff = N;
@@ -34,6 +35,7 @@ class Interpolasi {
     
         for (i=1;i<=N;i++)
         {   
+            System.out.print("Masukkan titik ke-"+i+": ");
             M.Mat[i][1] = 1;
             x = input.nextFloat(); 
             y = input.nextFloat();
@@ -54,7 +56,7 @@ class Interpolasi {
         int i;
         float x,hasil;
         Scanner input = new Scanner(System.in);
-
+        System.out.print("Masukkan x yang ingin dinterpolasi: ");
         x = input.nextFloat();
         hasil = 0;
         for (i = MI.RowMin; i <= MI.NRowEff; i++) {
