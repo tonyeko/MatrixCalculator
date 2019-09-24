@@ -58,8 +58,8 @@ class Interpolasi {
         x = input.nextFloat();
         hasil = 0;
         for (i = MI.RowMin; i <= MI.NRowEff; i++) {
-          // System.out.println(MI.GetCoef().Cramer(MI.GetConstant(),i));
-           hasil = hasil + (MI.GetCoef().Cramer(MI.GetConstant(),i) * XPangkat (x, i-1)) ; 
+        
+           hasil = hasil + (MI.GetCoef().Crammer(MI.GetConstant(),i) * XPangkat (x, i-1)) ; 
         }
 
         return hasil;
@@ -77,7 +77,7 @@ class Interpolasi {
 
         for (i = MI.RowMin; i <= MI.NRowEff; i++) 
         {
-            a = MI.GetCoef().Cramer(MI.GetConstant(),i);
+            a = MI.GetCoef().Crammer(MI.GetConstant(),i);
             if ((i-1) == 0)
             {
                 System.out.print(a);
