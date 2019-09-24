@@ -33,7 +33,16 @@ class menu {
         else if (PilihanMenu == 5)
         { System.out.println("Adjoin");}
         else if (PilihanMenu == 6)
-        { System.out.println("Interpolasi");}
+        {  
+            Matriks M1;
+    
+            Interpolasi I = new Interpolasi ();
+
+            M1 = I.InputTitik ();
+            I.TulisPersamaanPolinom (M1);
+            System.out.print(I.HasilInterpolasi (M1));
+            System.out.println("");
+        }
     }
 
     void SubMenuSPL(){

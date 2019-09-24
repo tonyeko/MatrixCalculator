@@ -118,7 +118,7 @@ class Interpolasi {
                 System.out.print(" + ");
                 System.out.print(a);
                 System.out.print("x^");
-                System.out.print((i-1));
+                System.out.println((i-1));
             }
             else 
             {
@@ -126,8 +126,7 @@ class Interpolasi {
                 System.out.print(" - ");
                 System.out.print(a);
                 System.out.print("x^");
-                System.out.print((i-1));
-                
+                System.out.println((i-1));
 
             }
             
