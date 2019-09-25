@@ -1,0 +1,12 @@
+Matriks Input: 
+3.0000	6.0000	-3.0000	-6.0000	
+0.0000	1.0000	-1.0000	-1.0000	
+0.0000	0.0000	0.0000	0.0000	
+Matriks Reduced Echelon Form: 
+1.0000	0.0000	1.0000	0.0000	
+0.0000	1.0000	-1.0000	-1.0000	
+0.0000	0.0000	0.0000	0.0000	
+Solusi SPL Menggunakan Metode eliminasi Gauss-Jordan
+x1 =   - x3 
+x2 =  -1.0  + x3 
+x3 =  x3

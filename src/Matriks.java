@@ -592,21 +592,34 @@ public class Matriks {
     }
 
     public boolean isManySolution() {
-        boolean pass = false;
+        // GAK BERLAKU BUAT 2XN (BARISNYA CUMA 2)
+        // boolean pass = false;
         boolean found = false;
-        for (int i = RowMin; i <= this.NRowEff; i++) {
-            int j = ColMin;
-            while (j <= this.NColEff-1 && !pass) {
-                if (this.Mat[i][j] != 0) {
-                    pass = true;
-                } else {
-                    j++;
+        // for (int i = RowMin; i <= this.NRowEff; i++) {
+        //     int j = ColMin;
+        //     while (j <= this.NColEff-1 && !pass) {
+        //         if (this.Mat[i][j] != 0) {
+        //             pass = true;
+        //         } else {
+        //             j++;
+        //         }
+        //     }
+        //     if (!pass) {
+        //         if (this.Mat[i][this.NColEff] == 0) {
+        //             found = true;
+        //         }
+        //     }
+        // }
+        for (int i = ColMin; i <= (this.NColEff-1); i++) {
+            int count = 0; // jika count == 0 atau count > 1, maka kolom tersebut free variable
+            for (int j = RowMin; j  <= this.NRowEff; j++) {
+                if (this.Mat[j][i] != 0) {
+                    count++;
                 }
             }
-            if (!pass) {
-                if (this.Mat[i][this.NColEff] == 0) {
-                    found = true;
-                }
+            if (count != 1) {
+                found = true; // Kolom tersebut merupakan free variable
+                break;
             }
         }
 

@@ -111,15 +111,33 @@ class Menu {
         // MATRIKS SUDAH DIBACA
         if (PilihanSubMenu == 1)
         {  
-            SPL.TulisSPL(1); 
+            capturer.start();
+            System.out.println("Matriks Input: ");
+            this.M.TulisMatriks();
+            SPL.TulisSPL(1);
+            consoleOutput = capturer.stop();
+            this.SimpanKeFile(consoleOutput); 
         }
         else if (PilihanSubMenu == 2)
         { 
-            SPL.TulisSPL(2); 
+            capturer.start();
+            System.out.println("Matriks Input: ");
+            this.M.TulisMatriks();
+            System.out.println("Matriks Reduced Echelon Form: ");
+            this.M.ReducedEchelonForm();
+            this.M.TulisMatriks();
+            SPL.TulisSPL(2);
+            consoleOutput = capturer.stop();
+            this.SimpanKeFile(consoleOutput); 
         }
         else if (PilihanSubMenu == 3)
         { 
-            SPL.TulisSPL(3); 
+            capturer.start();
+            System.out.println("Matriks Input: ");
+            this.M.TulisMatriks();
+            SPL.TulisSPL(3);
+            consoleOutput = capturer.stop();
+            this.SimpanKeFile(consoleOutput); 
         }
         else if (PilihanSubMenu == 4)
         { 
@@ -241,6 +259,12 @@ class Menu {
         if (pilihan.equals("Y") || pilihan.equals("y")) {
             this.M.Simpan(1, console);
         }
+        // else if (!pilihan.equals("Y") && !pilihan.equals("y") && !pilihan.equals("N") && !pilihan.equals("n")) {
+        //     System.out.println("Masukan tidak sesuai.");
+        //     System.out.print("Apakah Anda ingin menyimpan hasil perhitungan (Y/N)? ");
+        //     pilihan = baca.nextLine();
+        //     while (!pilihan.equals("Y") && !pilihan.equals("y") && !pilihan.equals("N") && !pilihan.equals("n"))
+        // }
     }
 
 }

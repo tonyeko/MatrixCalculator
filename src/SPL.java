@@ -19,7 +19,7 @@ class SPL extends Matriks {
                 break;
             case 2:
                 System.out.println("Solusi SPL Menggunakan Metode eliminasi Gauss-Jordan");
-                // this.metodeGaussJordan();
+                this.metodeGaussJordan();
                 break;   
             case 3:
                 System.out.println("Solusi SPL Menggunakan Metode Matriks Balikan");
@@ -101,19 +101,84 @@ class SPL extends Matriks {
             System.out.println("SPL tidak memiliki solusi.");
         } else {
             if (this.M.isManySolution()) {
-                float[] freevarColIdx = new float[this.M.NColEff-1];
-                for (int i = this.M.RowMin; i <= this.M.NRowEff; i++) {
-                    int PivotIdx = this.M.PivotColIdx(i);
-                    // ITERASI DARI BARIS SETELAH PivotIdx SAMPAI NColEff-1
-                    // untuk mencari free variable ada di indeks ke berapa
-                    for (int j = PivotIdx+1; i <= this.M.NColEff-1; j++) {
-                        if (this.M.Mat[i][j] != 0) {
-                            freevarColIdx[j] = 1;
+                int[] freevarColIdx = new int[this.M.NColEff];
+                freevarColIdx[0] = 0;
+                for (int i = 1; i <= (this.M.NColEff-1); i++) {
+                    int count = 0; // jika count == 0 atau count > 1, maka kolom tersebut free variable
+                    for (int j = 1; j  <= this.M.NRowEff; j++) {
+                        if (this.M.Mat[j][i] != 0) {
+                            count++;
                         }
                     }
-                    // Iterasi 
+                    if (count != 1) {
+                        freevarColIdx[i] = 1; // Kolom tersebut merupakan free variable
+                    } else {
+                        freevarColIdx[i] = 0;
+                    }
+                }
 
+                // for (int i = 1; i <= freevarColIdx.length-1; i++) {
+                //     System.out.print(freevarColIdx[i]+" ");
+                // }
 
+                // Iterasi
+                String hasil = "";
+                for (int i = 1; i <= this.M.NRowEff; i++) {
+                    boolean AdaKonstanta = false;
+                    // hasil.concat("x"+i+" = "+" ");
+                    hasil += "x"+i+" = "+" ";
+                    // System.out.println(hasil);
+                    if (this.M.Mat[i][this.M.NColEff] != 0) {
+                        // hasil.concat(this.M.NColEff + " ");
+                        hasil += this.M.Mat[i][this.M.NColEff] + " ";
+                        AdaKonstanta = true;
+                    }
+                    // Iterasi untuk print 
+                    for (int j = 1; j <= (this.M.NColEff-1); j++) {
+                        if (freevarColIdx[j] == 1 && this.M.Mat[i][j] != 0 && AdaKonstanta) {
+                            if (this.M.Mat[i][j] < 0) {
+                                // hasil.concat("+ " + (-1)*this.M.Mat[i][j] + "x"+j + " ");
+                                if (this.M.Mat[i][j] != -1) {
+                                    hasil += " + " + (-1)*this.M.Mat[i][j] + "x"+j + " ";
+                                } else {
+                                    hasil += " + x"+j + " ";
+                                }
+                                
+                            } else {
+                                // hasil.concat("- " + this.M.Mat[i][j] + "x"+j + " ");
+                                if (this.M.Mat[i][j] != 1) {
+                                    hasil += " - " + this.M.Mat[i][j] + "x"+j + " ";
+                                } else {
+                                    hasil += " - x"+j + " ";
+                                }
+                                // hasil += " - " + this.M.Mat[i][j] + "x"+j + " ";
+                            }
+                        } else if (freevarColIdx[j] == 1 && this.M.Mat[i][j] != 0 && !AdaKonstanta) {
+                            if (this.M.Mat[i][j] < 0) {
+                                // hasil.concat("+ " + (-1)*this.M.Mat[i][j] + "x"+j + " ");
+                                if (this.M.Mat[i][j] != -1) {
+                                    hasil += (-1)*this.M.Mat[i][j] + "x"+j + " ";
+                                } else {
+                                    hasil += " x"+j + " ";
+                                }
+                            } else {
+                                // hasil.concat("- " + this.M.Mat[i][j] + "x"+j + " ");
+                                // hasil += " - " + this.M.Mat[i][j] + "x"+j + " ";
+                                if (this.M.Mat[i][j] != 1) {
+                                    hasil += " - " + this.M.Mat[i][j] + "x"+j + " ";
+                                } else {
+                                    hasil += " - x"+j + " ";
+                                }
+                            }
+                        }
+                        if (freevarColIdx[j] == 1 && i == j) {
+                            // hasil.concat("x"+j);
+                            
+                            hasil += "x"+j;
+                        }
+                    }
+                    System.out.println(hasil);
+                    hasil = "";
                 }
             } else {
                 for (int i = this.M.RowMin; i <= this.M.NRowEff; i++) {
