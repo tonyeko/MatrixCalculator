@@ -35,12 +35,14 @@ class menu {
         else if (PilihanMenu == 6)
         {  
             Matriks M1;
+            float hasil;
     
             Interpolasi I = new Interpolasi ();
 
             M1 = I.InputTitik ();
+            hasil = I.HasilInterpolasi (M1);
             I.TulisPersamaanPolinom (M1);
-            System.out.print(I.HasilInterpolasi (M1));
+            System.out.print(hasil);
             System.out.println("");
         }
     }
