@@ -56,7 +56,9 @@ class Menu {
             float hasil;
     
             Interpolasi I = new Interpolasi();
-            I.MInterpolasi = this.bacaMatriks(3); // 3 : INTERPOLASI
+            
+            this.bacaMatriks(3);
+            I.MInterpolasi = this.M;
             M1 = I.InputTitik();
             hasil = I.HasilInterpolasi(M1);
             I.TulisPersamaanPolinom(M1);
@@ -132,96 +134,19 @@ class Menu {
         { System.out.println("2. Metode Kofaktor"); }
     }
 
-    
-
-    // void MainMenu () throws FileNotFoundException 
-    // {
-    //    // deklarasi variabel
-    //    int PilihanMenu, PilihanSubMenu;
-
-    //    // membuat scanner baru
-    //    Scanner input = new Scanner(System.in);
-
-    //     do {
-    //         this.ListMenu();
-    //         do {
-    //             System.out.print("Pilihan Anda: ");
-    //             PilihanMenu = input.nextInt();
-    //             if (PilihanMenu < 1 || PilihanMenu > 7)
-    //             {
-    //                 System.out.println("Menu tidak terdefinisi. Silakan masukkan kembali.");
-    //                 System.out.println("");
-    //             } 
-    //         } while ((PilihanMenu < 1 || PilihanMenu > 7));
-    //         this.HasilMenu(PilihanMenu);
-
-    //         if (PilihanMenu == 1 || PilihanMenu == 2 || PilihanMenu == 3)
-    //             {      
-    //                     System.out.println("");
-    //                     if (PilihanMenu == 1)
-    //                     {
-                            
-    //                         do 
-    //                     {
-    //                         System.out.print("Pilihan Anda: ");
-    //                         PilihanSubMenu = input.nextInt();
-    //                         if (PilihanSubMenu < 1 || PilihanSubMenu > 4)
-    //                          {
-    //                              System.out.println("SubMenu tidak terdefinisi. Silakan masukkan kembali.");
-    //                              System.out.println("");
-    //                          }
-    //                     } while ((PilihanSubMenu < 1 || PilihanSubMenu > 4));   
-    //                     this.HasilSubMenuSPL(PilihanSubMenu); 
-
-    //                     }
-    //                     else if ( PilihanMenu == 2)
-    //                     {
-    //                         do 
-    //                     {
-    //                         System.out.print("Pilihan Anda: ");
-    //                         PilihanSubMenu = input.nextInt();
-    //                         if (PilihanSubMenu < 1 || PilihanSubMenu > 2)
-    //                          {
-    //                              System.out.println("SubMenu tidak terdefinisi. Silakan masukkan kembali.");
-    //                              System.out.println("");
-    //                          }
-    //                     } while ((PilihanSubMenu < 1 || PilihanSubMenu > 2));   
-    //                     this.HasilSubMenuDeterminan(PilihanSubMenu);  
-
-    //                     }
-    //                     else if ( PilihanMenu == 3)
-    //                     {
-    //                         do 
-    //                     {
-    //                         System.out.print("Pilihan Anda: ");
-    //                         PilihanSubMenu = input.nextInt();
-    //                         if (PilihanSubMenu < 1 || PilihanSubMenu > 2)
-    //                          {
-    //                              System.out.println("SubMenu tidak terdefinisi. Silakan masukkan kembali.");
-    //                              System.out.println("");
-    //                          }
-    //                     } while ((PilihanSubMenu < 1 || PilihanSubMenu > 2));    
-    //                     this.HasilSubMenuInvers(PilihanSubMenu); 
-
-    //                     }
-                        
-    //             }
-
-    //     } while (PilihanMenu != 7);
-    // }
-
-    Matriks bacaMatriks(int option) throws FileNotFoundException {
+    // ================== INTERAKSI FILE EKSTERNAL ====================
+    void bacaMatriks(int option) throws FileNotFoundException {
         // OPTION == 1 AUGMENTED
         // OPTION == 2 COEFF
         // OPTION == 3 TITIK X,Y INTERPOLASI
         if (option == 1) {
             System.out.println();
             System.out.println("Baca Matriks Augmented");
-            System.out.print("Apakah Anda ingin membaca file Matriks Augmented eksternal(Y/N)? ");
-            String ext = baca.next();
-            if (ext == "Y" || ext == "y") {
+            System.out.print("Apakah Anda ingin membaca file Matriks Augmented eksternal (Y/N)? ");
+            String ext = baca.nextLine();
+            if (ext.equals("Y") || ext.equals("y")) {
                 System.out.print("Masukkan nama file: ");
-                String filematriks = baca.next();
+                String filematriks = baca.nextLine();
                 this.M.BacaFileMatriks(filematriks);
             } else {
                 System.out.println("Masukkan Matriks Augmented: ");
@@ -231,16 +156,16 @@ class Menu {
         } else if (option == 2) {
             System.out.println();
             System.out.println("Baca Matriks Persegi");
-            System.out.print("Apakah Anda ingin membaca file Matriks Persegi eksternal(Y/N)? ");
-            String ext = baca.next();
-            if (ext == "Y" || ext == "y") {
+            System.out.print("Apakah Anda ingin membaca file Matriks Persegi eksternal (Y/N)? ");
+            String ext = baca.nextLine();
+            if (ext.equals("Y") || ext.equals("y")) {
                 System.out.print("Masukkan nama file: ");
-                String filematriks = baca.next();
+                String filematriks = baca.nextLine();
                 this.M.BacaFileMatriks(filematriks);
                 while (!this.M.isSquare()) {
                     System.out.println("Matriks tidak persegi. Silahkan masukkan kembali.");
                     System.out.print("Masukkan nama file: ");
-                    filematriks = baca.next();
+                    filematriks = baca.nextLine();
                     this.M.BacaFileMatriks(filematriks);
                 }
             } else {
@@ -254,16 +179,16 @@ class Menu {
         } else { // INTERPOLASI
             System.out.println();
             System.out.println("Baca Data Titik");
-            System.out.print("Apakah Anda ingin membaca file Data Titik eksternal(Y/N)? ");
-            String ext = baca.next();
-            if (ext == "Y" || ext == "y") {
+            System.out.print("Apakah Anda ingin membaca file Data Titik eksternal (Y/N)? ");
+            String ext = baca.nextLine();
+            if (ext.equals("Y") || ext.equals("y")) {
                 System.out.print("Masukkan nama file: ");
-                String filematriks = baca.next();
+                String filematriks = baca.nextLine();
                 this.M.BacaFileMatriks(filematriks);
                 while (this.M.NColEff > 2 || this.M.NColEff <= 0) {
                     System.out.println("Data titik tidak sesuai. Silahkan masukkan kembali.");
-                    System.out.print("Masukkan nama file: ");
-                    filematriks = baca.next();
+                    System.out.print("Masukkan nama file (): ");
+                    filematriks = baca.nextLine();
                     this.M.BacaFileMatriks(filematriks);
                 }
             } else {
@@ -271,19 +196,27 @@ class Menu {
                 int N = baca.nextInt();
                 while (N < 1) {
                     System.out.print("Masukan salah. Masukkan banyak titik: ");
-                    N = baca.nextInt();                 
-                    this.M.NColEff = 2; // x dan y
-                    this.M.NRowEff = N;
-                    for (int i = this.M.RowMin; i <= this.M.NRowEff; i++) {
-                        for (int j = this.M.ColMin; j <= this.M.NRowEff; j++) {
-                            this.M.Mat[i][j] = baca.nextFloat(); 
-                        }
-                    }
+                    N = baca.nextInt();                
                     // System.out.println("Matriks tidak persegi. Silahkan masukkan kembali.");
                     // this.M.BacaMatriks();
+                }
+                this.M.NColEff = 2; // x dan y
+                this.M.NRowEff = N;
+                for (int i = this.M.RowMin; i <= this.M.NRowEff; i++) {
+                    System.out.print("Masukkan titik ke-"+i+": ");
+                    this.M.Mat[i][1] = baca.nextFloat(); 
+                    this.M.Mat[i][2] = baca.nextFloat();
                 }
             }
         }
     }
+
+    // void SimpanKeFile() {
+    //     System.out.print("Apakah Anda ingin menyimpan hasil perhitungan (Y/N)? ");
+    //     String pilihan = baca.nextLine();
+    //     if (pilihan.equals("Y") || pilihan.equals("y")) {
+
+    //     }
+    // }
 
 }

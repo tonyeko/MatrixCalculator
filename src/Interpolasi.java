@@ -26,7 +26,6 @@ class Interpolasi {
 
         int i,j,N;
         float x,y;
-        System.out.print("Masukkan banyak titik: ");
         N = this.MInterpolasi.NRowEff;
 
         M.NRowEff = N;
@@ -34,22 +33,18 @@ class Interpolasi {
     
         for (i=1;i<=N;i++)
         {   
-            System.out.print("Masukkan titik ke-"+i+": ");
             M.Mat[i][1] = 1;
-            for (int k = this.MInterpolasi.ColMin; k <= this.MInterpolasi.NColEff; k++) {
-                x = this.MInterpolasi.Mat[][];
-                y = this.MInterpolasi.Mat[][];
-            }
+            int k = this.MInterpolasi.ColMin;
+            x = this.MInterpolasi.Mat[i][k];
+            y = this.MInterpolasi.Mat[i][k+1];
             // x = input.nextFloat(); 
             // y = input.nextFloat();
             M.Mat[i][N+1] =  y;
-            for(j=2;j<=N;j++)
+            for(j = 2;j <= N; j++)
             {
                 M.Mat[i][j] =  XPangkat(x,(j-1));
             }
         }
-        M.TulisMatriks();
-
         return M;
 
     }

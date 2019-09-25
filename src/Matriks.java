@@ -68,7 +68,7 @@ public class Matriks {
 
     public void BacaFileMatriks(String filematriks) throws FileNotFoundException {
         int NRow = 0; int NCol = 0;
-        File bacafile = new File (filematriks);
+        File bacafile = new File ("../test/"+filematriks+".txt");
         Scanner scanBaris = new Scanner(bacafile);
 
         while (scanBaris.hasNextLine()) {
@@ -103,7 +103,7 @@ public class Matriks {
             System.out.print("Masukkan nama file: ");
             String namafile = baca.nextLine(); System.out.println();
             namafile = namafile+".txt";  
-            FileOutputStream hasil = new FileOutputStream(namafile);    
+            FileOutputStream hasil = new FileOutputStream("../test/"+namafile);    
             
             switch(dType){
                 case 1: strTemp="Hello";    
@@ -577,6 +577,8 @@ public class Matriks {
             while (j <= this.NColEff-1 && !pass) {
                 if (this.Mat[i][j] != 0) {
                     pass = true;
+                } else {
+                    j++;
                 }
             }
             if (!pass) {
@@ -597,6 +599,8 @@ public class Matriks {
             while (j <= this.NColEff-1 && !pass) {
                 if (this.Mat[i][j] != 0) {
                     pass = true;
+                } else {
+                    j++;
                 }
             }
             if (!pass) {
