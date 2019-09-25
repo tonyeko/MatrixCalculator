@@ -5,6 +5,8 @@ import java.util.*;
 class Menu {
     Scanner baca = new Scanner(System.in);
     Matriks M = new Matriks();
+    ConsoleCapturer capturer = new ConsoleCapturer();
+    String consoleOutput;
 
     void ListMenu() {
      
@@ -35,7 +37,14 @@ class Menu {
             this.bacaMatriks(2);
             // BELUM DI CEK APA PUNYA KOFAKTOR
             if (this.M.isSquare()) {
+                capturer.start();
+                System.out.println("Matriks Input: ");
+                this.M.TulisMatriks();
+                System.out.println("Matriks Kofaktor: ");
                 this.M.MatriksCofactor().TulisMatriks();
+                consoleOutput = capturer.stop();
+                this.SimpanKeFile(consoleOutput);
+                // System.out.println(consoleOutput);
             } else {
                 System.out.println("Bukan matriks persegi. Tidak memiliki Matriks Kofaktor");
             }
@@ -99,14 +108,29 @@ class Menu {
         SPL SPL = new SPL();
         SPL.M.CopyMatriks(this.M);
         
+        // MATRIKS SUDAH DIBACA
         if (PilihanSubMenu == 1)
-        { SPL.TulisSPL(1); }
+        {  
+            SPL.TulisSPL(1); 
+        }
         else if (PilihanSubMenu == 2)
-        { SPL.TulisSPL(2); }
+        { 
+            SPL.TulisSPL(2); 
+        }
         else if (PilihanSubMenu == 3)
-        { SPL.TulisSPL(3); }
+        { 
+            SPL.TulisSPL(3); 
+        }
         else if (PilihanSubMenu == 4)
-        { SPL.TulisSPL(4); }
+        { 
+            capturer.start();
+            System.out.println("Matriks Input: ");
+            this.M.TulisMatriks();
+            SPL.TulisSPL(4);
+            consoleOutput = capturer.stop();
+            this.SimpanKeFile(consoleOutput); 
+            
+        }
     }
 
     void HasilSubMenuDeterminan(int PilihanSubMenu) throws FileNotFoundException {
@@ -211,12 +235,12 @@ class Menu {
         }
     }
 
-    // void SimpanKeFile() {
-    //     System.out.print("Apakah Anda ingin menyimpan hasil perhitungan (Y/N)? ");
-    //     String pilihan = baca.nextLine();
-    //     if (pilihan.equals("Y") || pilihan.equals("y")) {
-
-    //     }
-    // }
+    void SimpanKeFile(String console) {
+        System.out.print("Apakah Anda ingin menyimpan hasil perhitungan (Y/N)? ");
+        String pilihan = baca.nextLine();
+        if (pilihan.equals("Y") || pilihan.equals("y")) {
+            this.M.Simpan(1, console);
+        }
+    }
 
 }

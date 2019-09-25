@@ -78,7 +78,7 @@ class DriverMatriks {
         } while (PilihanMenu != 7);
 
         if (PilihanMenu == 7) {
-            System.out.println("Terima kasih telah menggunakan program kami");
+            System.out.println("Terima kasih telah menggunakan program kami.");
         }
 
         // // deklarasi variabel

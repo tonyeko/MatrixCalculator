@@ -87,7 +87,7 @@ public class Matriks {
         this.NColEff = NCol;
     }
 
-    public void Simpan(int dType) { 
+    public void Simpan(int dType, String simpan) { 
         //harus menconvert semua datatype ke byte
         //dType blh 1/2/3/4 sesuai dengan data type yang diingikan
         try{
@@ -106,7 +106,7 @@ public class Matriks {
             FileOutputStream hasil = new FileOutputStream("../test/"+namafile);    
             
             switch(dType){
-                case 1: strTemp="Hello";    
+                case 1: strTemp=simpan;    
                         byte b[]=strTemp.getBytes();//convert ke byte
                         hasil.write(b);
                         break;
@@ -273,7 +273,7 @@ public class Matriks {
         return M;
     }
 
-
+    // =======================================================================================================
 
     public Matriks Minor(int a, int b) {
         Matriks Cof = new Matriks();
