@@ -4,17 +4,94 @@ import java.util.*;
 
 class DriverMatriks {
     public static void main(String[] args) throws FileNotFoundException {
+        // deklarasi variabel
+       int PilihanMenu, PilihanSubMenu;
+       Scanner input = new Scanner(System.in);
+       Menu Menu = new Menu();
+
+        do {
+            // Menampilkan List Menu
+            Menu.ListMenu();
+            // Input pilihan menu
+            do {
+                System.out.print("Pilihan Anda: ");
+                PilihanMenu = input.nextInt();
+                if (PilihanMenu < 1 || PilihanMenu > 7)
+                {
+                    System.out.println("Menu tidak terdefinisi. Silakan masukkan kembali.");
+                    System.out.println("");
+                } 
+            } while ((PilihanMenu < 1 || PilihanMenu > 7));
+            Menu.HasilMenu(PilihanMenu);
+
+            if (PilihanMenu == 1 || PilihanMenu == 2 || PilihanMenu == 3)
+                {      
+                        System.out.println("");
+                        if (PilihanMenu == 1)
+                        {
+                            do 
+                            {
+                                System.out.print("Pilihan Anda: ");
+                                PilihanSubMenu = input.nextInt();
+                                if (PilihanSubMenu < 1 || PilihanSubMenu > 4)
+                                {
+                                    System.out.println("SubMenu tidak terdefinisi. Silakan masukkan kembali.");
+                                    System.out.println("");
+                                }
+                            } while ((PilihanSubMenu < 1 || PilihanSubMenu > 4));   
+                            Menu.HasilSubMenuSPL(PilihanSubMenu); 
+
+                        }
+                        else if ( PilihanMenu == 2)
+                        {
+                            do 
+                            {
+                                System.out.print("Pilihan Anda: ");
+                                PilihanSubMenu = input.nextInt();
+                                if (PilihanSubMenu < 1 || PilihanSubMenu > 2)
+                                {
+                                    System.out.println("SubMenu tidak terdefinisi. Silakan masukkan kembali.");
+                                    System.out.println("");
+                                }
+                            } while ((PilihanSubMenu < 1 || PilihanSubMenu > 2));   
+                            Menu.HasilSubMenuDeterminan(PilihanSubMenu);  
+
+                        }
+                        else if ( PilihanMenu == 3)
+                        {
+                            do 
+                            {
+                                System.out.print("Pilihan Anda: ");
+                                PilihanSubMenu = input.nextInt();
+                                if (PilihanSubMenu < 1 || PilihanSubMenu > 2)
+                                {
+                                    System.out.println("SubMenu tidak terdefinisi. Silakan masukkan kembali.");
+                                    System.out.println("");
+                                }
+                            } while ((PilihanSubMenu < 1 || PilihanSubMenu > 2));    
+                            Menu.HasilSubMenuInvers(PilihanSubMenu); 
+
+                        }
+                        
+                }
+
+        } while (PilihanMenu != 7);
+
+        if (PilihanMenu == 7) {
+            System.out.println("Terima kasih telah menggunakan program kami");
+        }
+
         // // deklarasi variabel
         // int PilihanMenu,PilihanSubMenu;
 
         // // membuat scanner baru
-        Scanner baca = new Scanner(System.in);
+        // Scanner baca = new Scanner(System.in);
         
-        Matriks M = new Matriks();
-        // Matriks MI = new Matriks();
-        Menu Menu = new Menu();
-        // // Matriks M2 = new Matriks();
-        Menu.MainMenu();
+        // Matriks M = new Matriks();
+        // // Matriks MI = new Matriks();
+        
+        // // // Matriks M2 = new Matriks();
+        // Menu.MainMenu();
 
         // M.BacaMatriks(); System.out.println();
         // M.EchelonForm();

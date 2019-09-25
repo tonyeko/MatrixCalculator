@@ -5,6 +5,7 @@ import java.lang.*;
 
 class Interpolasi {
     Scanner input = new Scanner(System.in);
+    Matriks MInterpolasi;
 
     float XPangkat (float x, int n)
     {
@@ -21,12 +22,12 @@ class Interpolasi {
 
     Matriks InputTitik()
     {
-        Matriks M = new Matriks ();
+        Matriks M = new Matriks();
 
         int i,j,N;
         float x,y;
         System.out.print("Masukkan banyak titik: ");
-        N = input.nextInt();
+        N = this.MInterpolasi.NRowEff;
 
         M.NRowEff = N;
         M.NColEff = N+1;
@@ -35,8 +36,12 @@ class Interpolasi {
         {   
             System.out.print("Masukkan titik ke-"+i+": ");
             M.Mat[i][1] = 1;
-            x = input.nextFloat(); 
-            y = input.nextFloat();
+            for (int k = this.MInterpolasi.ColMin; k <= this.MInterpolasi.NColEff; k++) {
+                x = this.MInterpolasi.Mat[][];
+                y = this.MInterpolasi.Mat[][];
+            }
+            // x = input.nextFloat(); 
+            // y = input.nextFloat();
             M.Mat[i][N+1] =  y;
             for(j=2;j<=N;j++)
             {

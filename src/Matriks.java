@@ -488,16 +488,16 @@ public class Matriks {
         }
     }
 
-    public void sortLeading() {
-        for (int i = RowMin; i <= this.NRowEff; i++) {
-            for (int j = i+1; j <= this.NRowEff; j++) {
-                if (this.PivotColIdx(i) > this.PivotColIdx(j)) {
-                    swapRow(i, j);
-                } 
-            }
+    // public void sortLeading() {
+        // for (int i = RowMin; i <= this.NRowEff; i++) {
+        //     for (int j = i+1; j <= this.NRowEff; j++) {
+        //         if (this.PivotColIdx(i) > this.PivotColIdx(j)) {
+        //             swapRow(i, j);
+        //         } 
+        //     }
 
-        }
-    }
+        // }
+    // }
 
     //==============Gauss to convert to Echelon Form ============
     public void EchelonForm() {
@@ -529,7 +529,15 @@ public class Matriks {
             }
             i++;
         }
-        this.sortLeading();
+        // this.sortLeading();
+        // SORTING LEADING 1
+        for (i = RowMin; i <= this.NRowEff; i++) {
+            for (j = i+1; j <= this.NRowEff; j++) {
+                if (this.PivotColIdx(i) > this.PivotColIdx(j)) {
+                    swapRow(i, j);
+                } 
+            }
+        }
     }
 
     public void ReducedEchelonForm() {
