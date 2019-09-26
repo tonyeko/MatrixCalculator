@@ -175,26 +175,17 @@ class Menu {
         this.M.TulisMatriks();
         if (PilihanSubMenu == 1)
         {
-            System.out.println("Matriks Invers Menggunakan Metode OBE: ");
-            if (this.M.Determinan() != 0) {
-                Matriks Mhasil = this.M.InversMetodeOBE();
-                Mhasil.TulisMatriks();
-                consoleOutput = capturer.stop();
-                this.SimpanKeFile(consoleOutput);
-            } else {
-                System.out.println("Determinan Matriks bernilai 0. Tidak memiliki Adjoin");   
-            }
+            System.out.println("Determinan Matriks Menggunakan Metode OBE: ");
+            System.out.println(this.M.DeterminanMetodeOBE());
+            consoleOutput = capturer.stop();
+            this.SimpanKeFile(consoleOutput);
         }
         else if (PilihanSubMenu == 2)
         {
-            System.out.println("Matriks Invers Menggunakan Metode Kofaktor: ");
-            if (this.M.Determinan() != 0) {
-                this.M.InversMetodeKofaktor().TulisMatriks();
-                consoleOutput = capturer.stop();
-                this.SimpanKeFile(consoleOutput);
-            } else {
-                System.out.println("Determinan Matriks bernilai 0. Tidak memiliki Adjoin");   
-            }
+            System.out.println("Determinan Matriks Menggunakan Metode Kofaktor: ");
+            System.out.println(this.M.Determinan());
+            consoleOutput = capturer.stop();
+            this.SimpanKeFile(consoleOutput);
         }
 
     }
@@ -206,11 +197,27 @@ class Menu {
         this.M.TulisMatriks();
         if (PilihanSubMenu == 1)
         {
-            System.out.println("Matriks Invers Metode Gauss-Jordan");
+            if (this.M.DeterminanMetodeOBE() != 0) {
+                System.out.println("Matriks Invers Menggunakan Metode Gauss-Jordan: ");
+                this.M = this.M.InversMetodeOBE();
+                this.M.TulisMatriks();
+                consoleOutput = capturer.stop();
+                this.SimpanKeFile(consoleOutput);
+            } else {
+                System.out.println("Determinan matriks bernilai 0. Matriks tidak memiliki invers!");
+            }
         }
         else if (PilihanSubMenu == 2)
         { 
-            System.out.println("Matriks Invers Metode Kofaktor"); 
+            if (this.M.DeterminanMetodeOBE() != 0) {
+                System.out.println("Matriks Invers Menggunakan Metode Kofaktor: ");
+                this.M = this.M.InversMetodeKofaktor();
+                this.M.TulisMatriks();
+                consoleOutput = capturer.stop();
+                this.SimpanKeFile(consoleOutput);
+            } else {
+                System.out.println("Determinan matriks bernilai 0. Matriks tidak memiliki invers!");
+            }
         }
     }
 

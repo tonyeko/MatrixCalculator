@@ -227,10 +227,9 @@ public class Matriks {
     public float DeterminanMetodeOBE() {
         // MATRIKS HARUS PERSEGI
         float pivot, result;
-        int i, j, pivotidx;
+        int i, j, pivotidx, countSwap;
         Matriks Mtemp = new Matriks();
-        // Algorithm
-        //Pengecekkan sebelum OBE
+
         result = 1; Mtemp.CopyMatriks(this);
         for (i = RowMin; i <= this.NRowEff; i++) {
             if (isPivotExist(i)) {
@@ -244,8 +243,26 @@ public class Matriks {
                     this.Mat[j][pivotidx] = 0;      
                 }
             }
+        }
+
+        countSwap = 0;
+        for (i = RowMin; i <= this.NRowEff; i++) {
+            for (j = i+1; j <= this.NRowEff; j++) {
+                if (this.PivotColIdx(i) > this.PivotColIdx(j)) {
+                    swapRow(i, j);
+                    countSwap++;
+                } 
+            }
+        }
+
+        for (i = RowMin; i <= this.NRowEff; i++) {
             result *= this.Mat[i][i];
         }
+
+        if (countSwap%2 == 1) {
+            result *= -1;
+        }
+
         this.CopyMatriks(Mtemp);
         return result;
     }
