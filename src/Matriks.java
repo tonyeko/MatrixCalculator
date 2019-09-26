@@ -573,7 +573,7 @@ public class Matriks {
         boolean pass = false;
         boolean found = false;
         for (int i = RowMin; i <= this.NRowEff; i++) {
-            int j = ColMin;
+            int j = ColMin; pass = false;
             while (j <= this.NColEff-1 && !pass) {
                 if (this.Mat[i][j] != 0) {
                     pass = true;
@@ -592,7 +592,6 @@ public class Matriks {
     }
 
     public boolean isManySolution() {
-        // GAK BERLAKU BUAT 2XN (BARISNYA CUMA 2)
         // boolean pass = false;
         boolean found = false;
         // for (int i = RowMin; i <= this.NRowEff; i++) {
@@ -610,20 +609,35 @@ public class Matriks {
         //         }
         //     }
         // }
-        for (int i = ColMin; i <= (this.NColEff-1); i++) {
-            int count = 0; // jika count == 0 atau count > 1, maka kolom tersebut free variable
-            for (int j = RowMin; j  <= this.NRowEff; j++) {
-                if (this.Mat[j][i] != 0) {
-                    count++;
+        if (this.NRowEff > 2) {
+            for (int i = ColMin; i <= (this.NColEff-1); i++) {
+                int count = 0; // jika count == 0 atau count > 1, maka kolom tersebut free variable
+                for (int j = RowMin; j  <= this.NRowEff; j++) {
+                    if (this.Mat[j][i] != 0) {
+                        count++;
+                    }
+                }
+                if (count != 1) {
+                    found = true; // Kolom tersebut merupakan free variable
+                    break;
                 }
             }
-            if (count != 1) {
-                found = true; // Kolom tersebut merupakan free variable
-                break;
+        } else { // this.NRowEff <= 2
+            for (int i = ColMin; i <= (this.NColEff-1); i++) {
+                int count = 0;
+                for (int j = RowMin; j <= this.NRowEff; j++) {
+                    if (this.Mat[j][i] != 1) {
+                        count++;
+                    } 
+                }
+                // untuk NRowEff = 2, kemungkinan count = 1 atau count = 2
+                if (count > 1) {
+                    found = true;
+                    break;
+                }
             }
         }
-
-        return found;
+        return found;        
     }
 
 }

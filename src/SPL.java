@@ -14,81 +14,84 @@ class SPL extends Matriks {
     void TulisSPL (int cara){
         switch (cara) {
             case 1 :  
-                System.out.println("Solusi SPL Menggunakan Metode Eliminasi Gauss");
+                System.out.println("Solusi SPL Menggunakan Metode Eliminasi Gauss:");
                 // this.metodeGauss();
                 break;
             case 2:
-                System.out.println("Solusi SPL Menggunakan Metode eliminasi Gauss-Jordan");
+                System.out.println("Solusi SPL Menggunakan Metode eliminasi Gauss-Jordan:");
                 this.metodeGaussJordan();
                 break;   
             case 3:
-                System.out.println("Solusi SPL Menggunakan Metode Matriks Balikan");
+                System.out.println("Solusi SPL Menggunakan Metode Matriks Balikan:");
                 this.metodeMatriksBalikan();
                 break;   
             case 4:
-                System.out.println("Solusi SPL Menggunakan Kaidah Crammer");
+                System.out.println("Solusi SPL Menggunakan Kaidah Crammer:");
                 this.metodeCrammer();
                 break;   
         }
     }
 
     
-    // float[] SolusiBanyakMetodeGauss()
-    // // Matriks harus sudah dalam keadaan Echelon Form
-    // {
-    //     int i,j,k;
-    //     Matriks MI;
-    //     MI = this.M;
+    float[] SolusiMetodeGauss()
+    // Matriks harus sudah dalam keadaan Echelon Form
+    {
+        int i,j,k;
+        Matriks MI;
+        MI = this.M;
 
-    //     float[] floatArray = new float [MI.NRowEff-1];
-    //     float[] arr = floatArray;
+        float[] floatArray = new float [MI.NRowEff+1];
+        float[] arr = floatArray;
         
         
-    //     for (i=MI.NRowEff;i>=1;i--)
-    //     System.out.println(i);
-    //     {
-    //         for (j=MI.NColEff-1;j>=1;j--)
-    //         {
-    //             if (i == MI.NRowEff && (MI.Mat[i][j] == 1))
-    //             // CARI PIVOT DI INDEX TERAKHIR
-    //             {
-    //                 arr[i] = MI.Mat[i][MI.NColEff];
-    //             }
-    //             else if (i != MI.NRowEff && (MI.Mat[i][j] == 1))
-    //             {
-    //                 k = j+1;
+        for (i=MI.NRowEff;i>=1;i--)
+        // System.out.println(i);
+        {
+            for (j=MI.NColEff-1;j>=1;j--)
+            {
+                if (i == MI.NRowEff && (MI.Mat[i][j] == 1))
+                // CARI PIVOT DI INDEX TERAKHIR
+                {
+                    arr[i] = MI.Mat[i][MI.NColEff];
+                }
+                else if (i != MI.NRowEff && (MI.Mat[i][j] == 1))
+                {
+                    k = j+1;
                 
-    //                 arr[i] = MI.Mat[i][MI.NColEff];
-    //                 while (k < MI.NColEff && k > j)
-    //                 {
-    //                     arr[i] = arr[i] - (MI.Mat[i][k] * arr[k]);
-    //                     k++;
+                    arr[i] = MI.Mat[i][MI.NColEff];
+                    while (k < MI.NColEff)
+                    {
+                        arr[i] = arr[i] - (MI.Mat[i][k] * arr[k]);
+                        k++;
                 
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     return arr;
-    // }
+                    }
+                }
+            }
+        }
+        return arr;
+    }
 
     
-    // void metodeGauss() {
-    //     float[] SolusiGauss;
+//     void metodeGauss() {
+//         float[] SolusiGauss;
 
-    //     this.M.EchelonForm();
-    //     if (this.M.isNoSolution()) {
-    //         System.out.println("SPL tidak memiliki solusi.");
-    //     } else {
-    //         SolusiGauss = this.SolusiBanyakMetodeGauss();
-    //         System.out.println("MASUKK");
-    //         System.out.println(SolusiGauss.length);
-    //         for (int i = 1; i <= SolusiGauss.length; i++) {
-    //             System.out.println(i);
-    //             System.out.println(SolusiGauss[i]);
-    //         }
-    //     }
+//         this.M.EchelonForm();
+//         if (this.M.isNoSolution()) {
+//             System.out.println("SPL tidak memiliki solusi.");
+//         } else {
+// `           if (this.M.isManySolution()) {
+//                 SolusiGauss = this.SolusiMetodeGauss();
+//                 System.out.println(SolusiGauss.length);
+//                 for (int i = 1; i <= SolusiGauss.length; i++) {
+//                     System.out.println(i);
+//                     System.out.println("x"+i+" = "+SolusiGauss[i]);
+//             } else {
+                
+//             }
+// }
+//         }
         
-    // }
+//     }
 
 
 
@@ -97,6 +100,7 @@ class SPL extends Matriks {
     void metodeGaussJordan() {
         // ADA PREKONDISI GAK YA?
         this.M.ReducedEchelonForm();
+        // System.out.println(this.M.isNoSolution());
         if (this.M.isNoSolution()) {
             System.out.println("SPL tidak memiliki solusi.");
         } else {
@@ -106,8 +110,14 @@ class SPL extends Matriks {
                 for (int i = 1; i <= (this.M.NColEff-1); i++) {
                     int count = 0; // jika count == 0 atau count > 1, maka kolom tersebut free variable
                     for (int j = 1; j  <= this.M.NRowEff; j++) {
-                        if (this.M.Mat[j][i] != 0) {
-                            count++;
+                        if (this.M.NRowEff > 2) {
+                            if (this.M.Mat[j][i] != 0) {
+                                count++;
+                            }
+                        } else {
+                            if (this.M.Mat[j][i] != 1) {
+                                count++;
+                            }
                         }
                     }
                     if (count != 1) {
@@ -117,11 +127,12 @@ class SPL extends Matriks {
                     }
                 }
 
-                // for (int i = 1; i <= freevarColIdx.length-1; i++) {
-                //     System.out.print(freevarColIdx[i]+" ");
-                // }
+                for (int i = 1; i <= freevarColIdx.length-1; i++) {
+                    System.out.print(freevarColIdx[i]+" ");
+                }
+                System.out.println();
 
-                // Iterasi
+                // Iterasi untuk print
                 String hasil = "";
                 for (int i = 1; i <= this.M.NRowEff; i++) {
                     boolean AdaKonstanta = false;
