@@ -21,6 +21,41 @@ class Matriks {
         }
     }
 
+    float[] Solusi()
+    {
+        int i,j,k;
+        Matriks MI;
+        MI = this;
+
+        float[] floatArray = new float [MI.NRowEff-1];
+        float[] arr = floatArray;
+        
+        
+        for (i=MI.NRowEff;i>=1;i--)
+        {
+            for (j=MI.NColEff-1;j>=1;j--)
+            {
+            if (i == MI.NRowEff && (MI.Mat[i][j] == 1))
+            {
+            arr[i] = MI.Mat[i][MI.NColEff];
+            }
+            else if (i != MI.NRowEff && (MI.Mat[i][j] == 1))
+            {
+                k = j+1;
+            
+                arr[i] = MI.Mat[i][MI.NColEff];
+                while (k < MI.NColEff && k > j)
+                {
+                arr[i] = arr[i] - (MI.Mat[i][k] * arr[k]);
+                k++;
+               
+                }
+            }
+        }
+        }
+        return arr;
+    }
+
     int NbElmt(Matriks M) {
         return this.NColEff * this.NRowEff;
     }
