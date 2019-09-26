@@ -66,6 +66,17 @@ public class Matriks {
         return MRes;
     }
 
+    Matriks addNewRow(){
+        Matriks A = this;
+        while (! A.GetCoef().isSquare() ){
+            for (int j=1;j<=A.NColEff;j++){
+                A.Mat[A.NRowEff][j] = 0;
+            }
+            A.NRowEff += 1;
+        }
+        return A;
+    }
+
     public void BacaFileMatriks(String filematriks) throws FileNotFoundException {
         int NRow = 0; int NCol = 0;
         File bacafile = new File ("../test/"+filematriks+".txt");
