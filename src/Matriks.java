@@ -279,27 +279,23 @@ public class Matriks {
     }
     
     public Matriks InversMetodeOBE() {
-        // NOTE : JANGAN LUPA DI CEK DI PROGRAM UTAMA KALO TIDAK PUNYA INVERS (BANYAK SOLUSI/NO SOLUSI)
         /* 
         Prekondisi: Matriks dijamin memiliki invers
         */
         Matriks MI = new Matriks();
         Matriks M = new Matriks();
 
-        if (!this.isNoSolution() && !this.isManySolution()) {
-            M.CopyMatriks(this);
-            MI = this.MakeIdentity();
-            M = M.MakeAugmented(MI);
-            M.ReducedEchelonForm();
+        M.CopyMatriks(this);
+        MI = this.MakeIdentity();
+        M = M.MakeAugmented(MI);
+        M.ReducedEchelonForm();
 
-            for (int i = RowMin; i <= M.NRowEff; i++) {
-                for (int j = ColMin; j <= M.NColEff/2; j++) {
-                    M.Mat[i][j] = M.Mat[i][M.NColEff/2+j];
-                }
+        for (int i = RowMin; i <= M.NRowEff; i++) {
+            for (int j = ColMin; j <= M.NColEff/2; j++) {
+                M.Mat[i][j] = M.Mat[i][M.NColEff/2+j];
             }
-            M.NColEff /= 2;
-
         }
+        M.NColEff /= 2;
 
         return M;
     }
@@ -569,6 +565,45 @@ public class Matriks {
                 } 
             }
         }
+    }
+
+    float[] SolusiSatuMetodeGauss()
+    // Matriks harus sudah dalam keadaan Echelon Form
+    {
+        int i,j,k;
+        Matriks MI;
+        MI = this;
+        MI.EchelonForm();
+
+        float[] floatArray = new float [MI.NRowEff+1];
+        float[] arr = floatArray;
+        
+        
+        for (i=MI.NRowEff;i>=1;i--)
+        // System.out.println(i);
+        {
+            for (j=MI.NColEff-1;j>=1;j--)
+            {
+                if (i == MI.NRowEff && (MI.Mat[i][j] == 1))
+                // CARI PIVOT DI INDEX TERAKHIR
+                {
+                    arr[i] = MI.Mat[i][MI.NColEff];
+                }
+                else if (i != MI.NRowEff && (MI.Mat[i][j] == 1) && arr[j] == 0)
+                {
+                    k = j+1;
+                
+                    arr[i] = MI.Mat[i][MI.NColEff];
+                    while (k < MI.NColEff)
+                    {
+                        arr[i] = arr[i] - (MI.Mat[i][k] * arr[k]);
+                        k++;
+                
+                    }
+                }
+            }
+        }
+        return arr;
     }
 
     public void ReducedEchelonForm() {

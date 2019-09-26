@@ -1,6 +1,5 @@
 package src;
 import java.util.*;
-import java.io.*;
 
 class SPL extends Matriks {
 
@@ -30,45 +29,6 @@ class SPL extends Matriks {
                 this.metodeCrammer();
                 break;   
         }
-    }
-
-    
-    float[] SolusiMetodeGauss()
-    // Matriks harus sudah dalam keadaan Echelon Form
-    {
-        int i,j,k;
-        Matriks MI;
-        MI = this.M;
-
-        float[] floatArray = new float [MI.NRowEff+1];
-        float[] arr = floatArray;
-        
-        
-        for (i=MI.NRowEff;i>=1;i--)
-        // System.out.println(i);
-        {
-            for (j=MI.NColEff-1;j>=1;j--)
-            {
-                if (i == MI.NRowEff && (MI.Mat[i][j] == 1))
-                // CARI PIVOT DI INDEX TERAKHIR
-                {
-                    arr[i] = MI.Mat[i][MI.NColEff];
-                }
-                else if (i != MI.NRowEff && (MI.Mat[i][j] == 1))
-                {
-                    k = j+1;
-                
-                    arr[i] = MI.Mat[i][MI.NColEff];
-                    while (k < MI.NColEff)
-                    {
-                        arr[i] = arr[i] - (MI.Mat[i][k] * arr[k]);
-                        k++;
-                
-                    }
-                }
-            }
-        }
-        return arr;
     }
 
     

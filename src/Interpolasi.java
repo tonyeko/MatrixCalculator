@@ -1,10 +1,7 @@
 package src;
 import java.util.Scanner;
-import java.util.*;
-import java.lang.*;
 
 class Interpolasi {
-    Scanner input = new Scanner(System.in);
     Matriks MInterpolasi;
 
     float XPangkat (float x, int n)
@@ -37,8 +34,6 @@ class Interpolasi {
             int k = this.MInterpolasi.ColMin;
             x = this.MInterpolasi.Mat[i][k];
             y = this.MInterpolasi.Mat[i][k+1];
-            // x = input.nextFloat(); 
-            // y = input.nextFloat();
             M.Mat[i][N+1] =  y;
             for(j = 2;j <= N; j++)
             {
@@ -51,15 +46,17 @@ class Interpolasi {
 
     float HasilInterpolasi (Matriks MI)
     {
-        Matriks M = new Matriks();
+        Scanner input = new Scanner(System.in);
+        float[] arrHasil = MI.SolusiSatuMetodeGauss();
         int i;
-        float x,hasil;
-        System.out.print("Masukkan x yang ingin dinterpolasi: ");
+        float x, hasil;
+        
+        System.out.println("Masukkan x yang ingin dinterpolasi: "); 
         x = input.nextFloat();
         hasil = 0;
         for (i = MI.RowMin; i <= MI.NRowEff; i++) {
           // System.out.println(MI.GetCoef().Crammer(MI.GetConstant(),i));
-           hasil = hasil + (MI.GetCoef().Crammer(MI.GetConstant(),i) * XPangkat (x, i-1)) ; 
+           hasil = hasil + (arrHasil[i] * XPangkat (x, i-1)) ; 
         }
 
         return hasil;
@@ -68,6 +65,7 @@ class Interpolasi {
 
     void TulisPersamaanPolinom (Matriks MI)
     {
+        float[] arrHasil = MI.SolusiSatuMetodeGauss();
         float a;
         int i;
 
@@ -77,7 +75,7 @@ class Interpolasi {
 
         for (i = MI.RowMin; i <= MI.NRowEff; i++) 
         {
-            a = MI.GetCoef().Crammer(MI.GetConstant(),i);
+            a = arrHasil[i];
             if ((i-1) == 0)
             {
                 System.out.printf("%.4f", a);
