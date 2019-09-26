@@ -93,90 +93,88 @@ class SPL extends Matriks {
         
 //     }
 
-
-
-
-
     void metodeGaussJordan() {
         // ADA PREKONDISI GAK YA?
-        this.M.ReducedEchelonForm();
-        // System.out.println(this.M.isNoSolution());
-        if (this.M.isNoSolution()) {
+        Matriks Mref = this.M;
+        Mref.ReducedEchelonForm();
+        // System.out.println(Mref.isNoSolution());
+        if (Mref.isNoSolution()) {
             System.out.println("SPL tidak memiliki solusi.");
         } else {
-            if (this.M.isManySolution()) {
-                int[] freevarColIdx = new int[this.M.NColEff];
+            if (Mref.isManySolution()) {
+                int[] freevarColIdx = new int[Mref.NColEff];
                 freevarColIdx[0] = 0;
-                for (int i = 1; i <= (this.M.NColEff-1); i++) {
+                for (int i = 1; i <= (Mref.NColEff-1); i++) {
                     int count = 0; // jika count == 0 atau count > 1, maka kolom tersebut free variable
-                    for (int j = 1; j  <= this.M.NRowEff; j++) {
-                        if (this.M.NRowEff > 2) {
-                            if (this.M.Mat[j][i] != 0) {
-                                count++;
-                            }
-                        } else {
-                            if (this.M.Mat[j][i] != 1) {
-                                count++;
-                            }
+                    boolean Ada1Utama = false;
+                    for (int j = 1; j  <= Mref.NRowEff; j++) {
+                        if (Mref.Mat[j][i] != 0 && Mref.Mat[j][i] != 1) {
+                            count++;
+                        }
+                        if (Mref.Mat[j][i] == 1 && (!Ada1Utama)) {
+                            Ada1Utama = true;
                         }
                     }
-                    if (count != 1) {
+                    System.out.println(Ada1Utama);
+                    if ((count > 0) || (count == 0 && !Ada1Utama)) {
                         freevarColIdx[i] = 1; // Kolom tersebut merupakan free variable
                     } else {
                         freevarColIdx[i] = 0;
                     }
                 }
 
-                for (int i = 1; i <= freevarColIdx.length-1; i++) {
-                    System.out.print(freevarColIdx[i]+" ");
-                }
+                // for (int i = 1; i <= freevarColIdx.length-1; i++) {
+                //     System.out.print(freevarColIdx[i]+" ");
+                // }
                 System.out.println();
-
+                Mref = Mref.addNewRow();
+                Mref = Mref.sortByVariable();
+                Mref.TulisMatriks();
                 // Iterasi untuk print
                 String hasil = "";
-                for (int i = 1; i <= this.M.NRowEff; i++) {
+                for (int i = 1; i <= Mref.NRowEff; i++) {
                     boolean AdaKonstanta = false;
                     // hasil.concat("x"+i+" = "+" ");
                     hasil += "x"+i+" = "+" ";
                     // System.out.println(hasil);
-                    if (this.M.Mat[i][this.M.NColEff] != 0) {
-                        // hasil.concat(this.M.NColEff + " ");
-                        hasil += this.M.Mat[i][this.M.NColEff] + " ";
+                    if (Mref.Mat[i][Mref.NColEff] != 0) {
+                        // hasil.concat(Mref.NColEff + " ");
+                        hasil += Mref.Mat[i][Mref.NColEff] + " ";
                         AdaKonstanta = true;
                     }
                     // Iterasi untuk print 
-                    for (int j = 1; j <= (this.M.NColEff-1); j++) {
-                        if (freevarColIdx[j] == 1 && this.M.Mat[i][j] != 0 && AdaKonstanta) {
-                            if (this.M.Mat[i][j] < 0) {
-                                // hasil.concat("+ " + (-1)*this.M.Mat[i][j] + "x"+j + " ");
-                                if (this.M.Mat[i][j] != -1) {
-                                    hasil += " + " + (-1)*this.M.Mat[i][j] + "x"+j + " ";
+                    for (int j = 1; j <= (Mref.NColEff-1); j++) {
+                        if (freevarColIdx[j] == 1 && Mref.Mat[i][j] != 0 && AdaKonstanta) {
+                            if (Mref.Mat[i][j] < 0) {
+                                // hasil.concat("+ " + (-1)*Mref.Mat[i][j] + "x"+j + " ");
+                                if (Mref.Mat[i][j] != -1) {
+                                    hasil += " + " + (-1)*Mref.Mat[i][j] + "x"+j + " ";
                                 } else {
                                     hasil += " + x"+j + " ";
                                 }
                                 
                             } else {
-                                // hasil.concat("- " + this.M.Mat[i][j] + "x"+j + " ");
-                                if (this.M.Mat[i][j] != 1) {
-                                    hasil += " - " + this.M.Mat[i][j] + "x"+j + " ";
+                                // hasil.concat("- " + Mref.Mat[i][j] + "x"+j + " ");
+                                if (Mref.Mat[i][j] != 1) {
+                                    hasil += " - " + Mref.Mat[i][j] + "x"+j + " ";
                                 } else {
                                     hasil += " - x"+j + " ";
                                 }
-                                // hasil += " - " + this.M.Mat[i][j] + "x"+j + " ";
+                                // hasil += " - " + Mref.Mat[i][j] + "x"+j + " ";
                             }
-                        } else if (freevarColIdx[j] == 1 && this.M.Mat[i][j] != 0 && !AdaKonstanta) {
-                            if (this.M.Mat[i][j] < 0) {
-                                // hasil.concat("+ " + (-1)*this.M.Mat[i][j] + "x"+j + " ");
-                                if (this.M.Mat[i][j] != -1) {
-                                    hasil += (-1)*this.M.Mat[i][j] + "x"+j + " ";
+                        } else if (freevarColIdx[j] == 1 && Mref.Mat[i][j] != 0 && !AdaKonstanta) {
+                            if (Mref.Mat[i][j] < 0) {
+                                // hasil.concat("+ " + (-1)*Mref.Mat[i][j] + "x"+j + " ");
+                                if (Mref.Mat[i][j] != -1) {
+                                    hasil += (-1)*Mref.Mat[i][j] + "x"+j + " ";
                                 } else {
                                     hasil += " x"+j + " ";
                                 }
                             } else {
-                                // hasil.concat("- " + this.M.Mat[i][j] + "x"+j + " ");
-                                // hasil += " - " + this.M.Mat[i][j] + "x"+j + " ";
-                                if (this.M.Mat[i][j] != 1) {
-                                    hasil += " - " + this.M.Mat[i][j] + "x"+j + " ";
+                                // hasil.concat("- " + Mref.Mat[i][j] + "x"+j + " ");
+                                // hasil += " - " + Mref.Mat[i][j] + "x"+j + " ";
+                                if (Mref.Mat[i][j] != 1) {
+                                    hasil += " - " + Mref.Mat[i][j] + "x"+j + " ";
                                 } else {
                                     hasil += " - x"+j + " ";
                                 }
@@ -192,10 +190,10 @@ class SPL extends Matriks {
                     hasil = "";
                 }
             } else {
-                for (int i = this.M.RowMin; i <= this.M.NRowEff; i++) {
-                    for (int j = this.M.ColMin; j <= this.M.NColEff-1; j++) {
-                        if (this.M.Mat[i][j] != 0) {
-                            System.out.println("x"+i+" = "+this.M.Mat[i][this.M.NColEff]);
+                for (int i = Mref.RowMin; i <= Mref.NRowEff; i++) {
+                    for (int j = Mref.ColMin; j <= Mref.NColEff-1; j++) {
+                        if (Mref.Mat[i][j] != 0) {
+                            System.out.println("x"+i+" = "+Mref.Mat[i][Mref.NColEff]);
                         }
                     }
                 }
@@ -214,7 +212,7 @@ class SPL extends Matriks {
                 Matriks Ainv = A.InversMetodeKofaktor();
                 Matriks X = Ainv.KaliMatriks(B);
                 for (int i = this.RowMin; i <= X.NRowEff; i++) {
-                    System.out.println("x"+i+" = "+ X.Mat[i][this.ColMin]);
+                    System.out.printf("x%d = %.4f\n", i, X.Mat[i][this.ColMin]);
                 }
             } else {
                 System.out.println("Determinan bernilai 0. Gunakan metode lain untuk mencari solusi SPL");

@@ -9,7 +9,6 @@ class Menu {
     String consoleOutput;
 
     void ListMenu() {
-     
         System.out.println("");
         System.out.println("=============== SPL, Determinan, dan Aplikasinya ===============");
         System.out.println("============================= Menu =============================");
@@ -25,6 +24,7 @@ class Menu {
     }
 
     void HasilMenu(int PilihanMenu) throws FileNotFoundException {
+        // Pengecekan Prekondisi untuk pilihan 1-4 di submenu/class masing-masing
         if (PilihanMenu == 1)
         { this.SubMenuSPL(); }
         else if (PilihanMenu == 2)
@@ -35,7 +35,7 @@ class Menu {
         { 
             System.out.println("Kofaktor ");
             this.bacaMatriks(2);
-            // BELUM DI CEK APA PUNYA KOFAKTOR
+            //Harus matriks persegi
             if (this.M.isSquare()) {
                 capturer.start();
                 System.out.println("Matriks Input: ");
@@ -44,19 +44,27 @@ class Menu {
                 this.M.MatriksCofactor().TulisMatriks();
                 consoleOutput = capturer.stop();
                 this.SimpanKeFile(consoleOutput);
-                // System.out.println(consoleOutput);
             } else {
                 System.out.println("Bukan matriks persegi. Tidak memiliki Matriks Kofaktor");
             }
-            
             System.out.println();
         }
         else if (PilihanMenu == 5)
         { 
             System.out.println("Adjoin");
             this.bacaMatriks(2);
-            // BELUM DI CEK APA PUNYA ADJOIN
-            this.M.MatriksAdjoint().TulisMatriks();
+            //Harus matriks persegi
+            if (this.M.isSquare()) {
+                capturer.start();
+                System.out.println("Matriks Input: ");
+                this.M.TulisMatriks();
+                System.out.println("Matriks Adjoint: ");
+                this.M.MatriksAdjoint().TulisMatriks();
+                consoleOutput = capturer.stop();
+                this.SimpanKeFile(consoleOutput);
+            } else {
+                System.out.println("Bukan matriks persegi. Tidak memiliki Matriks Kofaktor");
+            }
             System.out.println();
         }
         else if (PilihanMenu == 6)
@@ -67,12 +75,14 @@ class Menu {
             Interpolasi I = new Interpolasi();
             
             this.bacaMatriks(3);
+            capturer.start();
+            System.out.println("Matriks Input: ");
+            this.M.TulisMatriks();
             I.MInterpolasi = this.M;
             M1 = I.InputTitik();
             hasil = I.HasilInterpolasi(M1);
-            I.TulisPersamaanPolinom(M1);
-            System.out.println();
-
+            System.out.print("Persamaan Polinom: ");
+            I.TulisPersamaanPolinom(M1); System.out.println();
             System.out.printf("Hasil interpolasi: %.4f\n", hasil);
         }
     }
@@ -104,8 +114,8 @@ class Menu {
     }
 
     void HasilSubMenuSPL(int PilihanSubMenu) throws FileNotFoundException {
-        this.bacaMatriks(1);
-        SPL SPL = new SPL();
+        this.bacaMatriks(1);    // Baca Matriks Augmented
+        SPL SPL = new SPL();    
         SPL.M.CopyMatriks(this.M);
         
         // MATRIKS SUDAH DIBACA
@@ -113,6 +123,9 @@ class Menu {
         {  
             capturer.start();
             System.out.println("Matriks Input: ");
+            this.M.TulisMatriks();
+            System.out.println("Matriks Echelon Form: ");
+            this.M.EchelonForm();
             this.M.TulisMatriks();
             SPL.TulisSPL(1);
             consoleOutput = capturer.stop();
@@ -135,6 +148,10 @@ class Menu {
             capturer.start();
             System.out.println("Matriks Input: ");
             this.M.TulisMatriks();
+            System.out.println("Balikan dari Matriks Koefisien: ");
+            Matriks MICoef = this.M.GetCoef();
+            MICoef = MICoef.InversMetodeKofaktor();
+            MICoef.TulisMatriks();
             SPL.TulisSPL(3);
             consoleOutput = capturer.stop();
             this.SimpanKeFile(consoleOutput); 
@@ -152,18 +169,29 @@ class Menu {
     }
 
     void HasilSubMenuDeterminan(int PilihanSubMenu) throws FileNotFoundException {
-        this.bacaMatriks(2);
+        this.bacaMatriks(2); // Baca Matriks Persegi
+        capturer.start();
+        System.out.println("Matriks Input: ");
+        this.M.TulisMatriks();
         if (PilihanSubMenu == 1)
         {
             System.out.println("1. Metode Operasi Baris Elementer");
-            // BELUM DICEK APA PUNYA INVERS
-            this.M.InversMetodeOBE().TulisMatriks();
+            Matriks Mhasil = this.M.InversMetodeOBE();
+            Mhasil.TulisMatriks();
+            consoleOutput = capturer.stop();
+            this.SimpanKeFile(consoleOutput);
         }
         else if (PilihanSubMenu == 2)
         {
             System.out.println("1. Metode Kofaktor");
-            // BELUM DI CEK APA PUNYA INVERS
-            this.M.InversMetodeKofaktor().TulisMatriks();
+            //Harus persegi
+            if (this.M.isSquare()) {
+                this.M.InversMetodeKofaktor().TulisMatriks();
+                consoleOutput = capturer.stop();
+                this.SimpanKeFile(consoleOutput);
+            } else {
+                System.out.println("Bukan matriks persegi. Tidak memiliki Adjoin");   
+            }
         }
 
     }
@@ -171,9 +199,13 @@ class Menu {
     void HasilSubMenuInvers(int PilihanSubMenu) throws FileNotFoundException {
         this.bacaMatriks(2);
         if (PilihanSubMenu == 1)
-        {System.out.println("1. Metode Gauss-Jordan");}
+        {
+            System.out.println("1. Metode Gauss-Jordan");
+        }
         else if (PilihanSubMenu == 2)
-        { System.out.println("2. Metode Kofaktor"); }
+        { 
+            System.out.println("2. Metode Kofaktor"); 
+        }
     }
 
     // ================== INTERAKSI FILE EKSTERNAL ====================
@@ -194,6 +226,9 @@ class Menu {
                 System.out.println("Masukkan Matriks Augmented: ");
                 this.M.BacaMatriks();
                 // JIKA MATRIKS TIDAK AUGMENTED, BACA ULANG
+                while (! this.M.GetCoef().isSquare()){
+                    this.M.BacaMatriks();
+                }
             }
         } else if (option == 2) {
             System.out.println();
@@ -236,7 +271,7 @@ class Menu {
             } else {
                 System.out.print("Masukkan banyak titik: ");
                 int N = baca.nextInt();
-                while (N < 1) {
+                while (N < 2) {
                     System.out.print("Masukan salah. Masukkan banyak titik: ");
                     N = baca.nextInt();                
                     // System.out.println("Matriks tidak persegi. Silahkan masukkan kembali.");
@@ -258,6 +293,13 @@ class Menu {
         String pilihan = baca.nextLine();
         if (pilihan.equals("Y") || pilihan.equals("y")) {
             this.M.Simpan(1, console);
+        } 
+        while (!pilihan.equals("Y") && !pilihan.equals("y") && !pilihan.equals("N") && !pilihan.equals("n")) {
+            System.out.print("Masukan tidak sesuai. Apakah Anda ingin menyimpan hasil perhitungan (Y/N)? ");
+            pilihan = baca.nextLine();
+            if (pilihan.equals("Y") || pilihan.equals("y")) {
+                this.M.Simpan(1, console);
+            } 
         }
         // else if (!pilihan.equals("Y") && !pilihan.equals("y") && !pilihan.equals("N") && !pilihan.equals("n")) {
         //     System.out.println("Masukan tidak sesuai.");

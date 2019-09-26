@@ -66,15 +66,35 @@ public class Matriks {
         return MRes;
     }
 
-    Matriks addNewRow(){
+    Matriks addNewRow() {
         Matriks A = this;
-        while (! A.GetCoef().isSquare() ){
+        while (! A.GetCoef().isSquare()){
+            A.NRowEff += 1;
             for (int j=1;j<=A.NColEff;j++){
                 A.Mat[A.NRowEff][j] = 0;
             }
-            A.NRowEff += 1;
+            
         }
         return A;
+    }
+
+    Matriks sortByVariable() {
+        Matriks Msorted = this;
+        int[] PivotColIdxArr = new int[Msorted.NRowEff+1];
+        for (int i = 1; i <= Msorted.NRowEff; i++) {
+            PivotColIdxArr[i] = Msorted.PivotColIdx(i);
+        }
+        
+        for (int i = RowMin; i <= PivotColIdxArr.length-1; i++) {
+            if (PivotColIdxArr[i] != i && PivotColIdxArr[i] != IdxUndef) {
+                int temp = PivotColIdxArr[i];
+                PivotColIdxArr[i] = PivotColIdxArr[i+1];
+                PivotColIdxArr[i+1] = temp;
+                Msorted.swapRow(i, i+1);
+            }
+        }
+
+        return Msorted;
     }
 
     public void BacaFileMatriks(String filematriks) throws FileNotFoundException {
@@ -484,7 +504,7 @@ public class Matriks {
         if (this.Mat[i][j] == -0){
             this.Mat[i][j] = 0;
         }
-        if (this.Mat[i][j] < 0 && this.Mat[i][j] > -0.00001) { 
+        if (this.Mat[i][j] < 0 && this.Mat[i][j] > -0.0001) { 
             // PERLU TANYA SAMPAI 0.0000 BERAPA ANGKA DIANGGAP 0
             this.Mat[i][j] = 0;
         } 
