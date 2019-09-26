@@ -5,81 +5,93 @@ import java.util.*;
 class DriverMatriks {
     public static void main(String[] args) throws FileNotFoundException {
         // deklarasi variabel
-       int PilihanMenu, PilihanSubMenu;
+       int PilihanMenu, PilihanSubMenu,i;
        Scanner input = new Scanner(System.in);
        Menu Menu = new Menu();
+       Matriks M = new Matriks();
+       SPL S = new SPL ();
+       float[] floatArray = new float [100];
+       float[] arr = floatArray;
 
-        do {
-            // Menampilkan List Menu
-            Menu.ListMenu();
-            // Input pilihan menu
-            do {
-                System.out.print("Pilihan Anda: ");
-                PilihanMenu = input.nextInt();
-                if (PilihanMenu < 1 || PilihanMenu > 7)
-                {
-                    System.out.println("Menu tidak terdefinisi. Silakan masukkan kembali.");
-                    System.out.println("");
-                } 
-            } while ((PilihanMenu < 1 || PilihanMenu > 7));
-            Menu.HasilMenu(PilihanMenu);
+        // solusi satu
+        // M.BacaMatriks(); System.out.println();
+        // M.EchelonForm();
+        // M.TulisMatriks(); System.out.println();
+        // arr = M.SolusiSatuMetodeGauss();
+        // M.TulisSolusiSatu(arr);
 
-            if (PilihanMenu == 1 || PilihanMenu == 2 || PilihanMenu == 3)
-                {      
-                        System.out.println("");
-                        if (PilihanMenu == 1)
-                        {
-                            do 
-                            {
-                                System.out.print("Pilihan Anda: ");
-                                PilihanSubMenu = input.nextInt();
-                                if (PilihanSubMenu < 1 || PilihanSubMenu > 4)
-                                {
-                                    System.out.println("SubMenu tidak terdefinisi. Silakan masukkan kembali.");
-                                    System.out.println("");
-                                }
-                            } while ((PilihanSubMenu < 1 || PilihanSubMenu > 4));   
-                            Menu.HasilSubMenuSPL(PilihanSubMenu); 
 
-                        }
-                        else if ( PilihanMenu == 2)
-                        {
-                            do 
-                            {
-                                System.out.print("Pilihan Anda: ");
-                                PilihanSubMenu = input.nextInt();
-                                if (PilihanSubMenu < 1 || PilihanSubMenu > 2)
-                                {
-                                    System.out.println("SubMenu tidak terdefinisi. Silakan masukkan kembali.");
-                                    System.out.println("");
-                                }
-                            } while ((PilihanSubMenu < 1 || PilihanSubMenu > 2));   
-                            Menu.HasilSubMenuDeterminan(PilihanSubMenu);  
+        // do {
+        //     // Menampilkan List Menu
+        //     Menu.ListMenu();
+        //     // Input pilihan menu
+        //     do {
+        //         System.out.print("Pilihan Anda: ");
+        //         PilihanMenu = input.nextInt();
+        //         if (PilihanMenu < 1 || PilihanMenu > 7)
+        //         {
+        //             System.out.println("Menu tidak terdefinisi. Silakan masukkan kembali.");
+        //             System.out.println("");
+        //         } 
+        //     } while ((PilihanMenu < 1 || PilihanMenu > 7));
+        //     Menu.HasilMenu(PilihanMenu);
 
-                        }
-                        else if ( PilihanMenu == 3)
-                        {
-                            do 
-                            {
-                                System.out.print("Pilihan Anda: ");
-                                PilihanSubMenu = input.nextInt();
-                                if (PilihanSubMenu < 1 || PilihanSubMenu > 2)
-                                {
-                                    System.out.println("SubMenu tidak terdefinisi. Silakan masukkan kembali.");
-                                    System.out.println("");
-                                }
-                            } while ((PilihanSubMenu < 1 || PilihanSubMenu > 2));    
-                            Menu.HasilSubMenuInvers(PilihanSubMenu); 
+        //     if (PilihanMenu == 1 || PilihanMenu == 2 || PilihanMenu == 3)
+        //         {      
+        //                 System.out.println("");
+        //                 if (PilihanMenu == 1)
+        //                 {
+        //                     do 
+        //                     {
+        //                         System.out.print("Pilihan Anda: ");
+        //                         PilihanSubMenu = input.nextInt();
+        //                         if (PilihanSubMenu < 1 || PilihanSubMenu > 4)
+        //                         {
+        //                             System.out.println("SubMenu tidak terdefinisi. Silakan masukkan kembali.");
+        //                             System.out.println("");
+        //                         }
+        //                     } while ((PilihanSubMenu < 1 || PilihanSubMenu > 4));   
+        //                     Menu.HasilSubMenuSPL(PilihanSubMenu); 
 
-                        }
+        //                 }
+        //                 else if ( PilihanMenu == 2)
+        //                 {
+        //                     do 
+        //                     {
+        //                         System.out.print("Pilihan Anda: ");
+        //                         PilihanSubMenu = input.nextInt();
+        //                         if (PilihanSubMenu < 1 || PilihanSubMenu > 2)
+        //                         {
+        //                             System.out.println("SubMenu tidak terdefinisi. Silakan masukkan kembali.");
+        //                             System.out.println("");
+        //                         }
+        //                     } while ((PilihanSubMenu < 1 || PilihanSubMenu > 2));   
+        //                     Menu.HasilSubMenuDeterminan(PilihanSubMenu);  
+
+        //                 }
+        //                 else if ( PilihanMenu == 3)
+        //                 {
+        //                     do 
+        //                     {
+        //                         System.out.print("Pilihan Anda: ");
+        //                         PilihanSubMenu = input.nextInt();
+        //                         if (PilihanSubMenu < 1 || PilihanSubMenu > 2)
+        //                         {
+        //                             System.out.println("SubMenu tidak terdefinisi. Silakan masukkan kembali.");
+        //                             System.out.println("");
+        //                         }
+        //                     } while ((PilihanSubMenu < 1 || PilihanSubMenu > 2));    
+        //                     Menu.HasilSubMenuInvers(PilihanSubMenu); 
+
+        //                 }
                         
-                }
+        //         }
 
-        } while (PilihanMenu != 7);
+        // } while (PilihanMenu != 7);
 
-        if (PilihanMenu == 7) {
-            System.out.println("Terima kasih telah menggunakan program kami.");
-        }
+        // if (PilihanMenu == 7) {
+        //     System.out.println("Terima kasih telah menggunakan program kami.");
+        // }
 
         // // deklarasi variabel
         // int PilihanMenu,PilihanSubMenu;

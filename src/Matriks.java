@@ -30,6 +30,71 @@ public class Matriks {
         return (float)(Math.round(N * (Math.pow(10, scale))) / (Math.pow(10, scale)));
     }
 
+    float[] SolusiSatuMetodeGauss()
+    // Matriks harus sudah dalam keadaan Echelon Form
+    {
+        int i,j,k;
+        Matriks MI;
+        MI = this;
+
+        float[] floatArray = new float [MI.NRowEff+1];
+        float[] arr = floatArray;
+        
+        
+        for (i=MI.NRowEff;i>=1;i--)
+        // System.out.println(i);
+        {
+            for (j=MI.NColEff-1;j>=1;j--)
+            {
+                if (i == MI.NRowEff && (MI.Mat[i][j] == 1))
+                // CARI PIVOT DI INDEX TERAKHIR
+                {
+                    arr[i] = MI.Mat[i][MI.NColEff];
+                }
+                else if (i != MI.NRowEff && (MI.Mat[i][j] == 1))
+                {
+                    k = j+1;
+                
+                    arr[i] = MI.Mat[i][MI.NColEff];
+                    while (k < MI.NColEff)
+                    {
+                        arr[i] = arr[i] - (MI.Mat[i][k] * arr[k]);
+                        k++;
+                
+                    }
+                }
+            }
+        }
+        return arr;
+    }
+
+    void TulisSolusiSatu(float[] arr)
+    {
+        int i;
+
+        for (i=1;i<=this.NColEff-1;i++)
+        {
+            System.out.println(arr[i]);
+        }
+    }
+    
+    // void metodeGauss() {
+    //     float[] SolusiGauss;
+
+    //     this.M.EchelonForm();
+    //     if (this.M.isNoSolution()) {
+    //         System.out.println("SPL tidak memiliki solusi.");
+    //     } else {
+    //         SolusiGauss = this.SolusiBanyakMetodeGauss();
+    //         System.out.println(SolusiGauss.length);
+    //         for (int i = 1; i <= SolusiGauss.length; i++) {
+    //             System.out.println(i);
+    //             System.out.println(SolusiGauss[i]);
+    //         }
+    //     }
+        
+    // }
+
     public void BacaMatriks() {
         Scanner baca = new Scanner(System.in);
         System.out.print("Baris: "); this.NRowEff = baca.nextInt();
